@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Carlos M. Ramírez · AI, Earth Sciences and Water Resources</title>
-<meta name="description" content="Carlos M. Ramírez — water and Earth sciences engineer. I design and verify the scientific problems used to evaluate frontier AI models.">
+<meta name="description" content="Water and Earth sciences engineer. I design and verify the scientific problems used to evaluate frontier AI models.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0c1018; --surface:#121925; --card:#161f2d; --line:#243145;
-  --text:#e6edf3; --muted:#9aa8b9; --accent:#5cc3cf; --accent-2:#2f8f9d;
+  --text:#e6edf3; --muted:#9aa8b9; --accent:#5cc3cf; --accent-2:#2f8f9d; --navy:#020b25;
   --sans:'Outfit',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
 }
@@ -19,48 +19,68 @@
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-.mono{font-family:var(--mono)}
+img,video{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
 section{padding:96px 0;border-top:1px solid var(--line)}
 h2{font-size:clamp(28px,3.4vw,38px);font-weight:600;letter-spacing:-.01em;margin:10px 0 36px}
+.flag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#f2d68a;border:1px solid rgba(242,214,138,.45);border-radius:4px;padding:3px 8px;background:rgba(12,16,24,.7)}
 
 /* nav */
-nav{position:sticky;top:0;z-index:10;background:rgba(12,16,24,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{position:sticky;top:0;z-index:20;background:rgba(12,16,24,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-nav .who{font-weight:600;letter-spacing:.01em}
+nav .who{font-weight:600}
 nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--muted)}
 nav a{text-decoration:none}
 nav a:hover{color:var(--text)}
 
 /* hero */
-.hero{border-top:0;padding:88px 0 56px;position:relative;overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.hero h1{font-size:clamp(38px,5.4vw,62px);line-height:1.05;font-weight:700;letter-spacing:-.025em;margin:18px 0 22px}
+.hero{border-top:0;padding:64px 0 48px}
+.hero .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+.hero h1{font-size:clamp(36px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-.025em;margin:18px 0 20px}
 .hero h1 em{font-style:normal;color:var(--accent)}
-.hero p.lead{font-size:19px;color:var(--muted);max-width:34em;margin:0 0 32px}
+.hero p.lead{font-size:18.5px;color:var(--muted);max-width:32em;margin:0 0 30px}
 .btns{display:flex;gap:14px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-weight:500;text-decoration:none;font-size:15.5px;border:1px solid var(--line)}
 .btn.primary{background:var(--accent);color:#06232a;border-color:var(--accent)}
 .btn:hover{border-color:var(--accent)}
-.fan{width:100%;height:auto;display:block}
-.fan-cap{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:8px;text-align:right}
+
+/* reservoir morph */
+.morph{position:relative;background:var(--navy);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.morph .stage{position:relative;aspect-ratio:1300/867}
+.morph .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.morph .top{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
+.morph .app{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);background:rgba(12,16,24,.7);border-radius:4px;padding:3px 8px}
+.gauge{position:absolute;right:18px;bottom:78px;top:58px;width:10px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;pointer-events:none}
+.gauge i{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(#5cc3cf,#2f8f9d);border-radius:6px}
+.morph .read{position:absolute;left:14px;bottom:14px;pointer-events:none;background:rgba(2,11,37,.82);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.morph .pct{font-family:var(--mono);font-size:clamp(28px,3.2vw,42px);line-height:1;font-weight:500}
+.morph .pct small{font-size:.45em;color:var(--muted);margin-left:4px}
+.morph .scn{font-size:15px;color:var(--text);margin-top:6px}
+.morph .ctrl{display:flex;align-items:center;gap:14px;padding:14px 18px;border-top:1px solid var(--line);background:rgba(12,16,24,.6)}
+.morph .ctrl span{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap}
+.morph input[type=range]{flex:1;accent-color:var(--accent);cursor:grab}
+.morph-cap{font-size:14px;color:var(--muted);margin-top:12px}
 
 /* metric strip */
 .metrics{border-top:1px solid var(--line);padding:40px 0}
 .metrics .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.metric .n{font-family:var(--mono);font-weight:500;font-size:clamp(34px,4.2vw,52px);line-height:1;color:var(--text);letter-spacing:-.02em}
-.metric .n small{font-size:.5em;color:var(--accent);margin-left:2px}
+.metric .n{font-family:var(--mono);font-weight:500;font-size:clamp(34px,4.2vw,52px);line-height:1;letter-spacing:-.02em}
 .metric .t{font-size:14.5px;color:var(--muted);margin-top:10px;max-width:16em}
 .metric:first-child .n{color:var(--accent)}
 
 /* pillars */
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.pillar{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px}
+.pillar{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.pillar .media{position:relative;height:210px;background:#070b12;border-bottom:1px solid var(--line);overflow:hidden}
+.pillar .media img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.pillar .media svg{width:100%;height:100%}
+.pillar .media .flag{position:absolute;left:12px;bottom:12px}
+.pillar .body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
 .pillar .k{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.12em}
 .pillar h3{font-size:22px;font-weight:600;margin:10px 0 10px;line-height:1.2}
-.pillar p{color:var(--muted);font-size:15.5px;margin:0 0 20px}
-.pillar .fig{font-family:var(--mono);font-size:26px;color:var(--text)}
+.pillar p{color:var(--muted);font-size:15.5px;margin:0 0 20px;flex:1}
+.pillar .fig{font-family:var(--mono);font-size:26px}
 .pillar .fig span{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:4px}
 
 /* work */
@@ -68,33 +88,35 @@ nav a:hover{color:var(--text)}
 .filters button{font-family:var(--mono);font-size:12.5px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
 .filters button.on{color:#06232a;background:var(--accent);border-color:var(--accent)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column;transition:transform .35s ease,opacity .35s ease,border-color .2s}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;transition:border-color .2s}
 .card:hover{border-color:var(--accent-2)}
 .card.hide{display:none}
+.card.feature{grid-column:1/-1;display:grid;grid-template-columns:1.25fr 1fr;gap:30px;padding:0;overflow:hidden}
+.card.feature .media{position:relative;background:#000;min-height:300px;overflow:hidden}
+.card.feature .media video,.card.feature .media img{width:100%;height:100%;object-fit:cover;object-position:50% 100%}
+.card.feature .media svg{width:100%;height:100%;display:block;background:#0a0f17}
+.card.feature .media .flag{position:absolute;left:14px;top:14px}
+.card.feature .txt{padding:28px 30px 28px 0;display:flex;flex-direction:column}
 .tag{align-self:flex-start;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent-2);border-radius:999px;padding:3px 10px}
 .card h3{font-size:20px;font-weight:600;margin:14px 0 8px;line-height:1.25}
 .card p{color:var(--muted);font-size:15.5px;margin:0 0 18px;flex:1}
-.card .foot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:14px}
-.card .foot b{font-family:var(--mono);font-weight:500;font-size:20px}
-.card .foot span{font-size:13px;color:var(--muted)}
-.card .foot a{font-size:14px;color:var(--accent);text-decoration:none;white-space:nowrap}
+.foot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:14px}
+.foot b{font-family:var(--mono);font-weight:500;font-size:20px}
+.foot span{font-size:13px;color:var(--muted)}
+.foot a{font-size:14px;color:var(--accent);text-decoration:none;white-space:nowrap}
 
 /* evidence */
-.repos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.repo{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.repo{display:flex;justify-content:space-between;align-items:center;gap:28px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px}
 .repo:hover{border-color:var(--accent)}
-.repo .r{font-family:var(--mono);font-size:14.5px;color:var(--text)}
-.repo p{font-size:14.5px;color:var(--muted);margin:8px 0 0}
-.repo.wide{display:flex;justify-content:space-between;align-items:center;gap:28px;padding:28px}
-.repo.wide p{font-size:15.5px;max-width:46em}
+.repo .r{font-family:var(--mono);font-size:15px}
+.repo p{font-size:15.5px;color:var(--muted);margin:8px 0 0;max-width:46em}
 .repo .go{font-size:14.5px;color:var(--accent);white-space:nowrap}
-@media (max-width:860px){.repo.wide{flex-direction:column;align-items:flex-start}}
 
 /* tools */
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 .tools h4{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;color:var(--accent);margin:0 0 12px;font-weight:500}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips span{font-size:14px;border:1px solid var(--line);border-radius:6px;padding:5px 10px;color:var(--text)}
+.chips span{font-size:14px;border:1px solid var(--line);border-radius:6px;padding:5px 10px}
 
 /* contact */
 .contact{text-align:center}
@@ -103,15 +125,20 @@ nav a:hover{color:var(--text)}
 .contact .btns{justify-content:center}
 footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13.5px}
 
-/* motion: always on (owner's rule) */
-.rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+/* motion: always on (owner's rule, no prefers-reduced-motion gate) */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
 .rv.in{opacity:1;transform:none}
 .rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.pillar .media img{transform:scale(1.1);transition:transform 6s ease}
+.pillar.in .media img{transform:scale(1)}
 
-@media (max-width:860px){
+@media (max-width:900px){
   .hero .wrap{grid-template-columns:1fr}
   .metrics .wrap{grid-template-columns:repeat(2,1fr)}
-  .pillars,.grid,.repos,.tools{grid-template-columns:1fr}
+  .pillars,.grid,.tools{grid-template-columns:1fr}
+  .card.feature{grid-template-columns:1fr}
+  .card.feature .txt{padding:0 24px 26px}
+  .repo{flex-direction:column;align-items:flex-start}
   nav ul{display:none}
   section{padding:72px 0}
 }
@@ -136,8 +163,17 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
     </div>
   </div>
   <div class="rv d2">
-    <svg class="fan" id="fan" viewBox="0 0 540 360" role="img" aria-label="Illustrative Monte Carlo ensemble of trajectories, synthetic data"></svg>
-    <div class="fan-cap">Illustrative · Monte Carlo ensemble, P10 to P90 · synthetic data</div>
+    <div class="morph" id="morph">
+      <div class="stage">
+        <img src="assets/reservoir-low.jpg" alt="AI-generated illustration of a reservoir seen from above at low storage">
+        <img id="mFull" src="assets/reservoir-full.jpg" alt="AI-generated illustration of a reservoir seen from above at full storage">
+        <div class="top"><span class="app">Reservoir scenario explorer</span><span class="flag">AI-generated imagery · fictitious scenarios</span></div>
+        <div class="gauge"><i id="mBar"></i></div>
+        <div class="read"><div class="pct"><span id="mPct">90</span><small>% storage</small></div><div class="scn" id="mScn">Scenario A · wet year</div></div>
+      </div>
+      <div class="ctrl"><span>DRY</span><input id="mRange" type="range" min="0" max="100" value="100" aria-label="Scenario storage level, illustrative"><span>FULL</span></div>
+    </div>
+    <div class="morph-cap">Drag to move between scenarios. AI-generated illustration and fictitious values, not operational data.</div>
   </div>
 </div></header>
 
@@ -152,15 +188,24 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
   <div class="eyebrow">What I do</div>
   <h2>One profile, three fields that feed each other</h2>
   <div class="pillars">
-    <div class="pillar rv"><div class="k">01 · AI</div><h3>AI Benchmarks &amp; Evaluation</h3>
+    <div class="pillar rv">
+      <div class="media"><svg id="pipe" viewBox="0 0 400 210" role="img" aria-label="Schematic of a benchmark task pipeline"></svg><span class="flag">Schematic</span></div>
+      <div class="body"><div class="k">01 · AI</div><h3>AI Benchmarks &amp; Evaluation</h3>
       <p>I author expert-level scientific problems that frontier models must solve from raw field data, and verify each one with an independent second solution route before it ships. I also review model output to find the failing assumption, not just the wrong number.</p>
       <div class="fig">31<span>approved tasks</span></div></div>
-    <div class="pillar rv d1"><div class="k">02 · EARTH SCIENCES</div><h3>Earth Sciences</h3>
+    </div>
+    <div class="pillar rv d1">
+      <div class="media"><svg id="rain" viewBox="0 0 400 210" role="img" aria-label="Illustrative daily rainfall series, synthetic data"></svg><span class="flag">Illustrative · synthetic rainfall</span></div>
+      <div class="body"><div class="k">02 · EARTH SCIENCES</div><h3>Earth Sciences</h3>
       <p>Hydrology, hydrometeorology and remote sensing: rainfall forecasting, climate extremes and drought, watershed delineation, and satellite imagery processed straight from STAC catalogs.</p>
       <div class="fig">0.833<span>AUC over 373 unseen days</span></div></div>
-    <div class="pillar rv d2"><div class="k">03 · WATER RESOURCES</div><h3>Water Resources Engineering</h3>
+    </div>
+    <div class="pillar rv d2">
+      <div class="media"><img style="object-fit:contain;background:#000" src="assets/terrain-map.png" alt="Terrain relief, streams and urban footprint of the municipality"></div>
+      <div class="body"><div class="k">03 · WATER RESOURCES</div><h3>Water Resources Engineering</h3>
       <p>Hydraulic and hydrological modeling for a municipal water utility: urban stream capacity, reservoir behavior, network water balance, and the city&#39;s water security and resilience plans.</p>
       <div class="fig">2,000<span>Monte Carlo trajectories</span></div></div>
+    </div>
   </div>
 </div></section>
 
@@ -173,10 +218,25 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
   <div class="grid">
     <article class="card rv" data-p="ai"><span class="tag">AI</span><h3>Scientific benchmark authoring, earth and environmental sciences</h3><p>Self-contained Python packages: a seeded generator built on canonical physics, an independent reference solution, a second route written without reading the generator, a sealed verifier and a Docker environment. Tolerances are fixed before anything is measured.</p><div class="foot"><div><b>31</b> <span>approved · 4 scientific fields</span></div></div></article>
     <article class="card rv d1" data-p="earth"><span class="tag">EARTH SCIENCES</span><h3>Rainfall monitoring and 3-day forecast, 21 stations</h3><p>A LightGBM hurdle model (occurrence classifier plus amount regressor, 23 features, seasonal isotonic calibration) under leak-free walk-forward validation. A preregistered A/B test raised CSI from 0.303 to 0.316.</p><div class="foot"><div><b>0.833</b> <span>AUC · 373 unseen days</span></div></div></article>
+
+    <article class="card feature rv" data-p="earth">
+      <div class="media">
+        <video autoplay muted loop playsinline preload="auto" poster="assets/observatory-ui.jpg" aria-label="Satellite observatory in use: Sentinel-2 scene search, two-date analysis and the map being drawn">
+          <source src="assets/observatory-loop.webm" type="video/webm">
+        </video>
+        <span class="flag">Real interface · recorded</span>
+      </div>
+      <div class="txt"><span class="tag">EARTH SCIENCES</span><h3>Satellite observatory, STAC in the browser</h3><p>Sentinel-2, Landsat 8/9 and Sentinel-1 cloud-optimized GeoTIFFs read straight from STAC catalogs: spectral indices, change detection, surface heat, radar water and k-means, computed client-side in a Web Worker, with a weekly summary produced by GitHub Actions.</p><div class="foot"><div><span>open source</span></div><a href="https://github.com/xmanuelramirez/observatorio-satelital">Code →</a></div></div>
+    </article>
+
     <article class="card rv" data-p="ai"><span class="tag">AI</span><h3>Adversarial difficulty calibration</h3><p>A task ships only if it survives blind trials against frontier models: 25 minutes or more, a failure with margin on at least one reasoning link, and shortcut and fabricated-value probes scoring zero. Up to four measured versions before an idea is retired.</p><div class="foot"><div><b>0 of 10</b> <span>shortcuts score</span></div></div></article>
-    <article class="card rv d1" data-p="water"><span class="tag">WATER RESOURCES</span><h3>Probabilistic reservoir storage forecast</h3><p>A 2,000-member Monte Carlo ensemble by seasonal block bootstrap, with the elevation-capacity curve as a hard constraint, running entirely in the browser. A frozen forecast kept the observed series inside its P10-P90 band on 92% of 168 days.</p><div class="foot"><div><b>27%</b> <span>better than persistence</span></div></div></article>
-    <article class="card rv" data-p="ai"><span class="tag">AI</span><h3>Quantitative benchmark packages</h3><p>40 task packages delivered over two months: time-anchored prompts, golden responses carrying one verifiable ground-truth value per line, grading guidance, and input files with native charts, audited across every artifact before delivery.</p><div class="foot"><div><b>40</b> <span>packages</span></div></div></article>
-    <article class="card rv d1" data-p="earth"><span class="tag">EARTH SCIENCES</span><h3>Satellite observatory, STAC in the browser</h3><p>Sentinel-2, Landsat 8/9 and Sentinel-1 cloud-optimized GeoTIFFs read straight from STAC catalogs: spectral indices, change detection, surface heat, radar water and k-means, computed client-side in a Web Worker, with a weekly summary produced by GitHub Actions.</p><div class="foot"><div><span>open source</span></div><a href="https://github.com/xmanuelramirez/observatorio-satelital">Code →</a></div></article>
+    <article class="card rv d1" data-p="ai"><span class="tag">AI</span><h3>Quantitative benchmark packages</h3><p>40 task packages delivered over two months: time-anchored prompts, golden responses carrying one verifiable ground-truth value per line, grading guidance, and input files with native charts, audited across every artifact before delivery.</p><div class="foot"><div><b>40</b> <span>packages</span></div></div></article>
+
+    <article class="card feature rv" data-p="water">
+      <div class="media"><svg id="fan" viewBox="0 0 540 360" role="img" aria-label="Illustrative Monte Carlo ensemble with P10 to P90 band, synthetic data"></svg><span class="flag">Illustrative · synthetic data</span></div>
+      <div class="txt"><span class="tag">WATER RESOURCES</span><h3>Probabilistic reservoir storage forecast</h3><p>A 2,000-member Monte Carlo ensemble by seasonal block bootstrap, with the elevation-capacity curve as a hard constraint, running entirely in the browser. A frozen forecast kept the observed series inside its P10-P90 band on 92% of 168 days.</p><div class="foot"><div><b>27%</b> <span>better than persistence</span></div></div></div>
+    </article>
+
     <article class="card rv" data-p="water"><span class="tag">WATER RESOURCES</span><h3>Watershed delineation to design discharge</h3><p>One click anywhere in the municipality: curve numbers from Sentinel-2, national soil data, IDF curves from local records, six time-of-concentration formulas and the SCS unit hydrograph, with piped storm drainage modeled as an edit to the flow graph.</p><div class="foot"><div><b>100%</b> <span>agreement with WhiteboxTools</span></div></div></article>
     <article class="card rv d1" data-p="water"><span class="tag">WATER RESOURCES</span><h3>Urban stream capacity, 25-year design storm</h3><p>Hydraulic capacity of a city&#39;s urban streams from a 0.5 m LiDAR terrain model: cross-section profiling, erosive and sedimentation velocities, and a traffic-light classification per reach.</p><div class="foot"><div><span>QGIS · LiDAR 0.5 m</span></div></div></article>
   </div>
@@ -185,7 +245,7 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 <section id="evidence"><div class="wrap">
   <div class="eyebrow">Open-source evidence</div>
   <h2>Code you can read</h2>
-  <a class="repo wide rv" href="https://github.com/xmanuelramirez/observatorio-satelital">
+  <a class="repo rv" href="https://github.com/xmanuelramirez/observatorio-satelital">
     <div><div class="r">xmanuelramirez/observatorio-satelital</div>
     <p>Satellite observatory that reads Sentinel-2, Landsat 8/9 and Sentinel-1 straight from STAC catalogs and computes indices, change detection and radar water in the browser. TypeScript and Python, with a weekly summary built by GitHub Actions.</p></div>
     <span class="go">View on GitHub →</span>
@@ -212,7 +272,10 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
 <footer><div class="wrap">Carlos M. Ramírez · León, Guanajuato, Mexico</div></footer>
 
 <script>
-// Reveal on scroll. Motion is always on: no prefers-reduced-motion gate (owner's rule).
+const ns = 'http://www.w3.org/2000/svg';
+const mk = (svg, tag, at) => { const e = document.createElementNS(ns, tag); for (const k in at) e.setAttribute(k, at[k]); svg.appendChild(e); return e; };
+
+// Reveal on scroll. Motion is always on (owner's rule).
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
 }), {threshold: .15});
@@ -230,12 +293,68 @@ const ioN = new IntersectionObserver(es => es.forEach(e => {
 }), {threshold: .6});
 document.querySelectorAll('[data-count]').forEach(el => ioN.observe(el));
 
-// Synthetic ensemble fan (illustrative, seeded, no real data)
-// P10-P90 and P25-P75 bands, a few member trajectories and the median.
-// Final state is drawn in the markup; the animation only reveals it (CSS keyframes),
-// so the fan reads correctly even if a viewer never runs the animation.
+// Reservoir morph: fictitious scenarios, auto sweep until the visitor drags.
 (function(){
-  const svg = document.getElementById('fan'), W = 520, H = 360, N = 400, T = 60, ns = 'http://www.w3.org/2000/svg';
+  const rng = document.getElementById('mRange'), full = document.getElementById('mFull'),
+        pct = document.getElementById('mPct'), scn = document.getElementById('mScn'), bar = document.getElementById('mBar');
+  // Fictitious mapping: slider 0..100 -> storage 18..90 %
+  const pinta = v => {
+    const k = v/100, e = k*k*(3-2*k);
+    full.style.opacity = e.toFixed(3);
+    const s = Math.round(18 + 72*k);
+    pct.textContent = s; bar.style.height = s + '%';
+    scn.textContent = s >= 70 ? 'Scenario A · wet year' : s >= 40 ? 'Scenario B · average year' : 'Scenario C · prolonged drought';
+  };
+  let auto = true; const t0 = performance.now();
+  const loop = t => { if (!auto) return;
+    const ph = ((t - t0) / 9000) % 1, v = 50 + 50*Math.cos(ph*2*Math.PI);
+    rng.value = v; pinta(v); requestAnimationFrame(loop); };
+  pinta(100); requestAnimationFrame(loop);
+  const stop = () => { auto = false; };
+  rng.addEventListener('pointerdown', stop); rng.addEventListener('keydown', stop);
+  rng.addEventListener('input', () => { auto = false; pinta(+rng.value); });
+})();
+
+// AI pillar: schematic pipeline with packets travelling along it.
+(function(){
+  const svg = document.getElementById('pipe');
+  const pasos = ['Seeded generator','Reference solution','Independent route','Sealed verifier','Blind model trials'];
+  const X = i => 62 + i*69, Y = 112;
+  mk(svg,'path',{d:`M${X(0)} ${Y} H${X(4)}`,stroke:'#2f8f9d','stroke-width':1.5,fill:'none'});
+  pasos.forEach((p,i) => {
+    mk(svg,'circle',{cx:X(i),cy:Y,r:9,fill:'#0c1018',stroke:'#5cc3cf','stroke-width':1.6});
+    const t = mk(svg,'text',{x:X(i),y:i%2? Y+36 : Y-26,'text-anchor':'middle',fill:'#c9d4df','font-size':11,'font-family':'Outfit, sans-serif'});
+    t.textContent = p;
+  });
+  const dots = [0,1,2].map(() => mk(svg,'circle',{r:4,fill:'#e6edf3',cy:Y,cx:X(0)}));
+  const t0 = performance.now();
+  (function mueve(t){
+    dots.forEach((d,k) => { const ph = (((t-t0)/4200) + k/3) % 1; d.setAttribute('cx', (X(0) + ph*(X(4)-X(0))).toFixed(1)); d.setAttribute('opacity', (ph<.04||ph>.96) ? 0 : 1); });
+    requestAnimationFrame(mueve);
+  })(t0);
+})();
+
+// Earth pillar: synthetic daily rainfall bars that grow in.
+(function(){
+  const svg = document.getElementById('rain'); let s = 5;
+  const r = () => (s = (s*16807) % 2147483647) / 2147483647;
+  mk(svg,'path',{d:'M20 180 H380',stroke:'#243145'});
+  const g = mk(svg,'g',{});
+  g.style.transformOrigin = '0 180px'; g.style.transform = 'scaleY(0)';
+  g.style.transition = 'transform 1.4s cubic-bezier(.3,.7,.2,1)';
+  const n = 46, w = 360/n;
+  for (let i=0;i<n;i++){
+    if (r() > .45) continue;
+    const h = 12 + Math.pow(r(),1.8)*130;
+    mk(g,'rect',{x:(20+i*w+1).toFixed(1),y:(180-h).toFixed(1),width:(w-2).toFixed(1),height:h.toFixed(1),rx:1.5,fill:h>90?'#e6edf3':'#5cc3cf','fill-opacity':h>90?.95:.75});
+  }
+  const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ g.style.transform = 'scaleY(1)'; io2.disconnect(); } }), {threshold:.3});
+  io2.observe(svg);
+})();
+
+// Synthetic ensemble fan (illustrative, seeded, no real data): P10-P90, P25-P75, members and median.
+(function(){
+  const svg = document.getElementById('fan'), W = 520, H = 360, N = 400, T = 60;
   let s = 11; const r = () => (s = (s*16807) % 2147483647) / 2147483647;
   const g = () => { let u=0; for (let i=0;i<6;i++) u+=r(); return u-3; };
   const x = i => 34 + i*(W-58)/(T-1);
@@ -246,20 +365,20 @@ document.querySelectorAll('[data-count]').forEach(el => ioN.observe(el));
   const vmax = Math.max(...p90)*1.08, vmin = Math.min(...p10)*0.85;
   const y = v => (H-44) - (v-vmin)/(vmax-vmin)*(H-74);
   const pts = d => d.map((v,i)=>x(i).toFixed(1)+' '+y(v).toFixed(1));
-  const el = (tag, at) => { const e=document.createElementNS(ns,tag); for (const k in at) e.setAttribute(k,at[k]); svg.appendChild(e); return e; };
   const st = document.createElementNS(ns,'style');
   st.textContent = '@keyframes fanIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}'
-    + '#fan .rev{animation:fanIn 2.2s cubic-bezier(.3,.7,.2,1) both}'
-    + '#fan .d1{animation-delay:.25s}#fan .d2{animation-delay:.5s}#fan .d3{animation-delay:.9s}';
+    + '#fan.go .rev{animation:fanIn 2.2s cubic-bezier(.3,.7,.2,1) both}'
+    + '#fan.go .d1{animation-delay:.25s}#fan.go .d2{animation-delay:.5s}#fan.go .d3{animation-delay:.9s}';
   svg.appendChild(st);
-  el('path',{d:`M34 ${H-44} H${W-24} M34 ${H-44} V24`,stroke:'#243145',fill:'none'});
-  const banda = (lo, hi, op, cls) => el('path',{d:'M'+pts(hi).join('L')+'L'+pts(lo).reverse().join('L')+'Z',fill:'#5cc3cf','fill-opacity':op,class:'rev '+cls});
+  mk(svg,'path',{d:`M34 ${H-44} H${W-24} M34 ${H-44} V24`,stroke:'#243145',fill:'none'});
+  const banda = (lo, hi, op, cls) => mk(svg,'path',{d:'M'+pts(hi).join('L')+'L'+pts(lo).reverse().join('L')+'Z',fill:'#5cc3cf','fill-opacity':op,class:'rev '+cls});
   banda(p10,p90,.16,''); banda(p25,p75,.22,'d1');
-  [3,41,97,150,233,301,377].forEach(k => el('path',{d:'M'+pts(series[k]).join('L'),fill:'none',stroke:'#5cc3cf','stroke-width':1.1,'stroke-opacity':.55,class:'rev d2'}));
-  el('path',{d:'M'+pts(p50).join('L'),fill:'none',stroke:'#e6edf3','stroke-width':2.6,'stroke-linecap':'round',class:'rev d3'});
-  const t = (tx, ty, txt) => { const e=el('text',{x:tx,y:ty,fill:'#9aa8b9','font-size':11,'font-family':'IBM Plex Mono, monospace',class:'rev d3'}); e.textContent=txt; };
+  [3,41,97,150,233,301,377].forEach(k => mk(svg,'path',{d:'M'+pts(series[k]).join('L'),fill:'none',stroke:'#5cc3cf','stroke-width':1.1,'stroke-opacity':.55,class:'rev d2'}));
+  mk(svg,'path',{d:'M'+pts(p50).join('L'),fill:'none',stroke:'#e6edf3','stroke-width':2.6,'stroke-linecap':'round',class:'rev d3'});
+  const t = (tx, ty, txt) => { const e=mk(svg,'text',{x:tx,y:ty,fill:'#9aa8b9','font-size':11,'font-family':'IBM Plex Mono, monospace',class:'rev d3'}); e.textContent=txt; };
   t(W-22, y(p90[T-1])+4, 'P90'); t(W-22, y(p50[T-1])+4, 'P50'); t(W-22, y(p10[T-1])+4, 'P10');
-  svg.setAttribute('viewBox', `0 0 ${W+20} ${H}`);
+  const io3 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ svg.classList.add('go'); io3.disconnect(); } }), {threshold:.3});
+  io3.observe(svg);
 })();
 
 // Pillar filter on cards
