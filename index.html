@@ -10,383 +10,412 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0c1018; --surface:#121925; --card:#161f2d; --line:#243145;
-  --text:#e6edf3; --muted:#9aa8b9; --accent:#5cc3cf; --accent-2:#2f8f9d; --navy:#020b25;
+  --bg:#F5F0E6; --paper:#FBF8F1; --ink:#132A3A; --muted:#5B6870; --line:#DCD2C1;
+  --teal:#2A7F8C; --teal-l:#8FC3C9; --sand:#B98A4E; --clay:#B5523B;
   --sans:'Outfit',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-img,video{max-width:100%;display:block}
-.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
-.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
-section{padding:96px 0;border-top:1px solid var(--line)}
-h2{font-size:clamp(28px,3.4vw,38px);font-weight:600;letter-spacing:-.01em;margin:10px 0 36px}
-.flag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#f2d68a;border:1px solid rgba(242,214,138,.45);border-radius:4px;padding:3px 8px;background:rgba(12,16,24,.7)}
+img,video{display:block;max-width:100%}
 
-/* nav */
-nav{position:sticky;top:0;z-index:20;background:rgba(12,16,24,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-nav .who{font-weight:600}
-nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:15px;color:var(--muted)}
-nav a{text-decoration:none}
-nav a:hover{color:var(--text)}
+/* background: burst web, slowly turning */
+#web{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#web g{transform-origin:88% 108%;animation:turn 260s linear infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
 
-/* hero */
-.hero{border-top:0;padding:64px 0 48px}
-.hero .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
-.hero h1{font-size:clamp(36px,4.6vw,56px);line-height:1.06;font-weight:700;letter-spacing:-.025em;margin:18px 0 20px}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero p.lead{font-size:18.5px;color:var(--muted);max-width:32em;margin:0 0 30px}
-.btns{display:flex;gap:14px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-weight:500;text-decoration:none;font-size:15.5px;border:1px solid var(--line)}
-.btn.primary{background:var(--accent);color:#06232a;border-color:var(--accent)}
-.btn:hover{border-color:var(--accent)}
+/* frame */
+.brand{position:fixed;top:22px;left:32px;z-index:5;font-weight:600;font-size:15px;letter-spacing:.01em}
+.brand span{font-family:var(--mono);font-weight:400;font-size:11.5px;color:var(--muted);letter-spacing:.12em;margin-left:10px;text-transform:uppercase}
+.links{position:fixed;top:20px;right:32px;z-index:5;display:flex;gap:18px;font-size:14px;color:var(--muted)}
+.links a{text-decoration:none}.links a:hover{color:var(--ink)}
+.count{position:fixed;right:32px;bottom:104px;z-index:5;font-family:var(--mono);font-size:12px;color:var(--muted)}
 
-/* reservoir morph */
-.morph{position:relative;background:var(--navy);border:1px solid var(--line);border-radius:18px;overflow:hidden}
-.morph .stage{position:relative;aspect-ratio:1300/867}
-.morph .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.morph .top{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
-.morph .app{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);background:rgba(12,16,24,.7);border-radius:4px;padding:3px 8px}
-.gauge{position:absolute;right:18px;bottom:78px;top:58px;width:10px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;pointer-events:none}
-.gauge i{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(#5cc3cf,#2f8f9d);border-radius:6px}
-.morph .read{position:absolute;left:14px;bottom:14px;pointer-events:none;background:rgba(2,11,37,.82);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
-.morph .pct{font-family:var(--mono);font-size:clamp(28px,3.2vw,42px);line-height:1;font-weight:500}
-.morph .pct small{font-size:.45em;color:var(--muted);margin-left:4px}
-.morph .scn{font-size:15px;color:var(--text);margin-top:6px}
-.morph .ctrl{display:flex;align-items:center;gap:14px;padding:14px 18px;border-top:1px solid var(--line);background:rgba(12,16,24,.6)}
-.morph .ctrl span{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap}
-.morph input[type=range]{flex:1;accent-color:var(--accent);cursor:grab}
-.morph-cap{font-size:14px;color:var(--muted);margin-top:12px}
+/* sections: one viewport each, no page scroll */
+.sec{position:fixed;inset:0;z-index:1;display:grid;grid-template-columns:minmax(300px,.8fr) 1.2fr;gap:56px;align-items:center;
+     padding:84px 120px 130px 64px;opacity:0;pointer-events:none;transform:translateX(40px);transition:opacity .6s ease,transform .6s ease}
+.sec.on{opacity:1;pointer-events:auto;transform:none}
+.sec.prev{transform:translateX(-40px)}
+.k{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.k i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.water i{background:var(--teal)} .earth i{background:var(--sand)} .ai i{background:var(--ink)}
+.sec h2{font-size:clamp(26px,2.7vw,38px);line-height:1.12;font-weight:600;letter-spacing:-.015em;margin:14px 0 14px}
+.sec p{color:var(--muted);font-size:15.5px;margin:0 0 22px;max-width:34em}
+.fig{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:14px;max-width:34em}
+.fig b{font-family:var(--mono);font-weight:500;font-size:34px;line-height:1}
+.fig span{font-size:13.5px;color:var(--muted)}
+.fig a{margin-left:auto;font-size:14px;color:var(--teal);text-decoration:none}
 
-/* metric strip */
-.metrics{border-top:1px solid var(--line);padding:40px 0}
-.metrics .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.metric .n{font-family:var(--mono);font-weight:500;font-size:clamp(34px,4.2vw,52px);line-height:1;letter-spacing:-.02em}
-.metric .t{font-size:14.5px;color:var(--muted);margin-top:10px;max-width:16em}
-.metric:first-child .n{color:var(--accent)}
+/* visual panel */
+.vis{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;height:min(62vh,560px);display:flex;flex-direction:column}
+.vis svg.v{flex:1;width:100%;height:100%}
+.flag{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7A5A22;background:#F3E6CC;border:1px solid #E2CDA2;border-radius:4px;padding:3px 8px;z-index:2}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px}
 
-/* pillars */
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.pillar{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-.pillar .media{position:relative;height:210px;background:#070b12;border-bottom:1px solid var(--line);overflow:hidden}
-.pillar .media img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
-.pillar .media svg{width:100%;height:100%}
-.pillar .media .flag{position:absolute;left:12px;bottom:12px}
-.pillar .body{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
-.pillar .k{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.12em}
-.pillar h3{font-size:22px;font-weight:600;margin:10px 0 10px;line-height:1.2}
-.pillar p{color:var(--muted);font-size:15.5px;margin:0 0 20px;flex:1}
-.pillar .fig{font-family:var(--mono);font-size:26px}
-.pillar .fig span{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:4px}
-
-/* work */
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin:-14px 0 28px}
-.filters button{font-family:var(--mono);font-size:12.5px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
-.filters button.on{color:#06232a;background:var(--accent);border-color:var(--accent)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column;transition:border-color .2s}
-.card:hover{border-color:var(--accent-2)}
-.card.hide{display:none}
-.card.feature{grid-column:1/-1;display:grid;grid-template-columns:1.25fr 1fr;gap:30px;padding:0;overflow:hidden}
-.card.feature .media{position:relative;background:#000;min-height:300px;overflow:hidden}
-.card.feature .media video,.card.feature .media img{width:100%;height:100%;object-fit:cover;object-position:50% 100%}
-.card.feature .media svg{width:100%;height:100%;display:block;background:#0a0f17}
-.card.feature .media .flag{position:absolute;left:14px;top:14px}
-.card.feature .txt{padding:28px 30px 28px 0;display:flex;flex-direction:column}
-.tag{align-self:flex-start;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent-2);border-radius:999px;padding:3px 10px}
-.card h3{font-size:20px;font-weight:600;margin:14px 0 8px;line-height:1.25}
-.card p{color:var(--muted);font-size:15.5px;margin:0 0 18px;flex:1}
-.foot{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:14px}
-.foot b{font-family:var(--mono);font-weight:500;font-size:20px}
-.foot span{font-size:13px;color:var(--muted)}
-.foot a{font-size:14px;color:var(--accent);text-decoration:none;white-space:nowrap}
-
-/* evidence */
-.repo{display:flex;justify-content:space-between;align-items:center;gap:28px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px}
-.repo:hover{border-color:var(--accent)}
-.repo .r{font-family:var(--mono);font-size:15px}
-.repo p{font-size:15.5px;color:var(--muted);margin:8px 0 0;max-width:46em}
-.repo .go{font-size:14.5px;color:var(--accent);white-space:nowrap}
-
-/* tools */
-.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.tools h4{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;color:var(--accent);margin:0 0 12px;font-weight:500}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips span{font-size:14px;border:1px solid var(--line);border-radius:6px;padding:5px 10px}
+/* intro */
+#s0{grid-template-columns:1fr}
+#s0 .in{max-width:1000px}
+#s0 h1{font-size:clamp(38px,5.2vw,72px);line-height:1.04;font-weight:700;letter-spacing:-.03em;margin:18px 0 18px}
+#s0 h1 em{font-style:normal;color:var(--teal)}
+#s0 p{font-size:18px;max-width:38em}
+.mets{display:grid;grid-template-columns:repeat(4,auto);gap:46px;margin:34px 0 34px;justify-content:start}
+.mets b{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1}
+.mets span{font-size:13px;color:var(--muted)}
+.go{display:inline-flex;gap:10px;align-items:center;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:13px 22px;font:500 15px var(--sans);cursor:pointer}
 
 /* contact */
-.contact{text-align:center}
-.contact h2{margin-bottom:14px}
-.contact p{color:var(--muted);margin:0 auto 30px;max-width:32em}
-.contact .btns{justify-content:center}
-footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:13.5px}
+#s9{grid-template-columns:1fr 1fr}
+.repo{display:block;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:8px}
+.repo b{font-family:var(--mono);font-weight:500;font-size:15px}
+.repo p{margin:8px 0 0}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;padding:12px 20px;border-radius:999px;border:1px solid var(--ink);text-decoration:none;font-weight:500;font-size:15px}
+.btn.p{background:var(--ink);color:var(--paper)}
 
-/* motion: always on (owner's rule, no prefers-reduced-motion gate) */
-.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
-.rv.in{opacity:1;transform:none}
-.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
-.pillar .media img{transform:scale(1.1);transition:transform 6s ease}
-.pillar.in .media img{transform:scale(1)}
+/* timeline */
+.tl{position:fixed;left:64px;right:64px;bottom:30px;z-index:6;height:58px}
+.tl .rail{position:absolute;left:0;right:0;top:14px;height:1px;background:var(--line)}
+.tl .prog{position:absolute;left:0;top:14px;height:2px;background:var(--ink);transition:width .6s ease}
+.tl ol{list-style:none;margin:0;padding:0;position:relative;display:flex;justify-content:space-between}
+.tl li{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;width:9%;min-width:0}
+.tl li i{width:11px;height:11px;border-radius:50%;margin-top:9px;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--line);transition:transform .3s}
+.tl li.water i{background:var(--teal)} .tl li.earth i{background:var(--sand)} .tl li.ai i{background:var(--ink)} .tl li.n i{background:var(--paper)}
+.tl li span{font-size:11.5px;color:var(--muted);white-space:nowrap;transition:color .3s}
+.tl li.on i{transform:scale(1.6)} .tl li.on span{color:var(--ink);font-weight:600}
+.tl .grp{position:absolute;top:-22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted)}
+.arrows{position:fixed;right:32px;top:50%;z-index:6;display:flex;flex-direction:column;gap:10px;transform:translateY(-50%)}
+.arrows button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font-size:16px}
 
-@media (max-width:900px){
-  .hero .wrap{grid-template-columns:1fr}
-  .metrics .wrap{grid-template-columns:repeat(2,1fr)}
-  .pillars,.grid,.tools{grid-template-columns:1fr}
-  .card.feature{grid-template-columns:1fr}
-  .card.feature .txt{padding:0 24px 26px}
-  .repo{flex-direction:column;align-items:flex-start}
-  nav ul{display:none}
-  section{padding:72px 0}
+/* reservoir morph */
+.morph{position:relative;flex:1;border-radius:12px;overflow:hidden;background:#020b25}
+.morph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.morph .read{position:absolute;left:12px;bottom:12px;background:rgba(251,248,241,.92);border-radius:10px;padding:8px 12px}
+.morph .read b{font-family:var(--mono);font-weight:500;font-size:28px}
+.morph .read div{font-size:13px;color:var(--muted)}
+.ctrl{display:flex;align-items:center;gap:12px;margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.ctrl input{flex:1;accent-color:var(--teal)}
+.vid{flex:1;border-radius:12px;overflow:hidden;background:#000;display:flex;align-items:center}
+.vid video{width:100%;height:auto;margin-top:-5.5%}
+.map{flex:1;display:grid;grid-template-columns:1.25fr 1fr;gap:14px;min-height:0}
+.map .m{position:relative;background:#000;border-radius:12px;overflow:hidden}
+.map .m img{width:100%;height:100%;object-fit:contain}
+.ring{position:absolute;left:46%;top:50%;width:14px;height:14px;margin:-7px;border-radius:50%;border:2px solid #fff}
+.sec.on .ring{animation:ping 2s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:1}100%{transform:scale(5);opacity:0}}
+
+/* drawing helpers, restart on each entry */
+.sec.on .draw{stroke-dasharray:var(--L,1200);stroke-dashoffset:var(--L,1200);animation:draw 1.8s cubic-bezier(.3,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.sec.on .grow{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);animation:grow .9s cubic-bezier(.3,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes grow{to{transform:scaleY(1)}}
+.sec.on .pop{opacity:0;animation:pop .5s ease forwards;animation-delay:var(--d,0s)}
+@keyframes pop{to{opacity:1}}
+.sec.on .rise{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(.05);animation:grow 2.4s cubic-bezier(.3,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+
+@media (max-width:860px){
+  html,body{overflow:hidden}
+  .sec{grid-template-columns:1fr;gap:18px;padding:64px 20px 120px;align-content:start;overflow-y:auto}
+  .vis{height:46vh}
+  .links{display:none}.arrows{display:none}.count{display:none}
+  .tl{left:0;right:0;bottom:0;padding:22px 16px 14px;height:auto;background:linear-gradient(rgba(245,240,230,0),var(--bg) 35%)}
+  .tl .rail,.tl .prog{top:36px}
+  .tl li span{display:none}
+  .mets{grid-template-columns:repeat(2,auto);gap:22px}
+  #s9{grid-template-columns:1fr}
+  .map{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<nav><div class="wrap">
-  <span class="who">Carlos M. Ramírez</span>
-  <ul><li><a href="#what">What I do</a></li><li><a href="#work">Selected work</a></li><li><a href="#evidence">Open source</a></li><li><a href="#contact">Contact</a></li></ul>
-</div></nav>
+<svg id="web" aria-hidden="true"></svg>
 
-<header class="hero"><div class="wrap">
-  <div>
-    <div class="eyebrow rv">Carlos M. Ramírez · Water and Earth sciences engineer</div>
-    <h1 class="rv d1">I design and verify the scientific problems used to <em>evaluate frontier AI models</em>.</h1>
-    <p class="lead rv d2">AI benchmarks and evaluation, Earth sciences and water resources engineering: one profile, built from field data up.</p>
-    <div class="btns rv d3">
-      <a class="btn primary" href="mailto:xmanuelramirez@outlook.com">Get in touch</a>
-      <a class="btn" href="https://github.com/xmanuelramirez">GitHub</a>
-      <a class="btn" href="https://www.linkedin.com/in/rgcarlosramirez/">LinkedIn</a>
-    </div>
-  </div>
-  <div class="rv d2">
-    <div class="morph" id="morph">
-      <div class="stage">
-        <img src="assets/reservoir-low.jpg" alt="AI-generated illustration of a reservoir seen from above at low storage">
-        <img id="mFull" src="assets/reservoir-full.jpg" alt="AI-generated illustration of a reservoir seen from above at full storage">
-        <div class="top"><span class="app">Reservoir scenario explorer</span><span class="flag">AI-generated imagery · fictitious scenarios</span></div>
-        <div class="gauge"><i id="mBar"></i></div>
-        <div class="read"><div class="pct"><span id="mPct">90</span><small>% storage</small></div><div class="scn" id="mScn">Scenario A · wet year</div></div>
-      </div>
-      <div class="ctrl"><span>DRY</span><input id="mRange" type="range" min="0" max="100" value="100" aria-label="Scenario storage level, illustrative"><span>FULL</span></div>
-    </div>
-    <div class="morph-cap">Drag to move between scenarios. AI-generated illustration and fictitious values, not operational data.</div>
-  </div>
-</div></header>
+<div class="brand">Carlos M. Ramírez<span>Water · Earth · AI</span></div>
+<div class="links"><a href="https://github.com/xmanuelramirez">GitHub</a><a href="https://www.linkedin.com/in/rgcarlosramirez/">LinkedIn</a><a href="mailto:xmanuelramirez@outlook.com">Email</a></div>
+<div class="count" id="count">01 / 10</div>
+<div class="arrows"><button id="up" aria-label="Previous section">↑</button><button id="dn" aria-label="Next section">↓</button></div>
 
-<div class="metrics"><div class="wrap">
-  <div class="metric rv"><div class="n" data-count="31">0</div><div class="t">approved scientific benchmark tasks</div></div>
-  <div class="metric rv d1"><div class="n" data-count="40">0</div><div class="t">benchmark packages delivered</div></div>
-  <div class="metric rv d2"><div class="n" data-count="2000" data-sep="1">0</div><div class="t">member Monte Carlo ensemble</div></div>
-  <div class="metric rv d3"><div class="n" data-count="0.833" data-dec="3">0</div><div class="t">AUC over 373 unseen days</div></div>
-</div></div>
-
-<section id="what"><div class="wrap">
-  <div class="eyebrow">What I do</div>
-  <h2>One profile, three fields that feed each other</h2>
-  <div class="pillars">
-    <div class="pillar rv">
-      <div class="media"><svg id="pipe" viewBox="0 0 400 210" role="img" aria-label="Schematic of a benchmark task pipeline"></svg><span class="flag">Schematic</span></div>
-      <div class="body"><div class="k">01 · AI</div><h3>AI Benchmarks &amp; Evaluation</h3>
-      <p>I author expert-level scientific problems that frontier models must solve from raw field data, and verify each one with an independent second solution route before it ships. I also review model output to find the failing assumption, not just the wrong number.</p>
-      <div class="fig">31<span>approved tasks</span></div></div>
-    </div>
-    <div class="pillar rv d1">
-      <div class="media"><svg id="rain" viewBox="0 0 400 210" role="img" aria-label="Illustrative daily rainfall series, synthetic data"></svg><span class="flag">Illustrative · synthetic rainfall</span></div>
-      <div class="body"><div class="k">02 · EARTH SCIENCES</div><h3>Earth Sciences</h3>
-      <p>Hydrology, hydrometeorology and remote sensing: rainfall forecasting, climate extremes and drought, watershed delineation, and satellite imagery processed straight from STAC catalogs.</p>
-      <div class="fig">0.833<span>AUC over 373 unseen days</span></div></div>
-    </div>
-    <div class="pillar rv d2">
-      <div class="media"><img style="object-fit:contain;background:#000" src="assets/terrain-map.png" alt="Terrain relief, streams and urban footprint of the municipality"></div>
-      <div class="body"><div class="k">03 · WATER RESOURCES</div><h3>Water Resources Engineering</h3>
-      <p>Hydraulic and hydrological modeling for a municipal water utility: urban stream capacity, reservoir behavior, network water balance, and the city&#39;s water security and resilience plans.</p>
-      <div class="fig">2,000<span>Monte Carlo trajectories</span></div></div>
-    </div>
+<!-- 0 · intro -->
+<section class="sec" id="s0"><div class="in">
+  <div class="k">Carlos M. Ramírez · Water and Earth sciences engineer</div>
+  <h1>I design and verify the scientific problems used to <em>evaluate frontier AI models</em>.</h1>
+  <p>AI benchmarks and evaluation, Earth sciences and water resources engineering: one profile, built from field data up. The timeline below runs from water engineering to AI evaluation.</p>
+  <div class="mets">
+    <div><b data-count="31">0</b><span>approved scientific benchmark tasks</span></div>
+    <div><b data-count="40">0</b><span>benchmark packages delivered</span></div>
+    <div><b data-count="2000" data-sep="1">0</b><span>member Monte Carlo ensemble</span></div>
+    <div><b data-count="0.833" data-dec="3">0</b><span>AUC over 373 unseen days</span></div>
   </div>
+  <button class="go" data-goto="1">View the work →</button>
 </div></section>
 
-<section id="work"><div class="wrap">
-  <div class="eyebrow">Selected work</div>
-  <h2>Projects</h2>
-  <div class="filters" id="filters">
-    <button class="on" data-f="all">All</button><button data-f="ai">AI</button><button data-f="earth">Earth sciences</button><button data-f="water">Water resources</button>
+<!-- 1 · urban streams -->
+<section class="sec" id="s1">
+  <div><div class="k water"><i></i>Water resources</div>
+    <h2>Urban stream capacity, 25-year design storm</h2>
+    <p>Hydraulic capacity of a city&#39;s urban streams from a 0.5 m LiDAR terrain model: cross-section profiling, erosive and sedimentation velocities, and a traffic-light classification per reach.</p>
+    <div class="fig"><b>A · B · C</b><span>reach classification · QGIS · LiDAR 0.5 m</span></div></div>
+  <div class="vis"><span class="flag">Schematic · synthetic reaches</span><svg class="v" id="v1" viewBox="0 0 640 420"></svg></div>
+</section>
+
+<!-- 2 · watershed -->
+<section class="sec" id="s2">
+  <div><div class="k water"><i></i>Water resources</div>
+    <h2>Watershed delineation to design discharge</h2>
+    <p>One click anywhere in the municipality: curve numbers from Sentinel-2, national soil data, IDF curves from local records, six time-of-concentration formulas and the SCS unit hydrograph, with piped storm drainage modeled as an edit to the flow graph.</p>
+    <div class="fig"><b>100%</b><span>agreement with WhiteboxTools</span></div></div>
+  <div class="vis"><div class="map">
+    <div class="m"><img src="assets/terrain-map.png" alt="Terrain relief, streams and urban footprint of the municipality"><span class="ring"></span><span class="flag" style="left:10px;right:auto">Real map</span></div>
+    <div style="position:relative;display:flex;flex-direction:column"><span class="flag">Synthetic hydrograph</span><svg class="v" id="v2" viewBox="0 0 320 380"></svg></div>
+  </div></div>
+</section>
+
+<!-- 3 · reservoir -->
+<section class="sec" id="s3">
+  <div><div class="k water"><i></i>Water resources</div>
+    <h2>Probabilistic reservoir storage forecast</h2>
+    <p>A 2,000-member Monte Carlo ensemble by seasonal block bootstrap, with the elevation-capacity curve as a hard constraint, running entirely in the browser. A frozen forecast kept the observed series inside its P10-P90 band on 92% of 168 days.</p>
+    <div class="fig"><b>27%</b><span>better than persistence</span></div></div>
+  <div class="vis"><span class="flag">AI-generated imagery · fictitious scenarios</span>
+    <div class="morph"><img src="assets/reservoir-low.jpg" alt="AI-generated illustration of a reservoir at low storage"><img id="mFull" src="assets/reservoir-full.jpg" alt="AI-generated illustration of a reservoir at full storage">
+      <div class="read"><b id="mPct">90</b><b style="font-size:16px">%</b><div id="mScn">Scenario A · wet year</div></div></div>
+    <div class="ctrl">DRY<input id="mRange" type="range" min="0" max="100" value="100" aria-label="Scenario storage, illustrative">FULL</div>
   </div>
-  <div class="grid">
-    <article class="card rv" data-p="ai"><span class="tag">AI</span><h3>Scientific benchmark authoring, earth and environmental sciences</h3><p>Self-contained Python packages: a seeded generator built on canonical physics, an independent reference solution, a second route written without reading the generator, a sealed verifier and a Docker environment. Tolerances are fixed before anything is measured.</p><div class="foot"><div><b>31</b> <span>approved · 4 scientific fields</span></div></div></article>
-    <article class="card rv d1" data-p="earth"><span class="tag">EARTH SCIENCES</span><h3>Rainfall monitoring and 3-day forecast, 21 stations</h3><p>A LightGBM hurdle model (occurrence classifier plus amount regressor, 23 features, seasonal isotonic calibration) under leak-free walk-forward validation. A preregistered A/B test raised CSI from 0.303 to 0.316.</p><div class="foot"><div><b>0.833</b> <span>AUC · 373 unseen days</span></div></div></article>
+</section>
 
-    <article class="card feature rv" data-p="earth">
-      <div class="media">
-        <video autoplay muted loop playsinline preload="auto" poster="assets/observatory-ui.jpg" aria-label="Satellite observatory in use: Sentinel-2 scene search, two-date analysis and the map being drawn">
-          <source src="assets/observatory-loop.webm" type="video/webm">
-        </video>
-        <span class="flag">Real interface · recorded</span>
-      </div>
-      <div class="txt"><span class="tag">EARTH SCIENCES</span><h3>Satellite observatory, STAC in the browser</h3><p>Sentinel-2, Landsat 8/9 and Sentinel-1 cloud-optimized GeoTIFFs read straight from STAC catalogs: spectral indices, change detection, surface heat, radar water and k-means, computed client-side in a Web Worker, with a weekly summary produced by GitHub Actions.</p><div class="foot"><div><span>open source</span></div><a href="https://github.com/xmanuelramirez/observatorio-satelital">Code →</a></div></div>
-    </article>
+<!-- 4 · rainfall -->
+<section class="sec" id="s4">
+  <div><div class="k earth"><i></i>Earth sciences</div>
+    <h2>Rainfall monitoring and 3-day forecast, 21 stations</h2>
+    <p>A LightGBM hurdle model (occurrence classifier plus amount regressor, 23 features, seasonal isotonic calibration) under leak-free walk-forward validation. A preregistered A/B test raised CSI from 0.303 to 0.316.</p>
+    <div class="fig"><b>0.833</b><span>AUC · 373 unseen days</span></div></div>
+  <div class="vis"><span class="flag">Illustrative · synthetic series</span><svg class="v" id="v4" viewBox="0 0 640 420"></svg></div>
+</section>
 
-    <article class="card rv" data-p="ai"><span class="tag">AI</span><h3>Adversarial difficulty calibration</h3><p>A task ships only if it survives blind trials against frontier models: 25 minutes or more, a failure with margin on at least one reasoning link, and shortcut and fabricated-value probes scoring zero. Up to four measured versions before an idea is retired.</p><div class="foot"><div><b>0 of 10</b> <span>shortcuts score</span></div></div></article>
-    <article class="card rv d1" data-p="ai"><span class="tag">AI</span><h3>Quantitative benchmark packages</h3><p>40 task packages delivered over two months: time-anchored prompts, golden responses carrying one verifiable ground-truth value per line, grading guidance, and input files with native charts, audited across every artifact before delivery.</p><div class="foot"><div><b>40</b> <span>packages</span></div></div></article>
-
-    <article class="card feature rv" data-p="water">
-      <div class="media"><svg id="fan" viewBox="0 0 540 360" role="img" aria-label="Illustrative Monte Carlo ensemble with P10 to P90 band, synthetic data"></svg><span class="flag">Illustrative · synthetic data</span></div>
-      <div class="txt"><span class="tag">WATER RESOURCES</span><h3>Probabilistic reservoir storage forecast</h3><p>A 2,000-member Monte Carlo ensemble by seasonal block bootstrap, with the elevation-capacity curve as a hard constraint, running entirely in the browser. A frozen forecast kept the observed series inside its P10-P90 band on 92% of 168 days.</p><div class="foot"><div><b>27%</b> <span>better than persistence</span></div></div></div>
-    </article>
-
-    <article class="card rv" data-p="water"><span class="tag">WATER RESOURCES</span><h3>Watershed delineation to design discharge</h3><p>One click anywhere in the municipality: curve numbers from Sentinel-2, national soil data, IDF curves from local records, six time-of-concentration formulas and the SCS unit hydrograph, with piped storm drainage modeled as an edit to the flow graph.</p><div class="foot"><div><b>100%</b> <span>agreement with WhiteboxTools</span></div></div></article>
-    <article class="card rv d1" data-p="water"><span class="tag">WATER RESOURCES</span><h3>Urban stream capacity, 25-year design storm</h3><p>Hydraulic capacity of a city&#39;s urban streams from a 0.5 m LiDAR terrain model: cross-section profiling, erosive and sedimentation velocities, and a traffic-light classification per reach.</p><div class="foot"><div><span>QGIS · LiDAR 0.5 m</span></div></div></article>
+<!-- 5 · satellite -->
+<section class="sec" id="s5">
+  <div><div class="k earth"><i></i>Earth sciences</div>
+    <h2>Satellite observatory, STAC in the browser</h2>
+    <p>Sentinel-2, Landsat 8/9 and Sentinel-1 cloud-optimized GeoTIFFs read straight from STAC catalogs: spectral indices, change detection, surface heat, radar water and k-means, computed client-side in a Web Worker, with a weekly summary produced by GitHub Actions.</p>
+    <div class="fig"><b>Open</b><span>source</span><a href="https://github.com/xmanuelramirez/observatorio-satelital">Code →</a></div></div>
+  <div class="vis"><span class="flag">Real interface · recorded</span>
+    <div class="vid"><video id="vid" muted loop playsinline preload="auto" poster="assets/observatory-ui.jpg" aria-label="Satellite observatory in use"><source src="assets/observatory-loop.webm" type="video/webm"></video></div>
   </div>
-</div></section>
+</section>
 
-<section id="evidence"><div class="wrap">
-  <div class="eyebrow">Open-source evidence</div>
-  <h2>Code you can read</h2>
-  <a class="repo rv" href="https://github.com/xmanuelramirez/observatorio-satelital">
-    <div><div class="r">xmanuelramirez/observatorio-satelital</div>
-    <p>Satellite observatory that reads Sentinel-2, Landsat 8/9 and Sentinel-1 straight from STAC catalogs and computes indices, change detection and radar water in the browser. TypeScript and Python, with a weekly summary built by GitHub Actions.</p></div>
-    <span class="go">View on GitHub →</span>
-  </a>
-</div></section>
+<!-- 6 · packages -->
+<section class="sec" id="s6">
+  <div><div class="k ai"><i></i>AI evaluation</div>
+    <h2>Quantitative benchmark packages</h2>
+    <p>40 task packages delivered over two months: time-anchored prompts, golden responses carrying one verifiable ground-truth value per line, grading guidance, and input files with native charts, audited across every artifact before delivery.</p>
+    <div class="fig"><b>40</b><span>packages</span></div></div>
+  <div class="vis"><span class="flag">Schematic</span><svg class="v" id="v6" viewBox="0 0 640 420"></svg></div>
+</section>
 
-<section id="tools"><div class="wrap">
-  <div class="eyebrow">Tools</div>
-  <h2>What I work with</h2>
-  <div class="tools">
-    <div class="rv"><h4>AI AND DATA</h4><div class="chips"><span>Python</span><span>LightGBM</span><span>Docker</span><span>Walk-forward validation</span><span>Monte Carlo</span></div></div>
-    <div class="rv d1"><h4>EARTH SCIENCES</h4><div class="chips"><span>STAC</span><span>Cloud-optimized GeoTIFF</span><span>Sentinel-1/2</span><span>Landsat 8/9</span><span>WhiteboxTools</span></div></div>
-    <div class="rv d2"><h4>WATER RESOURCES</h4><div class="chips"><span>QGIS / PyQGIS</span><span>LiDAR terrain models</span><span>SCS unit hydrograph</span><span>IDF curves</span><span>TypeScript</span></div></div>
-  </div>
-</div></section>
+<!-- 7 · authoring -->
+<section class="sec" id="s7">
+  <div><div class="k ai"><i></i>AI evaluation</div>
+    <h2>Scientific benchmark authoring, earth and environmental sciences</h2>
+    <p>Self-contained Python packages: a seeded generator built on canonical physics, an independent reference solution, a second route written without reading the generator, a sealed verifier and a Docker environment. Tolerances are fixed before anything is measured.</p>
+    <div class="fig"><b>31</b><span>approved · 4 scientific fields</span></div></div>
+  <div class="vis"><span class="flag">Schematic</span><svg class="v" id="v7" viewBox="0 0 640 420"></svg></div>
+</section>
 
-<section id="contact" class="contact"><div class="wrap">
-  <div class="eyebrow">Contact</div>
-  <h2>Let&#39;s work together</h2>
-  <p>Available for remote contract work in AI evaluation for Earth, environmental and water sciences.</p>
-  <div class="btns"><a class="btn primary" href="mailto:xmanuelramirez@outlook.com">xmanuelramirez@outlook.com</a><a class="btn" href="https://www.linkedin.com/in/rgcarlosramirez/">LinkedIn</a></div>
-</div></section>
+<!-- 8 · calibration -->
+<section class="sec" id="s8">
+  <div><div class="k ai"><i></i>AI evaluation</div>
+    <h2>Adversarial difficulty calibration</h2>
+    <p>A task ships only if it survives blind trials against frontier models: 25 minutes or more, a failure with margin on at least one reasoning link, and shortcut and fabricated-value probes scoring zero. Up to four measured versions before an idea is retired.</p>
+    <div class="fig"><b>0 of 10</b><span>shortcuts score</span></div></div>
+  <div class="vis"><span class="flag">Schematic · fictitious values</span><svg class="v" id="v8" viewBox="0 0 640 420"></svg></div>
+</section>
 
-<footer><div class="wrap">Carlos M. Ramírez · León, Guanajuato, Mexico</div></footer>
+<!-- 9 · contact -->
+<section class="sec" id="s9">
+  <div><div class="k">Contact</div>
+    <h2>Let&#39;s work together</h2>
+    <p>Available for remote contract work in AI evaluation for Earth, environmental and water sciences.</p>
+    <div class="btns"><a class="btn p" href="mailto:xmanuelramirez@outlook.com">xmanuelramirez@outlook.com</a><a class="btn" href="https://www.linkedin.com/in/rgcarlosramirez/">LinkedIn</a></div></div>
+  <div><div class="k">Open-source evidence</div>
+    <a class="repo" href="https://github.com/xmanuelramirez/observatorio-satelital"><b>xmanuelramirez/observatorio-satelital</b>
+      <p>Satellite observatory that reads Sentinel-2, Landsat 8/9 and Sentinel-1 straight from STAC catalogs and computes indices, change detection and radar water in the browser. TypeScript and Python, with a weekly summary built by GitHub Actions.</p></a>
+    <p style="margin-top:22px;font-size:13.5px">Python · LightGBM · Docker · STAC · Sentinel-1/2 · Landsat 8/9 · WhiteboxTools · QGIS / PyQGIS · LiDAR · SCS unit hydrograph · TypeScript</p>
+    <p style="font-size:13px">Carlos M. Ramírez · León, Guanajuato, Mexico</p></div>
+</section>
+
+<nav class="tl" aria-label="Timeline">
+  <div class="rail"></div><div class="prog" id="prog"></div>
+  <ol id="tl">
+    <li class="n" data-i="0"><i></i><span>Intro</span></li>
+    <li class="water" data-i="1"><i></i><span>Urban streams</span></li>
+    <li class="water" data-i="2"><i></i><span>Watershed</span></li>
+    <li class="water" data-i="3"><i></i><span>Reservoir</span></li>
+    <li class="earth" data-i="4"><i></i><span>Rainfall</span></li>
+    <li class="earth" data-i="5"><i></i><span>Satellite</span></li>
+    <li class="ai" data-i="6"><i></i><span>Packages</span></li>
+    <li class="ai" data-i="7"><i></i><span>Authoring</span></li>
+    <li class="ai" data-i="8"><i></i><span>Calibration</span></li>
+    <li class="n" data-i="9"><i></i><span>Contact</span></li>
+  </ol>
+</nav>
 
 <script>
-const ns = 'http://www.w3.org/2000/svg';
-const mk = (svg, tag, at) => { const e = document.createElementNS(ns, tag); for (const k in at) e.setAttribute(k, at[k]); svg.appendChild(e); return e; };
+const NS='http://www.w3.org/2000/svg';
+const mk=(p,tag,at,txt)=>{const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e;};
+const C={ink:'#132A3A',muted:'#5B6870',line:'#DCD2C1',teal:'#2A7F8C',tealL:'#8FC3C9',sand:'#B98A4E',clay:'#B5523B'};
+let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const T=(p,x,y,s,at={})=>mk(p,'text',Object.assign({x,y,'font-family':'IBM Plex Mono, monospace','font-size':11,fill:C.muted},at),s);
+const draw=(e,d)=>{const L=Math.ceil(e.getTotalLength?e.getTotalLength():800)+2;e.classList.add('draw');e.style.setProperty('--L',L);e.style.setProperty('--d',(d||0)+'s');return e;};
 
-// Reveal on scroll. Motion is always on (owner's rule).
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-}), {threshold: .15});
-document.querySelectorAll('.rv').forEach(el => io.observe(el));
+// background: burst + web + waves
+(function(){
+  const s=document.getElementById('web');s.setAttribute('preserveAspectRatio','xMidYMid slice');s.setAttribute('viewBox','0 0 1600 1000');
+  const g=mk(s,'g',{fill:'none',stroke:'#132A3A','stroke-opacity':.055,'stroke-width':1});
+  const cx=1408,cy=1080;
+  for(let i=0;i<64;i++){const a=i/64*Math.PI*2;mk(g,'line',{x1:cx,y1:cy,x2:cx+Math.cos(a)*2200,y2:cy+Math.sin(a)*2200});}
+  for(let r=70;r<2200;r+=70)mk(g,'circle',{cx,cy,r});
+  const w=mk(s,'g',{fill:'none',stroke:'#2A7F8C','stroke-opacity':.06});
+  for(let k=0;k<6;k++){let d='M0 '+(120+k*26);for(let x=0;x<=1600;x+=40)d+=' L'+x+' '+(120+k*26+Math.sin(x/120+k)*14).toFixed(1);mk(w,'path',{d});}
+})();
 
-// Counters
-function contar(el){
-  const fin = parseFloat(el.dataset.count), dec = +(el.dataset.dec || 0), t0 = performance.now(), dur = 1400;
-  const fmt = v => dec ? v.toFixed(dec) : (el.dataset.sep ? Math.round(v).toLocaleString('en-US') : Math.round(v));
-  (function paso(t){ const k = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-k,3);
-    el.textContent = fmt(fin*e); if (k<1) requestAnimationFrame(paso); })(t0);
+// 1 · urban streams: plan view with A/B/C reaches + cross-section filling to Q25
+(function(){
+  const s=document.getElementById('v1');
+  const cls=['A','A','B','C','B','A','C','B'], col={A:C.teal,B:C.sand,C:C.clay}, lab={A:'sufficient',B:'marginal',C:'insufficient'};
+  const pts=[];for(let i=0;i<=8;i++)pts.push([40+i*70,90+Math.sin(i*0.9)*34]);
+  for(let i=0;i<8;i++){const [x1,y1]=pts[i],[x2,y2]=pts[i+1];
+    draw(mk(s,'path',{d:`M${x1} ${y1} Q${(x1+x2)/2} ${(y1+y2)/2+(i%2?18:-18)} ${x2} ${y2}`,stroke:col[cls[i]],'stroke-width':7,'stroke-linecap':'round',fill:'none'}),i*0.18);
+    mk(s,'text',{x:(x1+x2)/2,y:(y1+y2)/2-22,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','font-size':13,'font-weight':600,fill:C.ink,class:'pop',style:`--d:${.4+i*.18}s`},cls[i]);}
+  ['A','B','C'].forEach((c,i)=>{const x=40+i*190;mk(s,'rect',{x,y:168,width:14,height:14,rx:3,fill:col[c]});T(s,x+22,180,c+' · '+lab[c],{fill:C.ink});});
+  // cross-section
+  const X0=120,Y0=250,W=400,H=130;
+  T(s,40,232,'CROSS-SECTION · REACH C');
+  const bank=`M${X0-60} ${Y0} L${X0+70} ${Y0} L${X0+150} ${Y0+H} L${X0+250} ${Y0+H} L${X0+330} ${Y0} L${X0+W+20} ${Y0}`;
+  const water=mk(s,'path',{d:`M${X0+85} ${Y0+28} L${X0+315} ${Y0+28} L${X0+250} ${Y0+H} L${X0+150} ${Y0+H} Z`,fill:C.tealL,'fill-opacity':.7,class:'rise',style:'--d:1.6s'});
+  draw(mk(s,'path',{d:bank,fill:'none',stroke:C.ink,'stroke-width':2}),.2);
+  draw(mk(s,'path',{d:`M${X0+40} ${Y0-14} L${X0+360} ${Y0-14}`,stroke:C.clay,'stroke-dasharray':'6 5','stroke-width':1.5}),2.6);
+  T(s,X0+366,Y0-10,'Q25 level',{fill:C.clay,class:'pop',style:'--d:3s'});
+  T(s,X0+366,Y0+32,'capacity',{class:'pop',style:'--d:3s'});
+})();
+
+// 2 · SCS-like unit hydrograph (synthetic)
+(function(){
+  const s=document.getElementById('v2');const x0=34,y0=320,w=270,h=250;
+  mk(s,'path',{d:`M${x0} 40 V${y0} H${x0+w}`,stroke:C.line,fill:'none'});
+  T(s,x0,30,'Q (m³/s)');T(s,x0+w-40,y0+22,'time');
+  let d='';for(let i=0;i<=60;i++){const t=i/60*5,q=Math.pow(t,3.7)*Math.exp(-3.7*(t-1))/1;const y=y0-Math.min(q,1.02)*h*.92;d+=(i?'L':'M')+(x0+i/60*w).toFixed(1)+' '+y.toFixed(1);}
+  draw(mk(s,'path',{d,fill:'none',stroke:C.teal,'stroke-width':2.5}),.3);
+  let r='';for(let i=0;i<12;i++){const hh=[6,12,22,40,70,48,30,18,10,6,4,2][i];r+=`<rect x="${x0+6+i*9}" y="40" width="7" height="${hh}" fill="${C.sand}" fill-opacity=".8" class="pop" style="--d:${i*.05}s"/>`;}
+  s.insertAdjacentHTML('beforeend',r);T(s,x0+120,52,'design storm');
+  T(s,x0+92,y0-h*.80,'peak',{fill:C.ink,class:'pop',style:'--d:1.6s'});
+})();
+
+// 4 · rainfall: observed bars + 3-day forecast probability
+(function(){
+  const s=document.getElementById('v4');seed=21;const x0=40,y0=330,w=560,n=45;
+  mk(s,'path',{d:`M${x0} ${y0} H${x0+w}`,stroke:C.line});
+  T(s,x0,40,'DAILY RAINFALL · OBSERVED');T(s,x0+w-150,40,'FORECAST · 3 DAYS',{fill:C.teal});
+  const bw=w/(n+4);
+  for(let i=0;i<n;i++){if(rnd()>.48)continue;const hgt=8+Math.pow(rnd(),1.7)*190;
+    mk(s,'rect',{x:x0+i*bw+1,y:y0-hgt,width:bw-2,height:hgt,rx:1.5,fill:hgt>130?C.ink:C.sand,'fill-opacity':.85,class:'grow',style:`--d:${i*.025}s`});}
+  mk(s,'line',{x1:x0+n*bw+bw/2,y1:60,x2:x0+n*bw+bw/2,y2:y0,stroke:C.muted,'stroke-dasharray':'3 4'});
+  const pr=[.72,.41,.18];
+  pr.forEach((p,k)=>{const x=x0+(n+1+k)*bw;mk(s,'rect',{x,y:y0-p*220,width:bw-3,height:p*220,rx:2,fill:C.teal,'fill-opacity':.25+p*.6,class:'grow',style:`--d:${1.4+k*.2}s`});
+    T(s,x-4,y0-p*220-8,Math.round(p*100)+'%',{fill:C.teal,'font-size':11,class:'pop',style:`--d:${1.8+k*.2}s`});});
+  T(s,x0+w-150,y0+22,'probability of rain',{fill:C.teal});
+})();
+
+// 6 · 40 packages filling over 8 weeks
+(function(){
+  const s=document.getElementById('v6');seed=3;const x0=50,y0=50,cw=66,ch=56;
+  for(let i=0;i<40;i++){const c=i%8,r=Math.floor(i/8),x=x0+c*cw,y=y0+r*ch,d=(i*.06).toFixed(2)+'s';
+    const g=mk(s,'g',{class:'pop',style:'--d:'+d});
+    mk(g,'rect',{x,y,width:cw-10,height:ch-12,rx:6,fill:'#fff',stroke:C.line});
+    let p='';for(let k=0;k<6;k++)p+=(k?'L':'M')+(x+8+k*8)+' '+(y+30-rnd()*18).toFixed(1);
+    mk(g,'path',{d:p,fill:'none',stroke:C.teal,'stroke-width':1.6});
+    mk(g,'path',{d:`M${x+cw-24} ${y+12} l4 4 l8 -8`,fill:'none',stroke:C.ink,'stroke-width':1.6});}
+  const yb=y0+5*ch+18;mk(s,'line',{x1:x0,y1:yb,x2:x0+8*cw-10,y2:yb,stroke:C.line});
+  for(let wk=0;wk<8;wk++)T(s,x0+wk*cw+6,yb+18,'W'+(wk+1));
+  T(s,x0,yb+40,'prompt · golden response · grading guidance · input files · audit',{fill:C.ink});
+})();
+
+// 7 · authoring: generator -> two independent routes -> same value within tolerance
+(function(){
+  const s=document.getElementById('v7');
+  const box=(x,y,w,t,d)=>{const g=mk(s,'g',{class:'pop',style:`--d:${d}s`});mk(g,'rect',{x,y,width:w,height:46,rx:10,fill:'#fff',stroke:C.ink,'stroke-width':1.3});mk(g,'text',{x:x+w/2,y:y+28,'text-anchor':'middle','font-family':'Outfit, sans-serif','font-size':14,fill:C.ink},t);};
+  box(30,180,150,'Seeded generator',0);
+  box(250,90,170,'Reference solution',.6);box(250,270,170,'Independent route',.6);
+  box(490,180,120,'Verifier',1.6);
+  draw(mk(s,'path',{d:'M180 203 C215 203 215 113 250 113',fill:'none',stroke:C.teal,'stroke-width':2}),.3);
+  draw(mk(s,'path',{d:'M180 203 C215 203 215 293 250 293',fill:'none',stroke:C.sand,'stroke-width':2}),.3);
+  draw(mk(s,'path',{d:'M420 113 C455 113 455 203 490 203',fill:'none',stroke:C.teal,'stroke-width':2}),1.1);
+  draw(mk(s,'path',{d:'M420 293 C455 293 455 203 490 203',fill:'none',stroke:C.sand,'stroke-width':2}),1.1);
+  T(s,250,74,'written from the physics');T(s,250,340,'written without reading the generator');
+  const g=mk(s,'g',{class:'pop',style:'--d:2.1s'});
+  mk(g,'rect',{x:470,y:250,width:160,height:16,rx:8,fill:C.tealL,'fill-opacity':.5});
+  mk(g,'line',{x1:540,y1:244,x2:540,y2:272,stroke:C.teal,'stroke-width':2});mk(g,'line',{x1:556,y1:244,x2:556,y2:272,stroke:C.sand,'stroke-width':2});
+  T(g,470,292,'both inside the tolerance',{fill:C.ink});T(g,470,308,'fixed before measuring');
+  T(s,30,390,'Docker environment · sealed verifier · tolerance fixed in advance',{fill:C.ink});
+})();
+
+// 8 · calibration: 10 shortcut probes at zero + versions until it ships
+(function(){
+  const s=document.getElementById('v8');const x0=40;
+  T(s,x0,40,'SHORTCUT AND FABRICATED-VALUE PROBES · SCORE');
+  for(let i=0;i<10;i++){const x=x0+i*28;mk(s,'rect',{x,y:60,width:20,height:90,rx:3,fill:'none',stroke:C.line});
+    mk(s,'rect',{x,y:148,width:20,height:2,fill:C.ink,class:'pop',style:`--d:${.2+i*.08}s`});T(s,x+4,170,'0',{fill:C.ink,class:'pop',style:`--d:${.2+i*.08}s`});}
+  T(s,x0+300,108,'0 of 10 score',{fill:C.ink,'font-size':14,class:'pop',style:'--d:1.2s'});
+  T(s,x0,222,'MODEL PASS RATE BY VERSION (FICTITIOUS)');
+  const v=[.8,.55,.3,.1],yb=380;mk(s,'line',{x1:x0,y1:yb,x2:x0+520,y2:yb,stroke:C.line});
+  const th=yb-.2*140;draw(mk(s,'line',{x1:x0,y1:th,x2:x0+520,y2:th,stroke:C.clay,'stroke-dasharray':'6 5'}),1);T(s,x0+430,th-8,'ship threshold',{fill:C.clay});
+  v.forEach((p,k)=>{const x=x0+40+k*110;mk(s,'rect',{x,y:yb-p*140,width:60,height:p*140,rx:4,fill:k===3?C.ink:C.tealL,class:'grow',style:`--d:${1.2+k*.3}s`});
+    T(s,x+16,yb+18,'v'+(k+1),{fill:C.ink});});
+  T(s,x0+40+3*110+70,yb-6,'ships',{fill:C.ink,'font-size':13,class:'pop',style:'--d:2.6s'});
+})();
+
+// reservoir morph: auto sweep until dragged
+const morph=(function(){
+  const rng=document.getElementById('mRange'),full=document.getElementById('mFull'),pct=document.getElementById('mPct'),scn=document.getElementById('mScn');
+  const paint=v=>{const k=v/100,e=k*k*(3-2*k);full.style.opacity=e.toFixed(3);const p=Math.round(18+72*k);pct.textContent=p;
+    scn.textContent=p>=70?'Scenario A · wet year':p>=40?'Scenario B · average year':'Scenario C · prolonged drought';};
+  let auto=true,t0=0;const loop=t=>{if(!auto)return;if(!t0)t0=t;const v=50+50*Math.cos(((t-t0)/9000)*2*Math.PI);rng.value=v;paint(v);requestAnimationFrame(loop);};
+  rng.addEventListener('input',()=>{auto=false;paint(+rng.value);});
+  return {start(){auto=true;t0=0;requestAnimationFrame(loop);},stop(){auto=false;}};
+})();
+
+// counters
+function count(el){const fin=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),t0=performance.now();
+  const f=v=>dec?v.toFixed(dec):(el.dataset.sep?Math.round(v).toLocaleString('en-US'):Math.round(v));
+  (function st(t){const k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);el.textContent=f(fin*e);if(k<1)requestAnimationFrame(st);})(t0);}
+
+// navigation: one section at a time, wheel / keys / swipe / timeline
+const secs=[...document.querySelectorAll('.sec')],lis=[...document.querySelectorAll('#tl li')],vid=document.getElementById('vid');
+let cur=-1,lock=false;
+function go(i){
+  i=Math.max(0,Math.min(secs.length-1,i));if(i===cur)return;
+  secs.forEach((s,k)=>{s.classList.toggle('prev',k<i);s.classList.remove('on');});
+  void document.body.offsetWidth;
+  secs[i].classList.add('on');cur=i;
+  lis.forEach((l,k)=>l.classList.toggle('on',k===i));
+  {const r=document.querySelector('.tl').getBoundingClientRect(),d=lis[i].querySelector('i').getBoundingClientRect();document.getElementById('prog').style.width=(d.left+d.width/2-r.left)+'px';}
+  document.getElementById('count').textContent=String(i+1).padStart(2,'0')+' / '+secs.length;
+  if(i===0)secs[0].querySelectorAll('[data-count]').forEach(count);
+  if(i===3)morph.start();else morph.stop();
+  if(i===5){vid.currentTime=0;vid.play().catch(()=>{});}else vid.pause();
+  history.replaceState(null,'','#'+i);
 }
-const ioN = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { contar(e.target); ioN.unobserve(e.target); }
-}), {threshold: .6});
-document.querySelectorAll('[data-count]').forEach(el => ioN.observe(el));
-
-// Reservoir morph: fictitious scenarios, auto sweep until the visitor drags.
-(function(){
-  const rng = document.getElementById('mRange'), full = document.getElementById('mFull'),
-        pct = document.getElementById('mPct'), scn = document.getElementById('mScn'), bar = document.getElementById('mBar');
-  // Fictitious mapping: slider 0..100 -> storage 18..90 %
-  const pinta = v => {
-    const k = v/100, e = k*k*(3-2*k);
-    full.style.opacity = e.toFixed(3);
-    const s = Math.round(18 + 72*k);
-    pct.textContent = s; bar.style.height = s + '%';
-    scn.textContent = s >= 70 ? 'Scenario A · wet year' : s >= 40 ? 'Scenario B · average year' : 'Scenario C · prolonged drought';
-  };
-  let auto = true; const t0 = performance.now();
-  const loop = t => { if (!auto) return;
-    const ph = ((t - t0) / 9000) % 1, v = 50 + 50*Math.cos(ph*2*Math.PI);
-    rng.value = v; pinta(v); requestAnimationFrame(loop); };
-  pinta(100); requestAnimationFrame(loop);
-  const stop = () => { auto = false; };
-  rng.addEventListener('pointerdown', stop); rng.addEventListener('keydown', stop);
-  rng.addEventListener('input', () => { auto = false; pinta(+rng.value); });
-})();
-
-// AI pillar: schematic pipeline with packets travelling along it.
-(function(){
-  const svg = document.getElementById('pipe');
-  const pasos = ['Seeded generator','Reference solution','Independent route','Sealed verifier','Blind model trials'];
-  const X = i => 62 + i*69, Y = 112;
-  mk(svg,'path',{d:`M${X(0)} ${Y} H${X(4)}`,stroke:'#2f8f9d','stroke-width':1.5,fill:'none'});
-  pasos.forEach((p,i) => {
-    mk(svg,'circle',{cx:X(i),cy:Y,r:9,fill:'#0c1018',stroke:'#5cc3cf','stroke-width':1.6});
-    const t = mk(svg,'text',{x:X(i),y:i%2? Y+36 : Y-26,'text-anchor':'middle',fill:'#c9d4df','font-size':11,'font-family':'Outfit, sans-serif'});
-    t.textContent = p;
-  });
-  const dots = [0,1,2].map(() => mk(svg,'circle',{r:4,fill:'#e6edf3',cy:Y,cx:X(0)}));
-  const t0 = performance.now();
-  (function mueve(t){
-    dots.forEach((d,k) => { const ph = (((t-t0)/4200) + k/3) % 1; d.setAttribute('cx', (X(0) + ph*(X(4)-X(0))).toFixed(1)); d.setAttribute('opacity', (ph<.04||ph>.96) ? 0 : 1); });
-    requestAnimationFrame(mueve);
-  })(t0);
-})();
-
-// Earth pillar: synthetic daily rainfall bars that grow in.
-(function(){
-  const svg = document.getElementById('rain'); let s = 5;
-  const r = () => (s = (s*16807) % 2147483647) / 2147483647;
-  mk(svg,'path',{d:'M20 180 H380',stroke:'#243145'});
-  const g = mk(svg,'g',{});
-  g.style.transformOrigin = '0 180px'; g.style.transform = 'scaleY(0)';
-  g.style.transition = 'transform 1.4s cubic-bezier(.3,.7,.2,1)';
-  const n = 46, w = 360/n;
-  for (let i=0;i<n;i++){
-    if (r() > .45) continue;
-    const h = 12 + Math.pow(r(),1.8)*130;
-    mk(g,'rect',{x:(20+i*w+1).toFixed(1),y:(180-h).toFixed(1),width:(w-2).toFixed(1),height:h.toFixed(1),rx:1.5,fill:h>90?'#e6edf3':'#5cc3cf','fill-opacity':h>90?.95:.75});
-  }
-  const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ g.style.transform = 'scaleY(1)'; io2.disconnect(); } }), {threshold:.3});
-  io2.observe(svg);
-})();
-
-// Synthetic ensemble fan (illustrative, seeded, no real data): P10-P90, P25-P75, members and median.
-(function(){
-  const svg = document.getElementById('fan'), W = 520, H = 360, N = 400, T = 60;
-  let s = 11; const r = () => (s = (s*16807) % 2147483647) / 2147483647;
-  const g = () => { let u=0; for (let i=0;i<6;i++) u+=r(); return u-3; };
-  const x = i => 34 + i*(W-58)/(T-1);
-  const series = [];
-  for (let k=0;k<N;k++){ let v=40, d=[]; for (let i=0;i<T;i++){ v += 0.55 + g()*1.15*(1+1.6*i/T); v = Math.max(4,v); d.push(v);} series.push(d); }
-  const q = p => { const o=[]; for (let i=0;i<T;i++){ const c=series.map(d=>d[i]).sort((a,b)=>a-b); o.push(c[Math.floor(p*(N-1))]); } return o; };
-  const p10=q(.10), p25=q(.25), p50=q(.50), p75=q(.75), p90=q(.90);
-  const vmax = Math.max(...p90)*1.08, vmin = Math.min(...p10)*0.85;
-  const y = v => (H-44) - (v-vmin)/(vmax-vmin)*(H-74);
-  const pts = d => d.map((v,i)=>x(i).toFixed(1)+' '+y(v).toFixed(1));
-  const st = document.createElementNS(ns,'style');
-  st.textContent = '@keyframes fanIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}'
-    + '#fan.go .rev{animation:fanIn 2.2s cubic-bezier(.3,.7,.2,1) both}'
-    + '#fan.go .d1{animation-delay:.25s}#fan.go .d2{animation-delay:.5s}#fan.go .d3{animation-delay:.9s}';
-  svg.appendChild(st);
-  mk(svg,'path',{d:`M34 ${H-44} H${W-24} M34 ${H-44} V24`,stroke:'#243145',fill:'none'});
-  const banda = (lo, hi, op, cls) => mk(svg,'path',{d:'M'+pts(hi).join('L')+'L'+pts(lo).reverse().join('L')+'Z',fill:'#5cc3cf','fill-opacity':op,class:'rev '+cls});
-  banda(p10,p90,.16,''); banda(p25,p75,.22,'d1');
-  [3,41,97,150,233,301,377].forEach(k => mk(svg,'path',{d:'M'+pts(series[k]).join('L'),fill:'none',stroke:'#5cc3cf','stroke-width':1.1,'stroke-opacity':.55,class:'rev d2'}));
-  mk(svg,'path',{d:'M'+pts(p50).join('L'),fill:'none',stroke:'#e6edf3','stroke-width':2.6,'stroke-linecap':'round',class:'rev d3'});
-  const t = (tx, ty, txt) => { const e=mk(svg,'text',{x:tx,y:ty,fill:'#9aa8b9','font-size':11,'font-family':'IBM Plex Mono, monospace',class:'rev d3'}); e.textContent=txt; };
-  t(W-22, y(p90[T-1])+4, 'P90'); t(W-22, y(p50[T-1])+4, 'P50'); t(W-22, y(p10[T-1])+4, 'P10');
-  const io3 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ svg.classList.add('go'); io3.disconnect(); } }), {threshold:.3});
-  io3.observe(svg);
-})();
-
-// Pillar filter on cards
-document.getElementById('filters').addEventListener('click', ev => {
-  const b = ev.target.closest('button'); if (!b) return;
-  document.querySelectorAll('#filters button').forEach(x => x.classList.toggle('on', x===b));
-  document.querySelectorAll('.card').forEach(c => c.classList.toggle('hide', b.dataset.f!=='all' && c.dataset.p!==b.dataset.f));
-});
+const step=d=>{if(lock)return;lock=true;go(cur+d);setTimeout(()=>lock=false,750);};
+addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>12)step(e.deltaY>0?1:-1);},{passive:true});
+addEventListener('keydown',e=>{if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();step(1);}if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();step(-1);}});
+let ty=null;addEventListener('touchstart',e=>{ty=[e.touches[0].clientX,e.touches[0].clientY];},{passive:true});
+addEventListener('touchend',e=>{if(!ty)return;const dx=e.changedTouches[0].clientX-ty[0],dy=e.changedTouches[0].clientY-ty[1];
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))step(dx<0?1:-1);ty=null;},{passive:true});
+lis.forEach(l=>l.addEventListener('click',()=>go(+l.dataset.i)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.goto)));
+document.getElementById('up').onclick=()=>step(-1);document.getElementById('dn').onclick=()=>step(1);
+go(+(location.hash.slice(1))||0);
 </script>
 </body>
 </html>
