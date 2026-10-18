@@ -136,8 +136,8 @@ footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-s
     </div>
   </div>
   <div class="rv d2">
-    <svg class="fan" id="fan" viewBox="0 0 520 360" role="img" aria-label="Illustrative Monte Carlo ensemble of trajectories, synthetic data"></svg>
-    <div class="fan-cap">Illustrative · Monte Carlo ensemble · synthetic data</div>
+    <svg class="fan" id="fan" viewBox="0 0 540 360" role="img" aria-label="Illustrative Monte Carlo ensemble of trajectories, synthetic data"></svg>
+    <div class="fan-cap">Illustrative · Monte Carlo ensemble, P10 to P90 · synthetic data</div>
   </div>
 </div></header>
 
@@ -231,28 +231,35 @@ const ioN = new IntersectionObserver(es => es.forEach(e => {
 document.querySelectorAll('[data-count]').forEach(el => ioN.observe(el));
 
 // Synthetic ensemble fan (illustrative, seeded, no real data)
+// P10-P90 and P25-P75 bands, a few member trajectories and the median.
+// Final state is drawn in the markup; the animation only reveals it (CSS keyframes),
+// so the fan reads correctly even if a viewer never runs the animation.
 (function(){
-  const svg = document.getElementById('fan'), W = 520, H = 360, N = 70, T = 60, ns = 'http://www.w3.org/2000/svg';
-  let s = 7; const r = () => (s = (s*16807) % 2147483647) / 2147483647;
+  const svg = document.getElementById('fan'), W = 520, H = 360, N = 400, T = 60, ns = 'http://www.w3.org/2000/svg';
+  let s = 11; const r = () => (s = (s*16807) % 2147483647) / 2147483647;
   const g = () => { let u=0; for (let i=0;i<6;i++) u+=r(); return u-3; };
-  const x = i => 30 + i*(W-50)/(T-1), y = v => H-40 - v*1.9;
-  const ejes = document.createElementNS(ns,'path');
-  ejes.setAttribute('d', `M30 ${H-40} H${W-20} M30 ${H-40} V20`);
-  ejes.setAttribute('stroke','#243145'); ejes.setAttribute('fill','none'); svg.appendChild(ejes);
+  const x = i => 34 + i*(W-58)/(T-1);
   const series = [];
-  for (let k=0;k<N;k++){ let v=20, d=[]; for (let i=0;i<T;i++){ v += 0.9 + g()*2.2*(1+i/T); v = Math.max(2,v); d.push(v);} series.push(d); }
-  const med = []; for (let i=0;i<T;i++){ const c = series.map(d=>d[i]).sort((a,b)=>a-b); med.push(c[Math.floor(N/2)]); }
-  const linea = (d, color, w, op, delay) => {
-    const p = document.createElementNS(ns,'path');
-    p.setAttribute('d', d.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+' '+y(v).toFixed(1)).join(''));
-    p.setAttribute('fill','none'); p.setAttribute('stroke',color); p.setAttribute('stroke-width',w);
-    p.setAttribute('stroke-opacity',op); p.setAttribute('stroke-linecap','round'); svg.appendChild(p);
-    const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
-    p.style.transition = `stroke-dashoffset 1.8s cubic-bezier(.3,.7,.2,1) ${delay}s`;
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{ p.style.strokeDashoffset = 0; }));
-  };
-  series.forEach((d,k)=>linea(d,'#5cc3cf',1,.16,k*0.012));
-  linea(med,'#e6edf3',2.4,1,1.0);
+  for (let k=0;k<N;k++){ let v=40, d=[]; for (let i=0;i<T;i++){ v += 0.55 + g()*1.15*(1+1.6*i/T); v = Math.max(4,v); d.push(v);} series.push(d); }
+  const q = p => { const o=[]; for (let i=0;i<T;i++){ const c=series.map(d=>d[i]).sort((a,b)=>a-b); o.push(c[Math.floor(p*(N-1))]); } return o; };
+  const p10=q(.10), p25=q(.25), p50=q(.50), p75=q(.75), p90=q(.90);
+  const vmax = Math.max(...p90)*1.08, vmin = Math.min(...p10)*0.85;
+  const y = v => (H-44) - (v-vmin)/(vmax-vmin)*(H-74);
+  const pts = d => d.map((v,i)=>x(i).toFixed(1)+' '+y(v).toFixed(1));
+  const el = (tag, at) => { const e=document.createElementNS(ns,tag); for (const k in at) e.setAttribute(k,at[k]); svg.appendChild(e); return e; };
+  const st = document.createElementNS(ns,'style');
+  st.textContent = '@keyframes fanIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}'
+    + '#fan .rev{animation:fanIn 2.2s cubic-bezier(.3,.7,.2,1) both}'
+    + '#fan .d1{animation-delay:.25s}#fan .d2{animation-delay:.5s}#fan .d3{animation-delay:.9s}';
+  svg.appendChild(st);
+  el('path',{d:`M34 ${H-44} H${W-24} M34 ${H-44} V24`,stroke:'#243145',fill:'none'});
+  const banda = (lo, hi, op, cls) => el('path',{d:'M'+pts(hi).join('L')+'L'+pts(lo).reverse().join('L')+'Z',fill:'#5cc3cf','fill-opacity':op,class:'rev '+cls});
+  banda(p10,p90,.16,''); banda(p25,p75,.22,'d1');
+  [3,41,97,150,233,301,377].forEach(k => el('path',{d:'M'+pts(series[k]).join('L'),fill:'none',stroke:'#5cc3cf','stroke-width':1.1,'stroke-opacity':.55,class:'rev d2'}));
+  el('path',{d:'M'+pts(p50).join('L'),fill:'none',stroke:'#e6edf3','stroke-width':2.6,'stroke-linecap':'round',class:'rev d3'});
+  const t = (tx, ty, txt) => { const e=el('text',{x:tx,y:ty,fill:'#9aa8b9','font-size':11,'font-family':'IBM Plex Mono, monospace',class:'rev d3'}); e.textContent=txt; };
+  t(W-22, y(p90[T-1])+4, 'P90'); t(W-22, y(p50[T-1])+4, 'P50'); t(W-22, y(p10[T-1])+4, 'P10');
+  svg.setAttribute('viewBox', `0 0 ${W+20} ${H}`);
 })();
 
 // Pillar filter on cards
