@@ -7,13 +7,12 @@
 <meta name="description" content="Water and Earth sciences engineer. I design and verify the scientific problems used to evaluate frontier AI models.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F5F0E6; --paper:#FBF8F1; --ink:#132A3A; --muted:#5B6870; --line:#DCD2C1;
   --teal:#2A7F8C; --teal-l:#8FC3C9; --sand:#B98A4E; --clay:#B5523B;
   --sans:'Outfit',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
   --wheel:min(36vw,58vh,470px);
 }
 *{box-sizing:border-box}
@@ -27,10 +26,9 @@ img,video{display:block;max-width:100%}
 @keyframes turn{to{transform:rotate(360deg)}}
 
 .brand{position:fixed;top:22px;left:32px;z-index:5;font-weight:600;font-size:15px}
-.brand span{font-family:var(--mono);font-weight:400;font-size:11.5px;color:var(--muted);letter-spacing:.12em;margin-left:10px;text-transform:uppercase}
+.brand span{font-weight:400;font-size:14px;color:var(--muted);margin-left:12px}
 .links{position:fixed;top:20px;right:32px;z-index:5;display:flex;gap:18px;font-size:14px;color:var(--muted)}
 .links a{text-decoration:none}.links a:hover{color:var(--ink)}
-.count{position:fixed;right:32px;bottom:104px;z-index:5;font-family:var(--mono);font-size:12px;color:var(--muted)}
 .arrows{position:fixed;right:32px;top:50%;z-index:6;display:flex;flex-direction:column;gap:10px;transform:translateY(-50%)}
 .arrows button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font-size:16px}
 
@@ -39,30 +37,30 @@ img,video{display:block;max-width:100%}
      padding:84px 120px 130px 64px;opacity:0;pointer-events:none;transform:translateX(40px);transition:opacity .6s ease,transform .6s ease}
 .sec.on{opacity:1;pointer-events:auto;transform:none}
 .sec.prev{transform:translateX(-40px)}
-.k{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.k{font-size:14px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:10px}
 .k i{width:9px;height:9px;border-radius:50%;display:inline-block}
 .water i{background:var(--teal)} .earth i{background:var(--sand)} .ai i{background:var(--ink)}
 .sec h2{font-size:clamp(24px,2.5vw,36px);line-height:1.12;font-weight:600;letter-spacing:-.015em;margin:12px 0 12px}
 .sec h2 small{display:block;font-size:.5em;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:6px}
-.sec p{color:var(--muted);font-size:15px;margin:0 0 18px;max-width:40em}
+.sec p{color:var(--ink);font-size:16px;margin:0 0 18px;max-width:40em}
 .fig{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:12px;max-width:40em}
-.fig b{font-family:var(--mono);font-weight:500;font-size:30px;line-height:1}
+.fig b{font-weight:600;font-size:32px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 .fig span{font-size:13.5px;color:var(--muted)}
 .fig a{margin-left:auto;font-size:14px;color:var(--teal);text-decoration:none}
 
 /* visuals sit on the page background: no panel */
 .vis{position:relative;height:min(60vh,560px);display:flex;flex-direction:column}
 .vis svg.v{flex:1;width:100%;height:100%;overflow:visible}
-.flag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7A5A22;border-bottom:1px solid #D9BF8C;padding:0 0 2px;margin-bottom:8px;align-self:flex-start}
+.flag{display:inline-block;font-size:13px;font-style:italic;color:#7A5A22;border-bottom:1px solid #D9BF8C;padding:0 0 2px;margin-bottom:8px;align-self:flex-start}
 
 /* intro */
 #s0{grid-template-columns:1fr}
-#s0 .in{max-width:1000px;min-width:0}
-#s0 h1{font-size:clamp(34px,5vw,70px);line-height:1.04;font-weight:700;letter-spacing:-.03em;margin:18px 0 18px;overflow-wrap:break-word}
+#s0 .in{max-width:1280px;min-width:0}
+#s0 h1{font-size:clamp(32px,4.1vw,62px);max-width:22em;line-height:1.04;font-weight:700;letter-spacing:-.03em;margin:18px 0 18px;overflow-wrap:break-word}
 #s0 h1 em{font-style:normal;color:var(--teal)}
-#s0 p{font-size:18px;max-width:38em}
+#s0 p{font-size:18px;max-width:40em;color:var(--ink)}
 .mets{display:grid;grid-template-columns:repeat(4,auto);gap:46px;margin:30px 0 30px;justify-content:start}
-.mets b{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(26px,3vw,40px);line-height:1}
+.mets b{display:block;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em;font-size:clamp(26px,3vw,40px);line-height:1}
 .mets span{font-size:13px;color:var(--muted)}
 .go{display:inline-flex;gap:10px;align-items:center;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:13px 22px;font:500 15px var(--sans);cursor:pointer}
 
@@ -72,9 +70,12 @@ img,video{display:block;max-width:100%}
 #wheel svg{width:100%;height:100%;overflow:visible}
 #wheel .rot{transform-origin:200px 200px;transition:transform 1s cubic-bezier(.4,.1,.2,1)}
 #wheel .lab{transition:transform 1s cubic-bezier(.4,.1,.2,1)}
-#wheel .node{cursor:pointer}
+#wheel .node{cursor:pointer;outline:none}
+#wheel .node:focus-visible circle.d{stroke:var(--ink);stroke-width:3}
+.tl li:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:6px}
+.go:focus-visible,.btn:focus-visible,.arrows button:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
 #wheel .node circle.d{transition:fill .4s,stroke .4s,r .4s}
-#wheel .node text{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;fill:var(--ink);text-anchor:middle;pointer-events:none}
+#wheel .node text{font-family:var(--sans);font-size:11.5px;font-weight:500;fill:var(--ink);text-anchor:middle;pointer-events:none}
 #wheel .node.on circle.d{fill:var(--ink)} #wheel .node.on text{fill:var(--paper);font-weight:600}
 .sec.plat{grid-template-columns:1fr;padding-left:calc(var(--wheel) + 120px);align-content:center;gap:18px}
 .sec.plat .vis{height:min(44vh,430px)}
@@ -82,7 +83,7 @@ img,video{display:block;max-width:100%}
 
 /* contact */
 .repo{display:block;text-decoration:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;margin-top:8px}
-.repo b{font-family:var(--mono);font-weight:500;font-size:15px}
+.repo b{font-weight:600;font-size:16px}
 .repo p{margin:8px 0 0}
 .btns{display:flex;gap:12px;flex-wrap:wrap}
 .btn{display:inline-flex;padding:12px 20px;border-radius:999px;border:1px solid var(--ink);text-decoration:none;font-weight:500;font-size:15px}
@@ -103,9 +104,9 @@ img,video{display:block;max-width:100%}
 .morph{position:relative;flex:1;min-height:0}
 .morph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .read{margin-top:6px;display:flex;align-items:baseline;gap:4px}
-.read b{font-family:var(--mono);font-weight:500;font-size:26px}
+.read b{font-weight:600;font-size:28px;font-variant-numeric:tabular-nums}
 .read span{font-size:13px;color:var(--muted);margin-left:10px}
-.ctrl{display:flex;align-items:center;gap:12px;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.ctrl{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:13px;color:var(--muted)}
 .ctrl input{flex:1;accent-color:var(--teal)}
 .vid{flex:1;min-height:0;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .vid video{max-height:100%;width:auto;max-width:100%;border-radius:10px;box-shadow:0 1px 0 var(--line)}
@@ -130,8 +131,8 @@ img,video{display:block;max-width:100%}
   .sec.plat{padding-left:20px;padding-top:calc(min(70vw,300px) + 70px);align-content:start}
   #wheel{left:50%;top:56px;width:min(70vw,300px);height:min(70vw,300px);transform:translateX(-50%)}
   .vis,.sec.plat .vis{height:42vh}
-  .links,.arrows,.count{display:none}
-  .tl{left:0;right:0;bottom:0;padding:22px 16px 14px;height:auto;background:linear-gradient(rgba(245,240,230,0),var(--bg) 35%)}
+  .links,.arrows{display:none}
+  .tl{left:0;right:0;bottom:0;padding:22px 16px 14px;height:auto;background:var(--bg)}
   .tl .rail,.tl .prog{top:36px}
   .tl li span{display:none}
   .mets{grid-template-columns:repeat(2,auto);gap:22px}
@@ -143,7 +144,6 @@ img,video{display:block;max-width:100%}
 <svg id="web" aria-hidden="true"></svg>
 <div class="brand">Carlos M. Ramírez<span>Water · Earth · AI</span></div>
 <div class="links"><a href="https://github.com/xmanuelramirez">GitHub</a><a href="https://www.linkedin.com/in/rgcarlosramirez/">LinkedIn</a><a href="mailto:xmanuelramirez@outlook.com">Email</a></div>
-<div class="count" id="count"></div>
 <div class="arrows"><button id="up" aria-label="Previous section">↑</button><button id="dn" aria-label="Next section">↓</button></div>
 <div id="wheel"><svg viewBox="-40 -40 480 480" role="img" aria-label="Catalog of smart platforms"></svg></div>
 
@@ -181,7 +181,7 @@ img,video{display:block;max-width:100%}
       <div style="display:flex;flex-direction:column;min-height:0">
         <div class="morph"><img src="assets/reservoir-low.webp" alt="AI-generated illustration of a reservoir at low storage"><img id="mFull" src="assets/reservoir-full.webp" alt="AI-generated illustration of a reservoir at full storage">
         </div>
-        <div class="ctrl">DRY<input id="mRange" type="range" min="0" max="100" value="100" aria-label="Scenario storage, illustrative">FULL</div>
+        <div class="ctrl">Dry<input id="mRange" type="range" min="0" max="100" value="100" aria-label="Scenario storage, illustrative">Full</div>
         <div class="read"><b id="mPct">90</b><b style="font-size:16px">%</b> <span id="mScn">Scenario A · wet year</span></div>
       </div>
       <svg class="v" id="v2" viewBox="0 0 400 300"></svg>
@@ -291,7 +291,7 @@ const NS='http://www.w3.org/2000/svg';
 const mk=(p,tag,at,txt)=>{const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e;};
 const C={ink:'#132A3A',muted:'#5B6870',line:'#DCD2C1',teal:'#2A7F8C',tealL:'#8FC3C9',sand:'#B98A4E',clay:'#B5523B',paper:'#FBF8F1'};
 let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-const T=(p,x,y,s,at={})=>mk(p,'text',Object.assign({x,y,'font-family':'IBM Plex Mono, monospace','font-size':11,fill:C.muted},at),s);
+const T=(p,x,y,s,at={})=>mk(p,'text',Object.assign({x,y,'font-family':'Outfit, sans-serif','font-size':12.5,fill:C.muted},at),s);
 const draw=(e,d,dur)=>{const L=Math.ceil(e.getTotalLength?e.getTotalLength():800)+2;e.classList.add('draw');e.style.setProperty('--L',L);e.style.setProperty('--d',(d||0)+'s');if(dur)e.style.animationDuration=dur+'s';return e;};
 const geo=(p,key,at,tx)=>mk(p,'path',Object.assign({d:GEO[key],transform:tx||''},at));
 
@@ -315,7 +315,7 @@ const SECS=[
 // wheel: seven platforms on a heptagon around the hub, the agent on an outer orbit
 const WHEEL=(function(){
   const s=document.querySelector('#wheel svg');
-  const names=['SICLAR','SIMEP','CAUCE','CLIMATE','BALANCE','ACCOUNTS','OBSERV.'];
+  const names=['SICLAR','SIMEP','CAUCE','Climate','Balance','Accounts','Observatory'];
   const cls=['earth','water','water','earth','water','water','earth'];
   const col={earth:C.sand,water:C.teal};
   const R=150,step=360/7;
@@ -325,19 +325,19 @@ const WHEEL=(function(){
   const nodes=[];
   names.forEach((n,i)=>{const a=i*step,x=200+R*Math.cos(a*Math.PI/180),y=200+R*Math.sin(a*Math.PI/180);
     mk(rot,'line',{x1:200,y1:200,x2:x,y2:y,stroke:C.line});
-    const g=mk(rot,'g',{class:'node','data-i':i+1});
+    const g=mk(rot,'g',{class:'node','data-i':i+1,tabindex:0,role:'button','aria-label':n});
     mk(g,'circle',{cx:x,cy:y,r:38,fill:C.paper,stroke:col[cls[i]],'stroke-width':2,class:'d'});
     const lab=mk(g,'g',{class:'lab'});lab.style.transformOrigin=`${x}px ${y}px`;
     mk(lab,'text',{x,y:y+4},n);
     nodes.push({g,lab,a});});
   // agent satellite
-  const ag=mk(rot,'g',{class:'node','data-i':8});
+  const ag=mk(rot,'g',{class:'node','data-i':8,tabindex:0,role:'button','aria-label':'Vigía'});
   const agc=mk(ag,'circle',{cx:200+R+70,cy:200,r:24,fill:C.paper,stroke:C.ink,'stroke-width':1.5,class:'d'});
-  const agl=mk(ag,'g',{class:'lab'});agl.style.transformOrigin=`${200+R+70}px 200px`;mk(agl,'text',{x:200+R+70,y:204},'VIGÍA');
+  const agl=mk(ag,'g',{class:'lab'});agl.style.transformOrigin=`${200+R+70}px 200px`;mk(agl,'text',{x:200+R+70,y:204},'Vigía');
   nodes.push({g:ag,lab:agl,a:0});
   // hub
   mk(s,'circle',{cx:200,cy:200,r:52,fill:C.ink});
-  mk(s,'text',{x:200,y:197,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','font-size':12,'font-weight':600,fill:C.paper},'SISPLAN');
+  mk(s,'text',{x:200,y:197,'text-anchor':'middle','font-family':'Outfit, sans-serif','font-size':12,'font-weight':600,fill:C.paper},'SISPLAN');
   mk(s,'text',{x:200,y:213,'text-anchor':'middle','font-family':'Outfit, sans-serif','font-size':9.5,fill:'#C9D2D8'},'planning portal');
   s.addEventListener('click',e=>{const n=e.target.closest('.node');if(n)go(+n.dataset.i);});
   let ang=0;
@@ -359,7 +359,7 @@ const WHEEL=(function(){
   const rc=mk(s,'g',{'clip-path':'url(#clipLim)'});
   [[120,220,70,0],[240,150,55,3],[180,300,60,6]].forEach(([x,y,r,d])=>{const c=mk(rc,'circle',{cx:x,cy:y,r,fill:C.teal,'fill-opacity':.22,class:'drift',style:`--d:${d}s`});});
   seed=21;const x0=450,y0=330,w=300,n=30,bw=w/(n+4);
-  T(s,x0,40,'DAILY RAINFALL');T(s,x0+w-90,40,'3-DAY FORECAST',{fill:C.teal});
+  T(s,x0,40,'Daily rainfall');T(s,x0+w-90,40,'3-day forecast',{fill:C.teal});
   mk(s,'path',{d:`M${x0} ${y0} H${x0+w}`,stroke:C.line});
   for(let i=0;i<n;i++){if(rnd()>.5)continue;const h=8+Math.pow(rnd(),1.7)*200;mk(s,'rect',{x:x0+i*bw+1,y:y0-h,width:bw-2,height:h,rx:1.5,fill:h>140?C.ink:C.sand,class:'grow',style:`--d:${.6+i*.03}s`});}
   [.72,.41,.18].forEach((p,k)=>{const x=x0+(n+1+k)*bw;mk(s,'rect',{x,y:y0-p*230,width:bw-2,height:p*230,rx:2,fill:C.teal,'fill-opacity':.3+p*.6,class:'grow',style:`--d:${1.8+k*.2}s`});
@@ -380,7 +380,7 @@ const WHEEL=(function(){
   band(q(.1),q(.9),.15,.3);band(q(.25),q(.75),.22,.6);
   draw(mk(s,'path',{d:'M'+pts(q(.5)).join('L'),fill:'none',stroke:C.ink,'stroke-width':2.4}),.8);
   T(s,W-26,y(q(.9)[TT-1])+4,'P90');T(s,W-26,y(q(.5)[TT-1])+4,'P50',{fill:C.ink});T(s,W-26,y(q(.1)[TT-1])+4,'P10');
-  T(s,20,16,'STORAGE ENSEMBLE · P10 TO P90');T(s,W-100,H-10,'horizon →');
+  T(s,20,16,'Storage ensemble, P10 to P90');T(s,W-100,H-10,'horizon →');
 })();
 
 // 3 CAUCE: municipality, urban area, the watershed drawing in, outlet pulse, hydrograph
@@ -396,7 +396,7 @@ const WHEEL=(function(){
   mk(m,'circle',{cx:ox,cy:oy,r:5,fill:C.teal,class:'ping',style:'--d:2s'});mk(m,'circle',{cx:ox,cy:oy,r:4,fill:C.ink});
   T(m,ox+10,oy+4,'click → watershed',{fill:C.ink});
   const x0=470,y0=330,w=270,h=250;
-  mk(s,'path',{d:`M${x0} 60 V${y0} H${x0+w}`,stroke:C.line,fill:'none'});T(s,x0,50,'DESIGN DISCHARGE · SCS UNIT HYDROGRAPH');
+  mk(s,'path',{d:`M${x0} 60 V${y0} H${x0+w}`,stroke:C.line,fill:'none'});T(s,x0,50,'Design discharge, SCS unit hydrograph');
   let d='';for(let i=0;i<=60;i++){const t=i/60*5,q=Math.pow(t,3.7)*Math.exp(-3.7*(t-1));d+=(i?'L':'M')+(x0+i/60*w).toFixed(1)+' '+(y0-Math.min(q,1.02)*h*.9).toFixed(1);}
   draw(mk(s,'path',{d,fill:'none',stroke:C.teal,'stroke-width':2.5}),1.2);
   // A/B/C reaches strip
@@ -408,12 +408,12 @@ const WHEEL=(function(){
 // 4 Climate: warming-stripes style anomalies 1981-2026 + rising extremes line (synthetic)
 (function(){
   const s=document.getElementById('v4');seed=4;const n=46,x0=30,w=700,bw=w/n;
-  T(s,x0,30,'ANNUAL TEMPERATURE ANOMALY · 1981 TO 2026');
+  T(s,x0,30,'Annual temperature anomaly, 1981 to 2026');
   for(let i=0;i<n;i++){const a=-0.6+i/n*1.4+(rnd()-.5)*.6;const t=Math.max(-1,Math.min(1,a));
     const c=t<0?`rgba(42,127,140,${(.25+.65*-t).toFixed(2)})`:`rgba(181,82,59,${(.2+.7*t).toFixed(2)})`;
     mk(s,'rect',{x:x0+i*bw,y:46,width:bw+.5,height:170,fill:c,class:'pop',style:`--d:${i*.035}s`});}
   T(s,x0,236,'1981');T(s,x0+w-34,236,'2026');
-  T(s,x0,280,'HOT DAYS PER YEAR');
+  T(s,x0,280,'Hot days per year');
   let d='';const y0=380;for(let i=0;i<n;i++){const v=18+i*.5+(rnd()-.5)*14;d+=(i?'L':'M')+(x0+i*bw+bw/2).toFixed(1)+' '+(y0-v*2).toFixed(1);}
   draw(mk(s,'path',{d,fill:'none',stroke:C.clay,'stroke-width':2}),1.4);
   mk(s,'path',{d:`M${x0} ${y0} H${x0+w}`,stroke:C.line});
@@ -424,7 +424,7 @@ const WHEEL=(function(){
   const s=document.getElementById('v5');
   const secs=[['Sector 1',.26,.82],['Sector 2',.22,.74],['Sector 3',.2,.88],['Sector 4',.18,.69],['Sector 5',.14,.79]];
   const H=300,top=50,X1=40,X2=300,X3=560;let y=top;
-  mk(s,'rect',{x:X1,y:top,width:18,height:H,fill:C.ink,class:'grow'});T(s,X1,top-12,'INJECTED',{fill:C.ink});
+  mk(s,'rect',{x:X1,y:top,width:18,height:H,fill:C.ink,class:'grow'});T(s,X1,top-12,'Injected',{fill:C.ink});
   let yb=top,yn=top+H*.79+20;
   secs.forEach(([n,sh,ef],i)=>{const h=sh*H,dl=.3+i*.15;
     draw(mk(s,'path',{d:`M${X1+18} ${y+h/2} C${(X1+X2)/2} ${y+h/2} ${(X1+X2)/2} ${top+i*64+h/2} ${X2} ${top+i*64+h/2}`,fill:'none',stroke:C.tealL,'stroke-width':h*.85,'stroke-opacity':.5}),dl);
@@ -432,7 +432,7 @@ const WHEEL=(function(){
     T(s,X2+22,sy+h/2+4,n+' · '+Math.round(ef*100)+'%',{fill:C.ink,class:'pop',style:`--d:${dl+.8}s`});
     draw(mk(s,'path',{d:`M${X2+14} ${sy+h*ef/2} C${(X2+X3)/2} ${sy+h*ef/2} ${(X2+X3)/2} ${yb+h*ef/2} ${X3} ${yb+h*ef/2}`,fill:'none',stroke:C.teal,'stroke-width':h*ef*.85,'stroke-opacity':.45}),dl+1);
     yb+=h*ef;y+=h;});
-  mk(s,'rect',{x:X3,y:top,width:18,height:yb-top,fill:C.teal,class:'grow',style:'--d:1.8s'});T(s,X3+28,top+12,'BILLED',{fill:C.ink});
+  mk(s,'rect',{x:X3,y:top,width:18,height:yb-top,fill:C.teal,class:'grow',style:'--d:1.8s'});T(s,X3+28,top+12,'Billed',{fill:C.ink});
   T(s,X2+150,top+H+40,'efficiency per sector = billed / injected',{fill:C.ink});
 })();
 
@@ -448,7 +448,7 @@ const WHEEL=(function(){
   for(let i=0;i<1400;i++){const x=130+(mx+rnd()*(Mx-mx))*2.4,y=-205+(my+rnd()*(My-my))*2.4;const k=Math.min(3,Math.floor(Math.pow(rnd(),1.6)*4));
     mk(g,'circle',{cx:x.toFixed(1),cy:y.toFixed(1),r:2,fill:cols[k],class:'pop',style:`--d:${(i/1400*2).toFixed(2)}s`});}
   ['low','medium','high','very high'].forEach((l,i)=>{mk(s,'circle',{cx:40,cy:250+i*24,r:6,fill:cols[i]});T(s,54,254+i*24,l,{fill:C.ink});});
-  T(s,30,226,'CONSUMPTION CLASS');
+  T(s,30,226,'Consumption class');
 })();
 
 // 8 Vigia: three sources -> agent -> example messages
@@ -456,15 +456,15 @@ const WHEEL=(function(){
   const s=document.getElementById('v8');
   const src=['SICLAR','SIMEP','Observatory'];
   src.forEach((n,i)=>{const y=80+i*110;const g=mk(s,'g',{class:'pop',style:`--d:${i*.15}s`});
-    mk(g,'rect',{x:20,y:y-22,width:150,height:44,rx:22,fill:C.paper,stroke:C.ink});mk(g,'text',{x:95,y:y+5,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','font-size':12,fill:C.ink},n);
+    mk(g,'rect',{x:20,y:y-22,width:150,height:44,rx:22,fill:C.paper,stroke:C.ink});mk(g,'text',{x:95,y:y+5,'text-anchor':'middle','font-family':'Outfit, sans-serif','font-size':12,fill:C.ink},n);
     draw(mk(s,'path',{d:`M170 ${y} C230 ${y} 230 190 290 190`,fill:'none',stroke:C.teal,'stroke-width':1.6}),.4+i*.1);});
-  const a=mk(s,'g',{class:'pop',style:'--d:.8s'});mk(a,'circle',{cx:330,cy:190,r:40,fill:C.ink});mk(a,'text',{x:330,y:195,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','font-size':12,'font-weight':600,fill:C.paper},'VIGÍA');
+  const a=mk(s,'g',{class:'pop',style:'--d:.8s'});mk(a,'circle',{cx:330,cy:190,r:40,fill:C.ink});mk(a,'text',{x:330,y:195,'text-anchor':'middle','font-family':'Outfit, sans-serif','font-size':12,'font-weight':600,fill:C.paper},'Vigía');
   draw(mk(s,'path',{d:'M370 190 H430',fill:'none',stroke:C.teal,'stroke-width':1.6}),1);
   mk(s,'rect',{x:440,y:20,width:300,height:350,rx:26,fill:C.paper,stroke:C.ink});
   const msgs=['Rain measured: heavy rain at 3 stations','Forecast: 72% chance of rain tomorrow','Reservoir level crossed the alert line','New construction detected: 16 zones'];
   msgs.forEach((m,i)=>{const y=60+i*76;const g=mk(s,'g',{class:'pop',style:`--d:${1.3+i*.6}s`});
     mk(g,'rect',{x:456,y,width:268,height:58,rx:12,fill:'#fff',stroke:C.line});
-    mk(g,'text',{x:470,y:y+22,'font-family':'IBM Plex Mono, monospace','font-size':10,fill:C.teal},'VIGÍA · auto alert');
+    mk(g,'text',{x:470,y:y+22,'font-family':'Outfit, sans-serif','font-size':10,fill:C.teal},'Vigía · auto alert');
     mk(g,'text',{x:470,y:y+42,'font-family':'Outfit, sans-serif','font-size':12.5,fill:C.ink},m);});
 })();
 
@@ -502,11 +502,11 @@ const WHEEL=(function(){
 // 11 calibration
 (function(){
   const s=document.getElementById('v11');const x0=40;
-  T(s,x0,40,'SHORTCUT AND FABRICATED-VALUE PROBES · SCORE');
+  T(s,x0,40,'Shortcut and fabricated-value probes, score');
   for(let i=0;i<10;i++){const x=x0+i*28;mk(s,'rect',{x,y:60,width:20,height:90,rx:3,fill:'none',stroke:C.ink,'stroke-opacity':.25});
     mk(s,'rect',{x,y:148,width:20,height:2,fill:C.ink,class:'pop',style:`--d:${.2+i*.08}s`});T(s,x+4,170,'0',{fill:C.ink,class:'pop',style:`--d:${.2+i*.08}s`});}
   T(s,x0+300,108,'0 of 10 score',{fill:C.ink,'font-size':14,class:'pop',style:'--d:1.2s'});
-  T(s,x0,222,'MODEL PASS RATE BY VERSION (FICTITIOUS)');
+  T(s,x0,222,'Model pass rate by version (fictitious)');
   const v=[.8,.55,.3,.1],yb=380;mk(s,'line',{x1:x0,y1:yb,x2:x0+520,y2:yb,stroke:C.line});
   const th=yb-.2*140;draw(mk(s,'line',{x1:x0,y1:th,x2:x0+520,y2:th,stroke:C.clay,'stroke-dasharray':'6 5'}),1);T(s,x0+430,th-8,'ship threshold',{fill:C.clay});
   v.forEach((p,k)=>{const x=x0+40+k*110;mk(s,'rect',{x,y:yb-p*140,width:60,height:p*140,rx:4,fill:k===3?C.ink:C.tealL,class:'grow',style:`--d:${1.2+k*.3}s`});T(s,x+16,yb+18,'v'+(k+1),{fill:C.ink});});
@@ -529,7 +529,7 @@ function count(el){const fin=parseFloat(el.dataset.count),dec=+(el.dataset.dec||
 
 // timeline
 const tl=document.getElementById('tl');
-SECS.forEach((s,i)=>{const li=document.createElement('li');li.className=s.c;li.dataset.i=i;li.innerHTML='<i></i><span>'+s.lab+'</span>';tl.appendChild(li);});
+SECS.forEach((s,i)=>{const li=document.createElement('li');li.className=s.c;li.dataset.i=i;li.innerHTML='<i></i><span>'+s.lab+'</span>';li.tabIndex=0;li.setAttribute('role','button');li.setAttribute('aria-label',s.lab);tl.appendChild(li);});
 
 // navigation
 const secs=SECS.map(s=>document.getElementById(s.id)),lis=[...tl.children],vid=document.getElementById('vid'),wheel=document.getElementById('wheel');
@@ -542,7 +542,6 @@ function go(i){
   lis.forEach((l,k)=>l.classList.toggle('on',k===i));
   const r=document.querySelector('.tl').getBoundingClientRect(),d=lis[i].querySelector('i').getBoundingClientRect();
   document.getElementById('prog').style.width=Math.max(0,d.left+d.width/2-r.left)+'px';
-  document.getElementById('count').textContent=String(i+1).padStart(2,'0')+' / '+secs.length;
   const node=secs[i].dataset.node;
   wheel.classList.toggle('on',node!=null);if(node!=null)WHEEL.set(+node);
   if(i===0)secs[0].querySelectorAll('[data-count]').forEach(count);
@@ -552,7 +551,7 @@ function go(i){
 }
 const step=d=>{if(lock)return;lock=true;go(cur+d);setTimeout(()=>lock=false,750);};
 addEventListener('wheel',e=>{if(e.target.closest('input'))return;if(Math.abs(e.deltaY)>12)step(e.deltaY>0?1:-1);},{passive:true});
-addEventListener('keydown',e=>{if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();step(1);}if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();step(-1);}});
+addEventListener('keydown',e=>{const tg=e.target.closest&&e.target.closest('[data-i]');if(tg&&(e.key==='Enter'||e.key===' ')){e.preventDefault();go(+tg.dataset.i);return;}if(e.target.closest&&e.target.closest('input'))return;if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();step(1);}if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();step(-1);}});
 let ty=null;addEventListener('touchstart',e=>{ty=[e.touches[0].clientX,e.touches[0].clientY];},{passive:true});
 addEventListener('touchend',e=>{if(!ty)return;const dx=e.changedTouches[0].clientX-ty[0],dy=e.changedTouches[0].clientY-ty[1];
   if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))step(dx<0?1:-1);ty=null;},{passive:true});
