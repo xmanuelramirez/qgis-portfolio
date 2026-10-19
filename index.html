@@ -14,6 +14,7 @@
   --teal:#2A7F8C; --teal-l:#8FC3C9; --sand:#B98A4E; --clay:#B5523B;
   --sans:'Outfit',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --wheel:min(36vw,58vh,470px);
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden}
@@ -21,19 +22,19 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16p
 a{color:inherit}
 img,video{display:block;max-width:100%}
 
-/* background: burst web, slowly turning */
 #web{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-#web g{transform-origin:88% 108%;animation:turn 260s linear infinite}
+#web g.turn{transform-origin:1408px 1080px;animation:turn 260s linear infinite}
 @keyframes turn{to{transform:rotate(360deg)}}
 
-/* frame */
-.brand{position:fixed;top:22px;left:32px;z-index:5;font-weight:600;font-size:15px;letter-spacing:.01em}
+.brand{position:fixed;top:22px;left:32px;z-index:5;font-weight:600;font-size:15px}
 .brand span{font-family:var(--mono);font-weight:400;font-size:11.5px;color:var(--muted);letter-spacing:.12em;margin-left:10px;text-transform:uppercase}
 .links{position:fixed;top:20px;right:32px;z-index:5;display:flex;gap:18px;font-size:14px;color:var(--muted)}
 .links a{text-decoration:none}.links a:hover{color:var(--ink)}
 .count{position:fixed;right:32px;bottom:104px;z-index:5;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.arrows{position:fixed;right:32px;top:50%;z-index:6;display:flex;flex-direction:column;gap:10px;transform:translateY(-50%)}
+.arrows button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font-size:16px}
 
-/* sections: one viewport each, no page scroll */
+/* one viewport per section */
 .sec{position:fixed;inset:0;z-index:1;display:grid;grid-template-columns:minmax(300px,.8fr) 1.2fr;gap:56px;align-items:center;
      padding:84px 120px 130px 64px;opacity:0;pointer-events:none;transform:translateX(40px);transition:opacity .6s ease,transform .6s ease}
 .sec.on{opacity:1;pointer-events:auto;transform:none}
@@ -41,33 +42,46 @@ img,video{display:block;max-width:100%}
 .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .k i{width:9px;height:9px;border-radius:50%;display:inline-block}
 .water i{background:var(--teal)} .earth i{background:var(--sand)} .ai i{background:var(--ink)}
-.sec h2{font-size:clamp(26px,2.7vw,38px);line-height:1.12;font-weight:600;letter-spacing:-.015em;margin:14px 0 14px}
-.sec p{color:var(--muted);font-size:15.5px;margin:0 0 22px;max-width:34em}
-.fig{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:14px;max-width:34em}
-.fig b{font-family:var(--mono);font-weight:500;font-size:34px;line-height:1}
+.sec h2{font-size:clamp(24px,2.5vw,36px);line-height:1.12;font-weight:600;letter-spacing:-.015em;margin:12px 0 12px}
+.sec h2 small{display:block;font-size:.5em;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:6px}
+.sec p{color:var(--muted);font-size:15px;margin:0 0 18px;max-width:40em}
+.fig{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--line);padding-top:12px;max-width:40em}
+.fig b{font-family:var(--mono);font-weight:500;font-size:30px;line-height:1}
 .fig span{font-size:13.5px;color:var(--muted)}
 .fig a{margin-left:auto;font-size:14px;color:var(--teal);text-decoration:none}
 
-/* visual panel */
-.vis{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;height:min(62vh,560px);display:flex;flex-direction:column}
-.vis svg.v{flex:1;width:100%;height:100%}
-.flag{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7A5A22;background:#F3E6CC;border:1px solid #E2CDA2;border-radius:4px;padding:3px 8px;z-index:2}
-.cap{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px}
+/* visuals sit on the page background: no panel */
+.vis{position:relative;height:min(60vh,560px);display:flex;flex-direction:column}
+.vis svg.v{flex:1;width:100%;height:100%;overflow:visible}
+.flag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#7A5A22;border-bottom:1px solid #D9BF8C;padding:0 0 2px;margin-bottom:8px;align-self:flex-start}
 
 /* intro */
 #s0{grid-template-columns:1fr}
-#s0 .in{max-width:1000px}
-#s0 h1{font-size:clamp(38px,5.2vw,72px);line-height:1.04;font-weight:700;letter-spacing:-.03em;margin:18px 0 18px}
+#s0 .in{max-width:1000px;min-width:0}
+#s0 h1{font-size:clamp(34px,5vw,70px);line-height:1.04;font-weight:700;letter-spacing:-.03em;margin:18px 0 18px;overflow-wrap:break-word}
 #s0 h1 em{font-style:normal;color:var(--teal)}
 #s0 p{font-size:18px;max-width:38em}
-.mets{display:grid;grid-template-columns:repeat(4,auto);gap:46px;margin:34px 0 34px;justify-content:start}
-.mets b{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(28px,3vw,40px);line-height:1}
+.mets{display:grid;grid-template-columns:repeat(4,auto);gap:46px;margin:30px 0 30px;justify-content:start}
+.mets b{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(26px,3vw,40px);line-height:1}
 .mets span{font-size:13px;color:var(--muted)}
 .go{display:inline-flex;gap:10px;align-items:center;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:13px 22px;font:500 15px var(--sans);cursor:pointer}
 
+/* platform catalog: the wheel stays, the right side changes */
+#wheel{position:fixed;left:56px;top:calc(50% - 22px);width:var(--wheel);height:var(--wheel);transform:translateY(-50%);z-index:3;opacity:0;pointer-events:none;transition:opacity .5s}
+#wheel.on{opacity:1;pointer-events:auto}
+#wheel svg{width:100%;height:100%;overflow:visible}
+#wheel .rot{transform-origin:200px 200px;transition:transform 1s cubic-bezier(.4,.1,.2,1)}
+#wheel .lab{transition:transform 1s cubic-bezier(.4,.1,.2,1)}
+#wheel .node{cursor:pointer}
+#wheel .node circle.d{transition:fill .4s,stroke .4s,r .4s}
+#wheel .node text{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;fill:var(--ink);text-anchor:middle;pointer-events:none}
+#wheel .node.on circle.d{fill:var(--ink)} #wheel .node.on text{fill:var(--paper);font-weight:600}
+.sec.plat{grid-template-columns:1fr;padding-left:calc(var(--wheel) + 120px);align-content:center;gap:18px}
+.sec.plat .vis{height:min(44vh,430px)}
+.sec.plat .txt{max-width:820px}
+
 /* contact */
-#s9{grid-template-columns:1fr 1fr}
-.repo{display:block;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:8px}
+.repo{display:block;text-decoration:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;margin-top:8px}
 .repo b{font-family:var(--mono);font-weight:500;font-size:15px}
 .repo p{margin:8px 0 0}
 .btns{display:flex;gap:12px;flex-wrap:wrap}
@@ -79,161 +93,185 @@ img,video{display:block;max-width:100%}
 .tl .rail{position:absolute;left:0;right:0;top:14px;height:1px;background:var(--line)}
 .tl .prog{position:absolute;left:0;top:14px;height:2px;background:var(--ink);transition:width .6s ease}
 .tl ol{list-style:none;margin:0;padding:0;position:relative;display:flex;justify-content:space-between}
-.tl li{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;width:9%;min-width:0}
+.tl li{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;flex:1;min-width:0}
 .tl li i{width:11px;height:11px;border-radius:50%;margin-top:9px;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--line);transition:transform .3s}
 .tl li.water i{background:var(--teal)} .tl li.earth i{background:var(--sand)} .tl li.ai i{background:var(--ink)} .tl li.n i{background:var(--paper)}
-.tl li span{font-size:11.5px;color:var(--muted);white-space:nowrap;transition:color .3s}
+.tl li span{font-size:11px;color:var(--muted);white-space:nowrap;transition:color .3s}
 .tl li.on i{transform:scale(1.6)} .tl li.on span{color:var(--ink);font-weight:600}
-.tl .grp{position:absolute;top:-22px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted)}
-.arrows{position:fixed;right:32px;top:50%;z-index:6;display:flex;flex-direction:column;gap:10px;transform:translateY(-50%)}
-.arrows button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font-size:16px}
 
-/* reservoir morph */
-.morph{position:relative;flex:1;border-radius:12px;overflow:hidden;background:#020b25}
+/* reservoir morph on the page background */
+.morph{position:relative;flex:1;min-height:0}
 .morph img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-.morph .read{position:absolute;left:12px;bottom:12px;background:rgba(251,248,241,.92);border-radius:10px;padding:8px 12px}
-.morph .read b{font-family:var(--mono);font-weight:500;font-size:28px}
-.morph .read div{font-size:13px;color:var(--muted)}
-.ctrl{display:flex;align-items:center;gap:12px;margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.read{margin-top:6px;display:flex;align-items:baseline;gap:4px}
+.read b{font-family:var(--mono);font-weight:500;font-size:26px}
+.read span{font-size:13px;color:var(--muted);margin-left:10px}
+.ctrl{display:flex;align-items:center;gap:12px;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--muted)}
 .ctrl input{flex:1;accent-color:var(--teal)}
-.vid{flex:1;border-radius:12px;overflow:hidden;background:#000;display:flex;align-items:center}
-.vid video{width:100%;height:auto;margin-top:-5.5%}
-.map{flex:1;display:grid;grid-template-columns:1.25fr 1fr;gap:14px;min-height:0}
-.map .m{position:relative;background:#000;border-radius:12px;overflow:hidden}
-.map .m img{width:100%;height:100%;object-fit:contain}
-.ring{position:absolute;left:46%;top:50%;width:14px;height:14px;margin:-7px;border-radius:50%;border:2px solid #fff}
-.sec.on .ring{animation:ping 2s ease-out infinite}
-@keyframes ping{0%{transform:scale(1);opacity:1}100%{transform:scale(5);opacity:0}}
+.vid{flex:1;min-height:0;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.vid video{max-height:100%;width:auto;max-width:100%;border-radius:10px;box-shadow:0 1px 0 var(--line)}
 
 /* drawing helpers, restart on each entry */
 .sec.on .draw{stroke-dasharray:var(--L,1200);stroke-dashoffset:var(--L,1200);animation:draw 1.8s cubic-bezier(.3,.7,.2,1) forwards;animation-delay:var(--d,0s)}
 @keyframes draw{to{stroke-dashoffset:0}}
 .sec.on .grow{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);animation:grow .9s cubic-bezier(.3,.7,.2,1) forwards;animation-delay:var(--d,0s)}
 @keyframes grow{to{transform:scaleY(1)}}
+.sec.on .growx{transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);animation:growx 1s cubic-bezier(.3,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes growx{to{transform:scaleX(1)}}
 .sec.on .pop{opacity:0;animation:pop .5s ease forwards;animation-delay:var(--d,0s)}
 @keyframes pop{to{opacity:1}}
 .sec.on .rise{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(.05);animation:grow 2.4s cubic-bezier(.3,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+.sec.on .ping{transform-box:fill-box;transform-origin:center;animation:ping 2s ease-out infinite;animation-delay:var(--d,0s)}
+@keyframes ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(5);opacity:0}}
+.sec.on .drift{animation:drift 9s linear infinite;animation-delay:var(--d,0s)}
+@keyframes drift{0%{transform:translate(-90px,40px);opacity:0}15%{opacity:.85}85%{opacity:.85}100%{transform:translate(160px,-50px);opacity:0}}
 
-@media (max-width:860px){
-  html,body{overflow:hidden}
+@media (max-width:900px){
   .sec{grid-template-columns:1fr;gap:18px;padding:64px 20px 120px;align-content:start;overflow-y:auto}
-  .vis{height:46vh}
-  .links{display:none}.arrows{display:none}.count{display:none}
+  .sec.plat{padding-left:20px;padding-top:calc(min(70vw,300px) + 70px);align-content:start}
+  #wheel{left:50%;top:56px;width:min(70vw,300px);height:min(70vw,300px);transform:translateX(-50%)}
+  .vis,.sec.plat .vis{height:42vh}
+  .links,.arrows,.count{display:none}
   .tl{left:0;right:0;bottom:0;padding:22px 16px 14px;height:auto;background:linear-gradient(rgba(245,240,230,0),var(--bg) 35%)}
   .tl .rail,.tl .prog{top:36px}
   .tl li span{display:none}
   .mets{grid-template-columns:repeat(2,auto);gap:22px}
-  #s9{grid-template-columns:1fr}
-  .map{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
 <svg id="web" aria-hidden="true"></svg>
-
 <div class="brand">Carlos M. Ramírez<span>Water · Earth · AI</span></div>
 <div class="links"><a href="https://github.com/xmanuelramirez">GitHub</a><a href="https://www.linkedin.com/in/rgcarlosramirez/">LinkedIn</a><a href="mailto:xmanuelramirez@outlook.com">Email</a></div>
-<div class="count" id="count">01 / 10</div>
+<div class="count" id="count"></div>
 <div class="arrows"><button id="up" aria-label="Previous section">↑</button><button id="dn" aria-label="Next section">↓</button></div>
+<div id="wheel"><svg viewBox="-40 -40 480 480" role="img" aria-label="Catalog of smart platforms"></svg></div>
 
-<!-- 0 · intro -->
+<!-- 0 intro -->
 <section class="sec" id="s0"><div class="in">
   <div class="k">Carlos M. Ramírez · Water and Earth sciences engineer</div>
   <h1>I design and verify the scientific problems used to <em>evaluate frontier AI models</em>.</h1>
-  <p>AI benchmarks and evaluation, Earth sciences and water resources engineering: one profile, built from field data up. The timeline below runs from water engineering to AI evaluation.</p>
+  <p>AI benchmarks and evaluation, Earth sciences and water resources engineering: one profile, built from field data up. First the smart platforms I built for water planning, then the AI evaluation work.</p>
   <div class="mets">
     <div><b data-count="31">0</b><span>approved scientific benchmark tasks</span></div>
     <div><b data-count="40">0</b><span>benchmark packages delivered</span></div>
     <div><b data-count="2000" data-sep="1">0</b><span>member Monte Carlo ensemble</span></div>
     <div><b data-count="0.833" data-dec="3">0</b><span>AUC over 373 unseen days</span></div>
   </div>
-  <button class="go" data-goto="1">View the work →</button>
+  <button class="go" data-goto="1">View the platforms →</button>
 </div></section>
 
-<!-- 1 · urban streams -->
-<section class="sec" id="s1">
-  <div><div class="k water"><i></i>Water resources</div>
-    <h2>Urban stream capacity, 25-year design storm</h2>
-    <p>Hydraulic capacity of a city&#39;s urban streams from a 0.5 m LiDAR terrain model: cross-section profiling, erosive and sedimentation velocities, and a traffic-light classification per reach.</p>
-    <div class="fig"><b>A · B · C</b><span>reach classification · QGIS · LiDAR 0.5 m</span></div></div>
-  <div class="vis"><span class="flag">Schematic · synthetic reaches</span><svg class="v" id="v1" viewBox="0 0 640 420"></svg></div>
-</section>
-
-<!-- 2 · watershed -->
-<section class="sec" id="s2">
-  <div><div class="k water"><i></i>Water resources</div>
-    <h2>Watershed delineation to design discharge</h2>
-    <p>One click anywhere in the municipality: curve numbers from Sentinel-2, national soil data, IDF curves from local records, six time-of-concentration formulas and the SCS unit hydrograph, with piped storm drainage modeled as an edit to the flow graph.</p>
-    <div class="fig"><b>100%</b><span>agreement with WhiteboxTools</span></div></div>
-  <div class="vis"><div class="map">
-    <div class="m"><img src="assets/terrain-map.png" alt="Terrain relief, streams and urban footprint of the municipality"><span class="ring"></span><span class="flag" style="left:10px;right:auto">Real map</span></div>
-    <div style="position:relative;display:flex;flex-direction:column"><span class="flag">Synthetic hydrograph</span><svg class="v" id="v2" viewBox="0 0 320 380"></svg></div>
-  </div></div>
-</section>
-
-<!-- 3 · reservoir -->
-<section class="sec" id="s3">
-  <div><div class="k water"><i></i>Water resources</div>
-    <h2>Probabilistic reservoir storage forecast</h2>
-    <p>A 2,000-member Monte Carlo ensemble by seasonal block bootstrap, with the elevation-capacity curve as a hard constraint, running entirely in the browser. A frozen forecast kept the observed series inside its P10-P90 band on 92% of 168 days.</p>
-    <div class="fig"><b>27%</b><span>better than persistence</span></div></div>
-  <div class="vis"><span class="flag">AI-generated imagery · fictitious scenarios</span>
-    <div class="morph"><img src="assets/reservoir-low.jpg" alt="AI-generated illustration of a reservoir at low storage"><img id="mFull" src="assets/reservoir-full.jpg" alt="AI-generated illustration of a reservoir at full storage">
-      <div class="read"><b id="mPct">90</b><b style="font-size:16px">%</b><div id="mScn">Scenario A · wet year</div></div></div>
-    <div class="ctrl">DRY<input id="mRange" type="range" min="0" max="100" value="100" aria-label="Scenario storage, illustrative">FULL</div>
-  </div>
-</section>
-
-<!-- 4 · rainfall -->
-<section class="sec" id="s4">
-  <div><div class="k earth"><i></i>Earth sciences</div>
-    <h2>Rainfall monitoring and 3-day forecast, 21 stations</h2>
+<!-- 1 SICLAR -->
+<section class="sec plat" id="s1" data-node="0">
+  <div class="txt"><div class="k earth"><i></i>Smart platform · Earth sciences</div>
+    <h2>SICLAR<small>Rainfall monitoring and 3-day forecast, 21 stations</small></h2>
     <p>A LightGBM hurdle model (occurrence classifier plus amount regressor, 23 features, seasonal isotonic calibration) under leak-free walk-forward validation. A preregistered A/B test raised CSI from 0.303 to 0.316.</p>
     <div class="fig"><b>0.833</b><span>AUC · 373 unseen days</span></div></div>
-  <div class="vis"><span class="flag">Illustrative · synthetic series</span><svg class="v" id="v4" viewBox="0 0 640 420"></svg></div>
+  <div class="vis"><span class="flag">Municipal boundary from public GeoJSON · rain cells and series illustrative</span><svg class="v" id="v1" viewBox="0 0 760 400"></svg></div>
 </section>
 
-<!-- 5 · satellite -->
-<section class="sec" id="s5">
-  <div><div class="k earth"><i></i>Earth sciences</div>
-    <h2>Satellite observatory, STAC in the browser</h2>
+<!-- 2 SIMEP -->
+<section class="sec plat" id="s2" data-node="1">
+  <div class="txt"><div class="k water"><i></i>Smart platform · Water resources</div>
+    <h2>SIMEP<small>Probabilistic reservoir storage forecast</small></h2>
+    <p>A 2,000-member Monte Carlo ensemble by seasonal block bootstrap, with the elevation-capacity curve as a hard constraint, running entirely in the browser. A frozen forecast kept the observed series inside its P10-P90 band on 92% of 168 days.</p>
+    <div class="fig"><b>27%</b><span>better than persistence</span></div></div>
+  <div class="vis"><span class="flag">AI-generated imagery · fictitious scenarios · synthetic ensemble</span>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:28px;min-height:0">
+      <div style="display:flex;flex-direction:column;min-height:0">
+        <div class="morph"><img src="assets/reservoir-low.webp" alt="AI-generated illustration of a reservoir at low storage"><img id="mFull" src="assets/reservoir-full.webp" alt="AI-generated illustration of a reservoir at full storage">
+        </div>
+        <div class="ctrl">DRY<input id="mRange" type="range" min="0" max="100" value="100" aria-label="Scenario storage, illustrative">FULL</div>
+        <div class="read"><b id="mPct">90</b><b style="font-size:16px">%</b> <span id="mScn">Scenario A · wet year</span></div>
+      </div>
+      <svg class="v" id="v2" viewBox="0 0 400 300"></svg>
+    </div></div>
+</section>
+
+<!-- 3 CAUCE -->
+<section class="sec plat" id="s3" data-node="2">
+  <div class="txt"><div class="k water"><i></i>Smart platform · Water resources</div>
+    <h2>CAUCE<small>Watershed delineation to design discharge, and urban stream capacity</small></h2>
+    <p>One click anywhere in the municipality: curve numbers from Sentinel-2, national soil data, IDF curves from local records, six time-of-concentration formulas and the SCS unit hydrograph, with piped storm drainage modeled as an edit to the flow graph. Urban streams are rated per reach from a 0.5 m LiDAR terrain model.</p>
+    <div class="fig"><b>100%</b><span>agreement with WhiteboxTools</span></div></div>
+  <div class="vis"><span class="flag">Boundary, urban area and watershed from public GeoJSON · hydrograph synthetic</span><svg class="v" id="v3" viewBox="0 0 760 400"></svg></div>
+</section>
+
+<!-- 4 Climate indices -->
+<section class="sec plat" id="s4" data-node="3">
+  <div class="txt"><div class="k earth"><i></i>Smart platform · Earth sciences</div>
+    <h2>Climate indices<small>Climate and climate-change indices, 1981 to 2026</small></h2>
+    <p>Control and monitoring of climate and climate-change indices: temperature and rainfall extremes, drought and warming signals, recomputed as each year closes.</p>
+    <div class="fig"><b>24</b><span>indices · 1981 to 2026</span></div></div>
+  <div class="vis"><span class="flag">Illustrative · synthetic anomalies</span><svg class="v" id="v4" viewBox="0 0 760 400"></svg></div>
+</section>
+
+<!-- 5 Water balance -->
+<section class="sec plat" id="s5" data-node="4">
+  <div class="txt"><div class="k water"><i></i>Smart platform · Water resources</div>
+    <h2>Water balance<small>Sectors, macro-circuits and well batteries</small></h2>
+    <p>Water balance of distribution sectors, macro-circuits and well batteries, built from injected and billed volumes, so each sector reads as an efficiency figure.</p>
+    <div class="fig"><b>Sector</b><span>level balance · injected vs billed</span></div></div>
+  <div class="vis"><span class="flag">Schematic · fictitious values</span><svg class="v" id="v5" viewBox="0 0 760 400"></svg></div>
+</section>
+
+<!-- 6 Accounts -->
+<section class="sec plat" id="s6" data-node="5">
+  <div class="txt"><div class="k water"><i></i>Smart platform · Water resources</div>
+    <h2>Accounts analysis<small>Consumption patterns across the city</small></h2>
+    <p>Analysis of water accounts by sector and neighborhood: consumption classes, density and change over time, located on the network without exposing customer records.</p>
+    <div class="fig"><b>Map</b><span>accounts aggregated by area</span></div></div>
+  <div class="vis"><span class="flag">Urban area from public GeoJSON · points synthetic, no customer data</span><svg class="v" id="v6" viewBox="0 0 760 400"></svg></div>
+</section>
+
+<!-- 7 Observatory -->
+<section class="sec plat" id="s7" data-node="6">
+  <div class="txt"><div class="k earth"><i></i>Smart platform · Earth sciences · open source</div>
+    <h2>Satellite observatory<small>STAC in the browser</small></h2>
     <p>Sentinel-2, Landsat 8/9 and Sentinel-1 cloud-optimized GeoTIFFs read straight from STAC catalogs: spectral indices, change detection, surface heat, radar water and k-means, computed client-side in a Web Worker, with a weekly summary produced by GitHub Actions.</p>
     <div class="fig"><b>Open</b><span>source</span><a href="https://github.com/xmanuelramirez/observatorio-satelital">Code →</a></div></div>
   <div class="vis"><span class="flag">Real interface · recorded</span>
-    <div class="vid"><video id="vid" muted loop playsinline preload="auto" poster="assets/observatory-ui.jpg" aria-label="Satellite observatory in use"><source src="assets/observatory-loop.webm" type="video/webm"></video></div>
-  </div>
+    <div class="vid"><video id="vid" muted loop playsinline preload="auto" poster="assets/observatory-ui.jpg" aria-label="Satellite observatory in use"><source src="assets/observatory-loop.webm" type="video/webm"></video></div></div>
 </section>
 
-<!-- 6 · packages -->
-<section class="sec" id="s6">
+<!-- 8 Vigia -->
+<section class="sec plat" id="s8" data-node="7">
+  <div class="txt"><div class="k ai"><i></i>Agent</div>
+    <h2>Vigía<small>Automatic alerts by Telegram</small></h2>
+    <p>Not a platform: an agent that watches what SICLAR, SIMEP and the satellite observatory publish and sends automatic Telegram alerts on measured rain, rain forecast, reservoir level and new construction detected by satellite.</p>
+    <div class="fig"><b>3</b><span>platforms watched · 4 alert types</span></div></div>
+  <div class="vis"><span class="flag">Schematic · example messages</span><svg class="v" id="v8" viewBox="0 0 760 400"></svg></div>
+</section>
+
+<!-- 9 packages -->
+<section class="sec" id="s9">
   <div><div class="k ai"><i></i>AI evaluation</div>
     <h2>Quantitative benchmark packages</h2>
     <p>40 task packages delivered over two months: time-anchored prompts, golden responses carrying one verifiable ground-truth value per line, grading guidance, and input files with native charts, audited across every artifact before delivery.</p>
     <div class="fig"><b>40</b><span>packages</span></div></div>
-  <div class="vis"><span class="flag">Schematic</span><svg class="v" id="v6" viewBox="0 0 640 420"></svg></div>
+  <div class="vis"><span class="flag">Schematic</span><svg class="v" id="v9" viewBox="0 0 640 420"></svg></div>
 </section>
 
-<!-- 7 · authoring -->
-<section class="sec" id="s7">
+<!-- 10 authoring -->
+<section class="sec" id="s10">
   <div><div class="k ai"><i></i>AI evaluation</div>
     <h2>Scientific benchmark authoring, earth and environmental sciences</h2>
     <p>Self-contained Python packages: a seeded generator built on canonical physics, an independent reference solution, a second route written without reading the generator, a sealed verifier and a Docker environment. Tolerances are fixed before anything is measured.</p>
     <div class="fig"><b>31</b><span>approved · 4 scientific fields</span></div></div>
-  <div class="vis"><span class="flag">Schematic</span><svg class="v" id="v7" viewBox="0 0 640 420"></svg></div>
+  <div class="vis"><span class="flag">Schematic</span><svg class="v" id="v10" viewBox="0 0 640 420"></svg></div>
 </section>
 
-<!-- 8 · calibration -->
-<section class="sec" id="s8">
+<!-- 11 calibration -->
+<section class="sec" id="s11">
   <div><div class="k ai"><i></i>AI evaluation</div>
     <h2>Adversarial difficulty calibration</h2>
     <p>A task ships only if it survives blind trials against frontier models: 25 minutes or more, a failure with margin on at least one reasoning link, and shortcut and fabricated-value probes scoring zero. Up to four measured versions before an idea is retired.</p>
     <div class="fig"><b>0 of 10</b><span>shortcuts score</span></div></div>
-  <div class="vis"><span class="flag">Schematic · fictitious values</span><svg class="v" id="v8" viewBox="0 0 640 420"></svg></div>
+  <div class="vis"><span class="flag">Schematic · fictitious values</span><svg class="v" id="v11" viewBox="0 0 640 420"></svg></div>
 </section>
 
-<!-- 9 · contact -->
-<section class="sec" id="s9">
+<!-- 12 contact -->
+<section class="sec" id="s12">
   <div><div class="k">Contact</div>
     <h2>Let&#39;s work together</h2>
     <p>Available for remote contract work in AI evaluation for Earth, environmental and water sciences.</p>
@@ -245,34 +283,28 @@ img,video{display:block;max-width:100%}
     <p style="font-size:13px">Carlos M. Ramírez · León, Guanajuato, Mexico</p></div>
 </section>
 
-<nav class="tl" aria-label="Timeline">
-  <div class="rail"></div><div class="prog" id="prog"></div>
-  <ol id="tl">
-    <li class="n" data-i="0"><i></i><span>Intro</span></li>
-    <li class="water" data-i="1"><i></i><span>Urban streams</span></li>
-    <li class="water" data-i="2"><i></i><span>Watershed</span></li>
-    <li class="water" data-i="3"><i></i><span>Reservoir</span></li>
-    <li class="earth" data-i="4"><i></i><span>Rainfall</span></li>
-    <li class="earth" data-i="5"><i></i><span>Satellite</span></li>
-    <li class="ai" data-i="6"><i></i><span>Packages</span></li>
-    <li class="ai" data-i="7"><i></i><span>Authoring</span></li>
-    <li class="ai" data-i="8"><i></i><span>Calibration</span></li>
-    <li class="n" data-i="9"><i></i><span>Contact</span></li>
-  </ol>
-</nav>
+<nav class="tl" aria-label="Timeline"><div class="rail"></div><div class="prog" id="prog"></div><ol id="tl"></ol></nav>
 
 <script>
+const GEO={"lim": "M253.4 252.2L252.6 252.3L252.5 251.8L253.4 252.2ZM189.3 12.2L206.3 17.1L211.5 39.5L209.1 42.0L209.1 44.2L212.1 45.5L217.7 42.1L223.8 48.0L220.2 49.1L233.6 54.1L228.7 56.2L229.2 61.0L227.0 62.6L227.8 64.2L250.5 67.8L249.1 75.2L254.1 75.3L255.0 86.9L257.3 88.9L261.7 89.2L263.4 90.9L267.6 88.1L280.3 71.5L295.0 84.9L317.3 78.0L318.0 79.4L322.5 77.0L323.9 83.8L328.3 81.5L327.4 71.7L328.3 57.4L345.3 58.7L344.7 60.6L347.0 61.3L346.4 63.5L347.8 64.5L346.1 67.2L349.8 70.4L340.7 82.3L338.0 81.4L339.7 90.5L333.9 90.5L332.4 92.3L334.2 92.9L333.4 98.7L335.9 94.7L337.9 95.3L338.3 94.1L339.7 98.6L342.6 101.1L349.5 100.3L353.7 101.5L377.2 96.8L380.0 103.8L380.1 107.8L374.6 111.2L373.3 117.0L374.6 122.2L370.6 127.7L368.5 124.3L363.9 122.5L363.4 123.4L364.4 128.3L368.3 128.0L368.5 131.0L360.6 142.8L357.3 150.7L356.5 150.1L352.8 154.1L353.5 156.1L355.1 155.9L352.8 159.8L354.9 160.9L350.9 161.4L356.6 164.8L355.7 167.7L352.4 167.0L351.7 170.2L348.5 168.3L344.3 172.5L341.2 171.2L339.3 172.6L338.8 170.5L336.9 171.7L336.9 167.3L333.9 168.3L333.1 167.2L330.5 173.2L331.2 177.3L327.7 173.6L323.6 174.0L323.6 170.8L319.2 167.0L320.6 162.9L316.4 160.2L314.1 162.0L314.3 155.7L307.8 153.3L308.1 151.5L292.8 151.4L290.3 167.3L288.9 168.5L286.9 182.0L285.3 183.6L283.0 204.4L280.7 238.7L284.0 239.2L283.0 253.2L274.1 252.5L273.6 256.3L256.8 256.4L258.3 241.0L254.6 240.4L252.9 249.1L252.1 254.1L245.5 252.8L240.9 256.9L249.5 262.3L248.8 265.4L250.3 276.3L242.4 276.3L243.0 271.8L234.7 271.2L234.4 273.4L222.9 271.7L221.1 274.0L213.3 273.0L210.2 293.3L211.2 294.9L228.8 287.3L228.2 291.4L225.2 291.0L224.1 304.2L220.3 305.9L222.3 309.3L224.3 308.5L223.9 313.3L226.4 313.5L221.0 351.4L194.4 347.2L194.9 349.0L163.4 345.4L158.1 390.0L89.8 381.0L107.2 348.4L107.4 335.0L111.2 311.5L142.5 314.3L144.8 279.3L119.4 276.5L120.9 281.0L113.4 281.3L112.7 288.4L93.1 288.9L95.0 275.1L98.3 270.4L81.0 268.1L57.5 261.5L60.7 253.1L58.4 248.4L60.5 240.2L52.8 231.7L45.1 233.8L44.3 229.6L42.9 232.5L38.6 232.8L40.1 224.6L38.6 222.4L41.5 213.4L44.3 212.0L44.9 209.2L41.1 207.2L41.1 205.3L39.0 205.1L36.4 197.0L38.3 185.5L32.0 187.9L29.5 178.0L24.7 176.8L22.1 178.2L19.9 163.3L32.5 164.4L38.0 161.7L37.1 152.9L33.7 153.0L36.9 148.3L41.6 146.2L41.4 139.6L54.8 148.1L59.5 144.7L57.3 136.8L58.8 133.3L57.9 128.9L60.4 126.7L59.7 119.4L64.6 115.3L65.2 93.5L67.3 86.0L66.4 86.3L68.4 70.0L65.8 61.5L68.2 59.2L92.0 63.6L93.8 50.1L90.4 49.4L93.6 35.8L140.2 45.5L142.8 41.0L152.3 42.2L156.6 34.4L164.4 32.1L166.3 15.2L162.6 10.0L189.3 12.2Z", "urb": "M147.2 110.4L147.2 110.4L147.2 110.4L147.2 110.4ZM148.0 108.6L146.2 112.4L147.9 116.8L155.8 119.3L160.8 122.2L160.5 126.0L163.0 124.5L164.4 125.8L166.0 125.9L165.4 127.0L166.7 128.9L167.7 127.3L169.6 128.1L167.9 129.7L168.9 130.8L172.3 128.0L175.9 130.8L174.5 132.8L176.4 134.1L175.0 134.7L176.0 135.4L175.6 137.1L172.9 137.9L173.7 139.1L172.3 141.3L174.1 142.0L174.2 143.0L175.6 141.1L178.9 144.6L177.1 148.1L178.3 149.4L180.0 147.6L182.3 148.1L181.8 148.8L180.5 148.1L179.1 149.6L181.5 151.6L179.8 153.7L184.7 157.1L187.0 153.6L188.5 155.3L187.7 156.9L183.9 158.2L183.0 159.6L189.6 163.2L187.4 166.6L190.2 168.0L197.0 161.3L198.6 162.2L197.2 161.2L197.6 160.7L201.1 164.9L199.8 165.7L198.8 165.1L188.7 175.9L186.2 172.4L180.0 178.5L181.2 179.5L180.3 180.5L182.6 182.6L185.4 179.6L186.4 180.5L190.5 176.1L192.0 177.3L193.5 175.5L192.0 174.4L195.9 170.2L198.0 172.4L198.5 171.5L199.9 172.6L199.7 173.7L200.7 174.4L201.8 172.8L204.0 174.1L204.9 172.9L207.1 174.2L205.7 176.1L206.4 176.9L208.4 174.2L210.0 175.3L209.0 179.1L206.4 181.4L208.7 181.3L209.4 179.6L211.2 179.6L210.4 182.0L213.1 185.8L211.4 188.3L215.5 188.6L215.2 191.1L216.7 191.5L216.5 192.3L213.2 191.5L212.9 192.3L216.2 193.4L215.5 196.0L212.3 195.2L215.3 196.9L214.4 199.4L215.6 200.3L222.5 200.0L224.1 200.8L222.2 204.8L214.7 202.3L212.7 200.8L208.6 201.8L207.7 203.2L209.0 204.3L213.3 205.5L213.7 204.6L217.5 206.4L216.8 208.2L213.5 207.1L211.5 207.8L210.9 209.4L205.1 210.9L204.4 213.9L209.3 216.6L210.9 213.2L221.0 217.9L220.3 209.7L223.7 210.9L224.8 207.8L222.6 206.9L223.8 204.0L230.2 206.4L229.0 209.3L227.9 208.9L226.3 216.2L229.1 217.0L229.5 219.9L228.5 220.0L229.6 221.1L228.3 222.8L229.6 224.2L227.8 224.8L226.9 223.7L226.1 224.2L227.4 225.6L225.7 225.6L225.6 226.5L223.1 227.5L219.2 226.4L218.4 228.2L220.9 230.4L219.0 234.4L210.0 226.7L207.6 230.1L203.5 227.5L202.2 229.7L204.1 230.8L203.2 232.5L204.5 233.2L202.2 237.0L199.9 235.7L199.4 237.5L200.4 238.2L199.0 238.9L152.4 210.0L140.6 218.7L140.9 219.8L137.9 218.9L136.7 228.6L130.7 227.4L131.0 226.3L125.2 224.6L126.0 222.8L123.9 222.3L124.1 221.1L125.9 216.0L128.9 216.7L131.1 211.9L130.7 211.1L132.5 210.5L135.0 206.8L132.4 204.9L128.7 206.1L128.6 205.2L126.9 205.2L126.6 200.3L121.7 198.5L111.4 197.1L91.0 210.1L72.5 203.2L67.9 199.9L71.4 199.7L71.7 197.6L74.2 197.5L74.5 195.7L71.7 195.9L69.7 193.8L63.8 194.0L63.0 193.2L60.9 194.4L58.2 192.3L60.7 189.2L62.7 191.2L62.5 193.4L65.1 190.0L74.9 184.1L77.1 184.8L80.8 182.4L86.1 190.3L86.0 200.9L87.4 204.3L90.1 201.8L89.1 200.1L92.0 198.4L93.8 198.6L92.1 197.2L93.6 195.6L92.7 193.9L93.2 192.4L95.7 195.1L97.6 194.1L96.3 194.0L94.2 191.9L96.8 188.9L97.0 183.2L95.6 180.8L95.0 176.3L95.9 174.3L94.2 172.5L94.8 170.3L93.2 170.5L93.2 167.1L91.5 164.3L90.0 156.7L91.1 156.4L91.4 155.1L89.7 152.4L89.9 149.8L88.0 151.1L86.6 149.0L85.5 149.1L85.8 152.5L84.5 151.6L83.7 154.3L86.1 159.5L88.5 161.5L88.2 165.4L91.2 173.5L89.0 174.9L89.1 176.4L87.7 177.5L79.7 174.3L79.0 172.7L79.9 172.2L79.5 170.1L77.4 169.6L76.5 170.9L73.9 169.6L72.8 167.6L73.1 165.8L74.3 165.8L74.6 163.4L73.7 162.5L70.2 166.5L70.8 169.7L67.6 170.3L67.6 172.3L66.7 172.9L65.8 172.5L66.1 168.7L60.6 167.6L61.6 156.5L63.2 155.0L67.7 157.9L71.1 151.2L73.8 151.3L77.7 146.8L77.1 143.7L74.7 144.8L73.7 146.5L69.3 141.6L70.7 138.9L69.4 137.2L70.5 130.0L68.1 126.4L68.4 125.3L66.8 121.7L72.8 119.3L72.6 122.3L74.0 122.8L75.3 120.5L77.1 112.4L77.8 114.9L79.8 117.0L81.2 114.1L83.1 116.3L81.1 119.8L81.9 121.0L85.7 119.3L84.8 119.9L86.2 122.9L83.6 124.0L82.4 125.0L82.8 125.6L84.1 124.9L85.6 127.4L86.2 125.7L87.3 125.7L88.0 127.1L86.1 128.0L80.6 134.4L88.6 134.2L89.8 131.8L88.4 130.8L87.3 132.0L87.3 130.3L86.5 131.5L85.4 130.9L88.9 127.3L89.8 127.5L88.9 128.7L89.9 130.8L92.9 133.5L89.5 134.7L90.5 136.5L101.2 131.0L100.2 127.8L104.1 122.9L101.8 118.0L103.4 116.2L98.7 119.4L95.8 117.8L98.6 101.8L104.7 104.6L107.5 115.7L110.4 115.8L109.6 120.4L113.0 120.5L113.4 122.0L116.0 121.2L116.5 123.4L120.1 122.8L121.3 124.4L120.9 112.9L122.2 110.1L125.5 108.0L123.4 105.5L120.1 104.7L121.0 101.0L119.4 98.0L119.7 93.1L137.6 96.5L136.4 102.5L140.2 103.6L139.9 104.8L144.0 107.6L142.8 108.7L144.3 108.8L145.3 111.4L146.9 108.1L148.0 108.6ZM94.6 182.0L96.1 185.1L94.9 187.4L93.0 188.1L91.0 187.1L92.3 186.1L91.0 184.6L92.5 182.6L93.0 183.2L94.6 182.0ZM108.6 210.9L95.8 210.9L107.6 205.6L116.0 210.3L118.1 214.1L108.6 210.9ZM75.2 109.3L73.6 111.5L66.8 108.5L66.9 104.7L68.1 105.3L68.6 104.0L72.1 106.8L71.3 108.6L73.8 110.5L75.2 109.3ZM88.4 123.6L87.6 117.3L86.5 116.8L92.1 109.6L93.9 122.4L88.4 123.6Z", "cue": "M168.8 3.5L178.1 1.4L184.5 2.8L188.4 7.6L189.7 12.1L194.2 13.0L197.9 16.6L201.8 15.8L204.4 17.3L208.5 23.4L206.4 30.5L206.8 37.3L217.0 41.3L219.0 44.2L223.6 44.8L232.9 51.5L238.7 53.7L239.9 56.2L241.0 66.1L242.4 66.7L246.3 63.7L250.3 63.6L252.0 66.2L262.0 74.4L263.2 77.9L262.7 84.4L256.0 86.3L253.0 88.4L251.9 90.6L244.4 96.9L244.2 99.2L245.0 100.4L241.8 105.0L238.9 105.7L232.8 102.0L227.1 102.0L225.0 109.9L221.4 114.1L213.7 106.5L206.7 106.2L203.7 108.4L202.7 110.5L199.5 111.3L200.4 113.5L198.2 120.2L194.5 122.7L193.3 125.9L188.4 131.3L188.8 135.1L183.8 135.6L181.7 139.0L178.8 141.0L175.4 140.4L171.0 136.7L170.5 131.9L164.6 126.2L164.5 123.4L162.0 124.3L157.2 123.8L153.3 119.7L148.6 119.0L146.3 116.1L144.1 118.4L143.4 122.2L138.0 134.1L123.4 134.3L122.0 133.2L111.1 131.5L108.6 133.5L106.2 138.0L103.0 141.4L96.9 133.7L93.0 133.1L84.5 128.4L83.4 126.9L89.0 113.4L87.4 99.5L90.3 86.9L89.6 86.1L82.8 89.2L79.8 87.6L82.4 83.6L80.7 81.8L79.7 77.7L85.5 69.9L85.3 63.0L92.3 55.0L92.6 51.3L88.9 45.3L90.8 41.6L93.1 40.2L91.4 39.2L91.6 36.1L96.1 32.0L104.7 33.3L111.2 30.2L113.5 34.5L115.9 35.7L119.1 33.2L121.7 34.0L126.9 31.7L131.5 35.6L137.3 35.2L140.8 32.2L145.5 31.0L145.9 28.1L147.9 28.3L154.0 24.2L154.1 18.9L158.8 12.2L158.2 9.2L161.5 7.5L161.9 4.7L163.0 4.4L161.9 0.5L168.8 3.5Z"};
 const NS='http://www.w3.org/2000/svg';
 const mk=(p,tag,at,txt)=>{const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(txt!=null)e.textContent=txt;p.appendChild(e);return e;};
-const C={ink:'#132A3A',muted:'#5B6870',line:'#DCD2C1',teal:'#2A7F8C',tealL:'#8FC3C9',sand:'#B98A4E',clay:'#B5523B'};
+const C={ink:'#132A3A',muted:'#5B6870',line:'#DCD2C1',teal:'#2A7F8C',tealL:'#8FC3C9',sand:'#B98A4E',clay:'#B5523B',paper:'#FBF8F1'};
 let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
 const T=(p,x,y,s,at={})=>mk(p,'text',Object.assign({x,y,'font-family':'IBM Plex Mono, monospace','font-size':11,fill:C.muted},at),s);
-const draw=(e,d)=>{const L=Math.ceil(e.getTotalLength?e.getTotalLength():800)+2;e.classList.add('draw');e.style.setProperty('--L',L);e.style.setProperty('--d',(d||0)+'s');return e;};
+const draw=(e,d,dur)=>{const L=Math.ceil(e.getTotalLength?e.getTotalLength():800)+2;e.classList.add('draw');e.style.setProperty('--L',L);e.style.setProperty('--d',(d||0)+'s');if(dur)e.style.animationDuration=dur+'s';return e;};
+const geo=(p,key,at,tx)=>mk(p,'path',Object.assign({d:GEO[key],transform:tx||''},at));
+
+const SECS=[
+ {id:'s0',lab:'Intro',c:'n'},
+ {id:'s1',lab:'SICLAR',c:'earth'},{id:'s2',lab:'SIMEP',c:'water'},{id:'s3',lab:'CAUCE',c:'water'},{id:'s4',lab:'Climate',c:'earth'},
+ {id:'s5',lab:'Balance',c:'water'},{id:'s6',lab:'Accounts',c:'water'},{id:'s7',lab:'Observatory',c:'earth'},{id:'s8',lab:'Vigía',c:'ai'},
+ {id:'s9',lab:'Packages',c:'ai'},{id:'s10',lab:'Authoring',c:'ai'},{id:'s11',lab:'Calibration',c:'ai'},{id:'s12',lab:'Contact',c:'n'}];
 
 // background: burst + web + waves
 (function(){
   const s=document.getElementById('web');s.setAttribute('preserveAspectRatio','xMidYMid slice');s.setAttribute('viewBox','0 0 1600 1000');
-  const g=mk(s,'g',{fill:'none',stroke:'#132A3A','stroke-opacity':.055,'stroke-width':1});
+  const g=mk(s,'g',{class:'turn',fill:'none',stroke:'#132A3A','stroke-opacity':.055});
   const cx=1408,cy=1080;
   for(let i=0;i<64;i++){const a=i/64*Math.PI*2;mk(g,'line',{x1:cx,y1:cy,x2:cx+Math.cos(a)*2200,y2:cy+Math.sin(a)*2200});}
   for(let r=70;r<2200;r+=70)mk(g,'circle',{cx,cy,r});
@@ -280,59 +312,168 @@ const draw=(e,d)=>{const L=Math.ceil(e.getTotalLength?e.getTotalLength():800)+2;
   for(let k=0;k<6;k++){let d='M0 '+(120+k*26);for(let x=0;x<=1600;x+=40)d+=' L'+x+' '+(120+k*26+Math.sin(x/120+k)*14).toFixed(1);mk(w,'path',{d});}
 })();
 
-// 1 · urban streams: plan view with A/B/C reaches + cross-section filling to Q25
+// wheel: seven platforms on a heptagon around the hub, the agent on an outer orbit
+const WHEEL=(function(){
+  const s=document.querySelector('#wheel svg');
+  const names=['SICLAR','SIMEP','CAUCE','CLIMATE','BALANCE','ACCOUNTS','OBSERV.'];
+  const cls=['earth','water','water','earth','water','water','earth'];
+  const col={earth:C.sand,water:C.teal};
+  const R=150,step=360/7;
+  mk(s,'circle',{cx:200,cy:200,r:R,fill:'none',stroke:C.line});
+  const rot=mk(s,'g',{class:'rot'});
+  const vig=mk(rot,'path',{d:(()=>{const r=R+70,a=-1.5*step*Math.PI/180,b=1.5*step*Math.PI/180;const p=t=>`${200+r*Math.cos(t)} ${200+r*Math.sin(t)}`;return `M${p(a)} A${r} ${r} 0 0 1 ${p(b)}`;})(),fill:'none',stroke:C.line,'stroke-dasharray':'3 5'});
+  const nodes=[];
+  names.forEach((n,i)=>{const a=i*step,x=200+R*Math.cos(a*Math.PI/180),y=200+R*Math.sin(a*Math.PI/180);
+    mk(rot,'line',{x1:200,y1:200,x2:x,y2:y,stroke:C.line});
+    const g=mk(rot,'g',{class:'node','data-i':i+1});
+    mk(g,'circle',{cx:x,cy:y,r:38,fill:C.paper,stroke:col[cls[i]],'stroke-width':2,class:'d'});
+    const lab=mk(g,'g',{class:'lab'});lab.style.transformOrigin=`${x}px ${y}px`;
+    mk(lab,'text',{x,y:y+4},n);
+    nodes.push({g,lab,a});});
+  // agent satellite
+  const ag=mk(rot,'g',{class:'node','data-i':8});
+  const agc=mk(ag,'circle',{cx:200+R+70,cy:200,r:24,fill:C.paper,stroke:C.ink,'stroke-width':1.5,class:'d'});
+  const agl=mk(ag,'g',{class:'lab'});agl.style.transformOrigin=`${200+R+70}px 200px`;mk(agl,'text',{x:200+R+70,y:204},'VIGÍA');
+  nodes.push({g:ag,lab:agl,a:0});
+  // hub
+  mk(s,'circle',{cx:200,cy:200,r:52,fill:C.ink});
+  mk(s,'text',{x:200,y:197,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','font-size':12,'font-weight':600,fill:C.paper},'SISPLAN');
+  mk(s,'text',{x:200,y:213,'text-anchor':'middle','font-family':'Outfit, sans-serif','font-size':9.5,fill:'#C9D2D8'},'planning portal');
+  s.addEventListener('click',e=>{const n=e.target.closest('.node');if(n)go(+n.dataset.i);});
+  let ang=0;
+  return {set(k){ // k = 0..7
+    const target=k<7?-nodes[k].a:-0; // bring active node to the right
+    let d=target-ang;while(d>180)d-=360;while(d<-180)d+=360;ang+=d;
+    rot.style.transform=`rotate(${ang}deg)`;
+    nodes.forEach((n,i)=>{n.g.classList.toggle('on',i===k);n.lab.style.transform=`rotate(${-ang}deg)`;});
+  }};
+})();
+
+// 1 SICLAR: municipality + urban area, drifting rain cells, rainfall bars with 3-day forecast
 (function(){
   const s=document.getElementById('v1');
-  const cls=['A','A','B','C','B','A','C','B'], col={A:C.teal,B:C.sand,C:C.clay}, lab={A:'sufficient',B:'marginal',C:'insufficient'};
-  const pts=[];for(let i=0;i<=8;i++)pts.push([40+i*70,90+Math.sin(i*0.9)*34]);
-  for(let i=0;i<8;i++){const [x1,y1]=pts[i],[x2,y2]=pts[i+1];
-    draw(mk(s,'path',{d:`M${x1} ${y1} Q${(x1+x2)/2} ${(y1+y2)/2+(i%2?18:-18)} ${x2} ${y2}`,stroke:col[cls[i]],'stroke-width':7,'stroke-linecap':'round',fill:'none'}),i*0.18);
-    mk(s,'text',{x:(x1+x2)/2,y:(y1+y2)/2-22,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','font-size':13,'font-weight':600,fill:C.ink,class:'pop',style:`--d:${.4+i*.18}s`},cls[i]);}
-  ['A','B','C'].forEach((c,i)=>{const x=40+i*190;mk(s,'rect',{x,y:168,width:14,height:14,rx:3,fill:col[c]});T(s,x+22,180,c+' · '+lab[c],{fill:C.ink});});
-  // cross-section
-  const X0=120,Y0=250,W=400,H=130;
-  T(s,40,232,'CROSS-SECTION · REACH C');
-  const bank=`M${X0-60} ${Y0} L${X0+70} ${Y0} L${X0+150} ${Y0+H} L${X0+250} ${Y0+H} L${X0+330} ${Y0} L${X0+W+20} ${Y0}`;
-  const water=mk(s,'path',{d:`M${X0+85} ${Y0+28} L${X0+315} ${Y0+28} L${X0+250} ${Y0+H} L${X0+150} ${Y0+H} Z`,fill:C.tealL,'fill-opacity':.7,class:'rise',style:'--d:1.6s'});
-  draw(mk(s,'path',{d:bank,fill:'none',stroke:C.ink,'stroke-width':2}),.2);
-  draw(mk(s,'path',{d:`M${X0+40} ${Y0-14} L${X0+360} ${Y0-14}`,stroke:C.clay,'stroke-dasharray':'6 5','stroke-width':1.5}),2.6);
-  T(s,X0+366,Y0-10,'Q25 level',{fill:C.clay,class:'pop',style:'--d:3s'});
-  T(s,X0+366,Y0+32,'capacity',{class:'pop',style:'--d:3s'});
-})();
-
-// 2 · SCS-like unit hydrograph (synthetic)
-(function(){
-  const s=document.getElementById('v2');const x0=34,y0=320,w=270,h=250;
-  mk(s,'path',{d:`M${x0} 40 V${y0} H${x0+w}`,stroke:C.line,fill:'none'});
-  T(s,x0,30,'Q (m³/s)');T(s,x0+w-40,y0+22,'time');
-  let d='';for(let i=0;i<=60;i++){const t=i/60*5,q=Math.pow(t,3.7)*Math.exp(-3.7*(t-1))/1;const y=y0-Math.min(q,1.02)*h*.92;d+=(i?'L':'M')+(x0+i/60*w).toFixed(1)+' '+y.toFixed(1);}
-  draw(mk(s,'path',{d,fill:'none',stroke:C.teal,'stroke-width':2.5}),.3);
-  let r='';for(let i=0;i<12;i++){const hh=[6,12,22,40,70,48,30,18,10,6,4,2][i];r+=`<rect x="${x0+6+i*9}" y="40" width="7" height="${hh}" fill="${C.sand}" fill-opacity=".8" class="pop" style="--d:${i*.05}s"/>`;}
-  s.insertAdjacentHTML('beforeend',r);T(s,x0+120,52,'design storm');
-  T(s,x0+92,y0-h*.80,'peak',{fill:C.ink,class:'pop',style:'--d:1.6s'});
-})();
-
-// 4 · rainfall: observed bars + 3-day forecast probability
-(function(){
-  const s=document.getElementById('v4');seed=21;const x0=40,y0=330,w=560,n=45;
+  const m=mk(s,'g',{transform:'translate(0,0) scale(1)'});
+  draw(geo(m,'lim',{fill:'none',stroke:C.ink,'stroke-width':1.3}),0,2.2);
+  geo(m,'urb',{fill:C.sand,'fill-opacity':.18,stroke:C.sand,'stroke-width':.8,class:'pop',style:'--d:1s'});
+  const clip=mk(s,'clipPath',{id:'clipLim'});mk(clip,'path',{d:GEO.lim});
+  const rc=mk(s,'g',{'clip-path':'url(#clipLim)'});
+  [[120,220,70,0],[240,150,55,3],[180,300,60,6]].forEach(([x,y,r,d])=>{const c=mk(rc,'circle',{cx:x,cy:y,r,fill:C.teal,'fill-opacity':.22,class:'drift',style:`--d:${d}s`});});
+  seed=21;const x0=450,y0=330,w=300,n=30,bw=w/(n+4);
+  T(s,x0,40,'DAILY RAINFALL');T(s,x0+w-90,40,'3-DAY FORECAST',{fill:C.teal});
   mk(s,'path',{d:`M${x0} ${y0} H${x0+w}`,stroke:C.line});
-  T(s,x0,40,'DAILY RAINFALL · OBSERVED');T(s,x0+w-150,40,'FORECAST · 3 DAYS',{fill:C.teal});
-  const bw=w/(n+4);
-  for(let i=0;i<n;i++){if(rnd()>.48)continue;const hgt=8+Math.pow(rnd(),1.7)*190;
-    mk(s,'rect',{x:x0+i*bw+1,y:y0-hgt,width:bw-2,height:hgt,rx:1.5,fill:hgt>130?C.ink:C.sand,'fill-opacity':.85,class:'grow',style:`--d:${i*.025}s`});}
-  mk(s,'line',{x1:x0+n*bw+bw/2,y1:60,x2:x0+n*bw+bw/2,y2:y0,stroke:C.muted,'stroke-dasharray':'3 4'});
-  const pr=[.72,.41,.18];
-  pr.forEach((p,k)=>{const x=x0+(n+1+k)*bw;mk(s,'rect',{x,y:y0-p*220,width:bw-3,height:p*220,rx:2,fill:C.teal,'fill-opacity':.25+p*.6,class:'grow',style:`--d:${1.4+k*.2}s`});
-    T(s,x-4,y0-p*220-8,Math.round(p*100)+'%',{fill:C.teal,'font-size':11,class:'pop',style:`--d:${1.8+k*.2}s`});});
-  T(s,x0+w-150,y0+22,'probability of rain',{fill:C.teal});
+  for(let i=0;i<n;i++){if(rnd()>.5)continue;const h=8+Math.pow(rnd(),1.7)*200;mk(s,'rect',{x:x0+i*bw+1,y:y0-h,width:bw-2,height:h,rx:1.5,fill:h>140?C.ink:C.sand,class:'grow',style:`--d:${.6+i*.03}s`});}
+  [.72,.41,.18].forEach((p,k)=>{const x=x0+(n+1+k)*bw;mk(s,'rect',{x,y:y0-p*230,width:bw-2,height:p*230,rx:2,fill:C.teal,'fill-opacity':.3+p*.6,class:'grow',style:`--d:${1.8+k*.2}s`});
+    T(s,x-6,y0-p*230-8,Math.round(p*100)+'%',{fill:C.teal,class:'pop',style:`--d:${2.2+k*.2}s`});});
+  T(s,x0,y0+22,'probability of rain for the next 3 days',{fill:C.teal});
 })();
 
-// 6 · 40 packages filling over 8 weeks
+// 2 SIMEP: ensemble fan next to the morph
 (function(){
-  const s=document.getElementById('v6');seed=3;const x0=50,y0=50,cw=66,ch=56;
-  for(let i=0;i<40;i++){const c=i%8,r=Math.floor(i/8),x=x0+c*cw,y=y0+r*ch,d=(i*.06).toFixed(2)+'s';
-    const g=mk(s,'g',{class:'pop',style:'--d:'+d});
-    mk(g,'rect',{x,y,width:cw-10,height:ch-12,rx:6,fill:'#fff',stroke:C.line});
+  const s=document.getElementById('v2');seed=11;const N=300,TT=50,W=380,H=300;
+  const g=()=>{let u=0;for(let i=0;i<6;i++)u+=rnd();return u-3;};
+  const series=[];for(let k=0;k<N;k++){let v=60,d=[];for(let i=0;i<TT;i++){v+=-.35+g()*1.1*(1+1.4*i/TT);v=Math.max(8,Math.min(100,v));d.push(v);}series.push(d);}
+  const q=p=>{const o=[];for(let i=0;i<TT;i++){const c=series.map(d=>d[i]).sort((a,b)=>a-b);o.push(c[Math.floor(p*(N-1))]);}return o;};
+  const x=i=>20+i*(W-60)/(TT-1),y=v=>H-30-(v/100)*(H-50);
+  const pts=d=>d.map((v,i)=>x(i).toFixed(1)+' '+y(v).toFixed(1));
+  mk(s,'path',{d:`M20 ${H-30} H${W-30}`,stroke:C.line});
+  const band=(lo,hi,op,dl)=>mk(s,'path',{d:'M'+pts(hi).join('L')+'L'+pts(lo).reverse().join('L')+'Z',fill:C.teal,'fill-opacity':op,class:'pop',style:`--d:${dl}s`});
+  band(q(.1),q(.9),.15,.3);band(q(.25),q(.75),.22,.6);
+  draw(mk(s,'path',{d:'M'+pts(q(.5)).join('L'),fill:'none',stroke:C.ink,'stroke-width':2.4}),.8);
+  T(s,W-26,y(q(.9)[TT-1])+4,'P90');T(s,W-26,y(q(.5)[TT-1])+4,'P50',{fill:C.ink});T(s,W-26,y(q(.1)[TT-1])+4,'P10');
+  T(s,20,16,'STORAGE ENSEMBLE · P10 TO P90');T(s,W-100,H-10,'horizon →');
+})();
+
+// 3 CAUCE: municipality, urban area, the watershed drawing in, outlet pulse, hydrograph
+(function(){
+  const s=document.getElementById('v3');
+  const m=mk(s,'g',{});
+  geo(m,'lim',{fill:'none',stroke:C.ink,'stroke-width':1.1,'stroke-opacity':.7});
+  geo(m,'urb',{fill:C.sand,'fill-opacity':.15,stroke:C.sand,'stroke-width':.7});
+  geo(m,'cue',{fill:C.teal,'fill-opacity':.22,stroke:'none',class:'pop',style:'--d:1.6s'});
+  draw(geo(m,'cue',{fill:'none',stroke:C.teal,'stroke-width':2.2}),.3,2);
+  // outlet near the basin's lowest point (from the geometry)
+  const n=GEO.cue.match(/-?\d+\.?\d*/g).map(Number);let ox=0,oy=-1;for(let i=0;i<n.length;i+=2)if(n[i+1]>oy){oy=n[i+1];ox=n[i];}
+  mk(m,'circle',{cx:ox,cy:oy,r:5,fill:C.teal,class:'ping',style:'--d:2s'});mk(m,'circle',{cx:ox,cy:oy,r:4,fill:C.ink});
+  T(m,ox+10,oy+4,'click → watershed',{fill:C.ink});
+  const x0=470,y0=330,w=270,h=250;
+  mk(s,'path',{d:`M${x0} 60 V${y0} H${x0+w}`,stroke:C.line,fill:'none'});T(s,x0,50,'DESIGN DISCHARGE · SCS UNIT HYDROGRAPH');
+  let d='';for(let i=0;i<=60;i++){const t=i/60*5,q=Math.pow(t,3.7)*Math.exp(-3.7*(t-1));d+=(i?'L':'M')+(x0+i/60*w).toFixed(1)+' '+(y0-Math.min(q,1.02)*h*.9).toFixed(1);}
+  draw(mk(s,'path',{d,fill:'none',stroke:C.teal,'stroke-width':2.5}),1.2);
+  // A/B/C reaches strip
+  const cls=['A','B','C','A','B','C','A'],col={A:C.teal,B:C.sand,C:C.clay};
+  cls.forEach((c,i)=>{mk(s,'rect',{x:x0+i*38,y:y0+30,width:34,height:8,rx:4,fill:col[c],class:'growx',style:`--d:${2+i*.1}s`});T(s,x0+i*38+13,y0+54,c,{fill:C.ink});});
+  T(s,x0,y0+74,'urban stream reaches rated A · B · C',{});
+})();
+
+// 4 Climate: warming-stripes style anomalies 1981-2026 + rising extremes line (synthetic)
+(function(){
+  const s=document.getElementById('v4');seed=4;const n=46,x0=30,w=700,bw=w/n;
+  T(s,x0,30,'ANNUAL TEMPERATURE ANOMALY · 1981 TO 2026');
+  for(let i=0;i<n;i++){const a=-0.6+i/n*1.4+(rnd()-.5)*.6;const t=Math.max(-1,Math.min(1,a));
+    const c=t<0?`rgba(42,127,140,${(.25+.65*-t).toFixed(2)})`:`rgba(181,82,59,${(.2+.7*t).toFixed(2)})`;
+    mk(s,'rect',{x:x0+i*bw,y:46,width:bw+.5,height:170,fill:c,class:'pop',style:`--d:${i*.035}s`});}
+  T(s,x0,236,'1981');T(s,x0+w-34,236,'2026');
+  T(s,x0,280,'HOT DAYS PER YEAR');
+  let d='';const y0=380;for(let i=0;i<n;i++){const v=18+i*.5+(rnd()-.5)*14;d+=(i?'L':'M')+(x0+i*bw+bw/2).toFixed(1)+' '+(y0-v*2).toFixed(1);}
+  draw(mk(s,'path',{d,fill:'none',stroke:C.clay,'stroke-width':2}),1.4);
+  mk(s,'path',{d:`M${x0} ${y0} H${x0+w}`,stroke:C.line});
+})();
+
+// 5 Water balance: injected -> sectors -> billed / non-billed (fictitious)
+(function(){
+  const s=document.getElementById('v5');
+  const secs=[['Sector 1',.26,.82],['Sector 2',.22,.74],['Sector 3',.2,.88],['Sector 4',.18,.69],['Sector 5',.14,.79]];
+  const H=300,top=50,X1=40,X2=300,X3=560;let y=top;
+  mk(s,'rect',{x:X1,y:top,width:18,height:H,fill:C.ink,class:'grow'});T(s,X1,top-12,'INJECTED',{fill:C.ink});
+  let yb=top,yn=top+H*.79+20;
+  secs.forEach(([n,sh,ef],i)=>{const h=sh*H,dl=.3+i*.15;
+    draw(mk(s,'path',{d:`M${X1+18} ${y+h/2} C${(X1+X2)/2} ${y+h/2} ${(X1+X2)/2} ${top+i*64+h/2} ${X2} ${top+i*64+h/2}`,fill:'none',stroke:C.tealL,'stroke-width':h*.85,'stroke-opacity':.5}),dl);
+    const sy=top+i*64;mk(s,'rect',{x:X2,y:sy,width:14,height:h,fill:C.teal,class:'pop',style:`--d:${dl+.6}s`});
+    T(s,X2+22,sy+h/2+4,n+' · '+Math.round(ef*100)+'%',{fill:C.ink,class:'pop',style:`--d:${dl+.8}s`});
+    draw(mk(s,'path',{d:`M${X2+14} ${sy+h*ef/2} C${(X2+X3)/2} ${sy+h*ef/2} ${(X2+X3)/2} ${yb+h*ef/2} ${X3} ${yb+h*ef/2}`,fill:'none',stroke:C.teal,'stroke-width':h*ef*.85,'stroke-opacity':.45}),dl+1);
+    yb+=h*ef;y+=h;});
+  mk(s,'rect',{x:X3,y:top,width:18,height:yb-top,fill:C.teal,class:'grow',style:'--d:1.8s'});T(s,X3+28,top+12,'BILLED',{fill:C.ink});
+  T(s,X2+150,top+H+40,'efficiency per sector = billed / injected',{fill:C.ink});
+})();
+
+// 6 Accounts: urban area with synthetic points colored by consumption class
+(function(){
+  const s=document.getElementById('v6');
+  const t='translate(130,-205) scale(2.4)';
+  geo(s,'urb',{fill:C.sand,'fill-opacity':.12,stroke:C.sand,'stroke-width':.6},t);
+  const n=GEO.urb.match(/-?\d+\.?\d*/g).map(Number);let mx=1e9,Mx=-1e9,my=1e9,My=-1e9;for(let i=0;i<n.length;i+=2){mx=Math.min(mx,n[i]);Mx=Math.max(Mx,n[i]);my=Math.min(my,n[i+1]);My=Math.max(My,n[i+1]);}
+  const clip=mk(s,'clipPath',{id:'clipUrb'});mk(clip,'path',{d:GEO.urb,transform:t});
+  const g=mk(s,'g',{'clip-path':'url(#clipUrb)'});seed=9;
+  const cols=[C.tealL,C.teal,C.sand,C.clay];
+  for(let i=0;i<1400;i++){const x=130+(mx+rnd()*(Mx-mx))*2.4,y=-205+(my+rnd()*(My-my))*2.4;const k=Math.min(3,Math.floor(Math.pow(rnd(),1.6)*4));
+    mk(g,'circle',{cx:x.toFixed(1),cy:y.toFixed(1),r:2,fill:cols[k],class:'pop',style:`--d:${(i/1400*2).toFixed(2)}s`});}
+  ['low','medium','high','very high'].forEach((l,i)=>{mk(s,'circle',{cx:40,cy:250+i*24,r:6,fill:cols[i]});T(s,54,254+i*24,l,{fill:C.ink});});
+  T(s,30,226,'CONSUMPTION CLASS');
+})();
+
+// 8 Vigia: three sources -> agent -> example messages
+(function(){
+  const s=document.getElementById('v8');
+  const src=['SICLAR','SIMEP','Observatory'];
+  src.forEach((n,i)=>{const y=80+i*110;const g=mk(s,'g',{class:'pop',style:`--d:${i*.15}s`});
+    mk(g,'rect',{x:20,y:y-22,width:150,height:44,rx:22,fill:C.paper,stroke:C.ink});mk(g,'text',{x:95,y:y+5,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','font-size':12,fill:C.ink},n);
+    draw(mk(s,'path',{d:`M170 ${y} C230 ${y} 230 190 290 190`,fill:'none',stroke:C.teal,'stroke-width':1.6}),.4+i*.1);});
+  const a=mk(s,'g',{class:'pop',style:'--d:.8s'});mk(a,'circle',{cx:330,cy:190,r:40,fill:C.ink});mk(a,'text',{x:330,y:195,'text-anchor':'middle','font-family':'IBM Plex Mono, monospace','font-size':12,'font-weight':600,fill:C.paper},'VIGÍA');
+  draw(mk(s,'path',{d:'M370 190 H430',fill:'none',stroke:C.teal,'stroke-width':1.6}),1);
+  mk(s,'rect',{x:440,y:20,width:300,height:350,rx:26,fill:C.paper,stroke:C.ink});
+  const msgs=['Rain measured: heavy rain at 3 stations','Forecast: 72% chance of rain tomorrow','Reservoir level crossed the alert line','New construction detected: 16 zones'];
+  msgs.forEach((m,i)=>{const y=60+i*76;const g=mk(s,'g',{class:'pop',style:`--d:${1.3+i*.6}s`});
+    mk(g,'rect',{x:456,y,width:268,height:58,rx:12,fill:'#fff',stroke:C.line});
+    mk(g,'text',{x:470,y:y+22,'font-family':'IBM Plex Mono, monospace','font-size':10,fill:C.teal},'VIGÍA · auto alert');
+    mk(g,'text',{x:470,y:y+42,'font-family':'Outfit, sans-serif','font-size':12.5,fill:C.ink},m);});
+})();
+
+// 9 packages
+(function(){
+  const s=document.getElementById('v9');seed=3;const x0=50,y0=50,cw=66,ch=56;
+  for(let i=0;i<40;i++){const c=i%8,r=Math.floor(i/8),x=x0+c*cw,y=y0+r*ch;
+    const g=mk(s,'g',{class:'pop',style:'--d:'+(i*.06).toFixed(2)+'s'});
+    mk(g,'rect',{x,y,width:cw-10,height:ch-12,rx:6,fill:'none',stroke:C.ink,'stroke-opacity':.35});
     let p='';for(let k=0;k<6;k++)p+=(k?'L':'M')+(x+8+k*8)+' '+(y+30-rnd()*18).toFixed(1);
     mk(g,'path',{d:p,fill:'none',stroke:C.teal,'stroke-width':1.6});
     mk(g,'path',{d:`M${x+cw-24} ${y+12} l4 4 l8 -8`,fill:'none',stroke:C.ink,'stroke-width':1.6});}
@@ -341,13 +482,11 @@ const draw=(e,d)=>{const L=Math.ceil(e.getTotalLength?e.getTotalLength():800)+2;
   T(s,x0,yb+40,'prompt · golden response · grading guidance · input files · audit',{fill:C.ink});
 })();
 
-// 7 · authoring: generator -> two independent routes -> same value within tolerance
+// 10 authoring
 (function(){
-  const s=document.getElementById('v7');
-  const box=(x,y,w,t,d)=>{const g=mk(s,'g',{class:'pop',style:`--d:${d}s`});mk(g,'rect',{x,y,width:w,height:46,rx:10,fill:'#fff',stroke:C.ink,'stroke-width':1.3});mk(g,'text',{x:x+w/2,y:y+28,'text-anchor':'middle','font-family':'Outfit, sans-serif','font-size':14,fill:C.ink},t);};
-  box(30,180,150,'Seeded generator',0);
-  box(250,90,170,'Reference solution',.6);box(250,270,170,'Independent route',.6);
-  box(490,180,120,'Verifier',1.6);
+  const s=document.getElementById('v10');
+  const box=(x,y,w,t,d)=>{const g=mk(s,'g',{class:'pop',style:`--d:${d}s`});mk(g,'rect',{x,y,width:w,height:46,rx:23,fill:C.paper,stroke:C.ink,'stroke-width':1.3});mk(g,'text',{x:x+w/2,y:y+28,'text-anchor':'middle','font-family':'Outfit, sans-serif','font-size':14,fill:C.ink},t);};
+  box(30,180,150,'Seeded generator',0);box(250,90,170,'Reference solution',.6);box(250,270,170,'Independent route',.6);box(490,180,120,'Verifier',1.6);
   draw(mk(s,'path',{d:'M180 203 C215 203 215 113 250 113',fill:'none',stroke:C.teal,'stroke-width':2}),.3);
   draw(mk(s,'path',{d:'M180 203 C215 203 215 293 250 293',fill:'none',stroke:C.sand,'stroke-width':2}),.3);
   draw(mk(s,'path',{d:'M420 113 C455 113 455 203 490 203',fill:'none',stroke:C.teal,'stroke-width':2}),1.1);
@@ -360,22 +499,21 @@ const draw=(e,d)=>{const L=Math.ceil(e.getTotalLength?e.getTotalLength():800)+2;
   T(s,30,390,'Docker environment · sealed verifier · tolerance fixed in advance',{fill:C.ink});
 })();
 
-// 8 · calibration: 10 shortcut probes at zero + versions until it ships
+// 11 calibration
 (function(){
-  const s=document.getElementById('v8');const x0=40;
+  const s=document.getElementById('v11');const x0=40;
   T(s,x0,40,'SHORTCUT AND FABRICATED-VALUE PROBES · SCORE');
-  for(let i=0;i<10;i++){const x=x0+i*28;mk(s,'rect',{x,y:60,width:20,height:90,rx:3,fill:'none',stroke:C.line});
+  for(let i=0;i<10;i++){const x=x0+i*28;mk(s,'rect',{x,y:60,width:20,height:90,rx:3,fill:'none',stroke:C.ink,'stroke-opacity':.25});
     mk(s,'rect',{x,y:148,width:20,height:2,fill:C.ink,class:'pop',style:`--d:${.2+i*.08}s`});T(s,x+4,170,'0',{fill:C.ink,class:'pop',style:`--d:${.2+i*.08}s`});}
   T(s,x0+300,108,'0 of 10 score',{fill:C.ink,'font-size':14,class:'pop',style:'--d:1.2s'});
   T(s,x0,222,'MODEL PASS RATE BY VERSION (FICTITIOUS)');
   const v=[.8,.55,.3,.1],yb=380;mk(s,'line',{x1:x0,y1:yb,x2:x0+520,y2:yb,stroke:C.line});
   const th=yb-.2*140;draw(mk(s,'line',{x1:x0,y1:th,x2:x0+520,y2:th,stroke:C.clay,'stroke-dasharray':'6 5'}),1);T(s,x0+430,th-8,'ship threshold',{fill:C.clay});
-  v.forEach((p,k)=>{const x=x0+40+k*110;mk(s,'rect',{x,y:yb-p*140,width:60,height:p*140,rx:4,fill:k===3?C.ink:C.tealL,class:'grow',style:`--d:${1.2+k*.3}s`});
-    T(s,x+16,yb+18,'v'+(k+1),{fill:C.ink});});
+  v.forEach((p,k)=>{const x=x0+40+k*110;mk(s,'rect',{x,y:yb-p*140,width:60,height:p*140,rx:4,fill:k===3?C.ink:C.tealL,class:'grow',style:`--d:${1.2+k*.3}s`});T(s,x+16,yb+18,'v'+(k+1),{fill:C.ink});});
   T(s,x0+40+3*110+70,yb-6,'ships',{fill:C.ink,'font-size':13,class:'pop',style:'--d:2.6s'});
 })();
 
-// reservoir morph: auto sweep until dragged
+// reservoir morph
 const morph=(function(){
   const rng=document.getElementById('mRange'),full=document.getElementById('mFull'),pct=document.getElementById('mPct'),scn=document.getElementById('mScn');
   const paint=v=>{const k=v/100,e=k*k*(3-2*k);full.style.opacity=e.toFixed(3);const p=Math.round(18+72*k);pct.textContent=p;
@@ -385,29 +523,35 @@ const morph=(function(){
   return {start(){auto=true;t0=0;requestAnimationFrame(loop);},stop(){auto=false;}};
 })();
 
-// counters
 function count(el){const fin=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),t0=performance.now();
   const f=v=>dec?v.toFixed(dec):(el.dataset.sep?Math.round(v).toLocaleString('en-US'):Math.round(v));
   (function st(t){const k=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-k,3);el.textContent=f(fin*e);if(k<1)requestAnimationFrame(st);})(t0);}
 
-// navigation: one section at a time, wheel / keys / swipe / timeline
-const secs=[...document.querySelectorAll('.sec')],lis=[...document.querySelectorAll('#tl li')],vid=document.getElementById('vid');
+// timeline
+const tl=document.getElementById('tl');
+SECS.forEach((s,i)=>{const li=document.createElement('li');li.className=s.c;li.dataset.i=i;li.innerHTML='<i></i><span>'+s.lab+'</span>';tl.appendChild(li);});
+
+// navigation
+const secs=SECS.map(s=>document.getElementById(s.id)),lis=[...tl.children],vid=document.getElementById('vid'),wheel=document.getElementById('wheel');
 let cur=-1,lock=false;
 function go(i){
-  i=Math.max(0,Math.min(secs.length-1,i));if(i===cur)return;
+  i=Math.max(0,Math.min(secs.length-1,i|0));if(i===cur)return;
   secs.forEach((s,k)=>{s.classList.toggle('prev',k<i);s.classList.remove('on');});
   void document.body.offsetWidth;
   secs[i].classList.add('on');cur=i;
   lis.forEach((l,k)=>l.classList.toggle('on',k===i));
-  {const r=document.querySelector('.tl').getBoundingClientRect(),d=lis[i].querySelector('i').getBoundingClientRect();document.getElementById('prog').style.width=(d.left+d.width/2-r.left)+'px';}
+  const r=document.querySelector('.tl').getBoundingClientRect(),d=lis[i].querySelector('i').getBoundingClientRect();
+  document.getElementById('prog').style.width=Math.max(0,d.left+d.width/2-r.left)+'px';
   document.getElementById('count').textContent=String(i+1).padStart(2,'0')+' / '+secs.length;
+  const node=secs[i].dataset.node;
+  wheel.classList.toggle('on',node!=null);if(node!=null)WHEEL.set(+node);
   if(i===0)secs[0].querySelectorAll('[data-count]').forEach(count);
-  if(i===3)morph.start();else morph.stop();
-  if(i===5){vid.currentTime=0;vid.play().catch(()=>{});}else vid.pause();
-  history.replaceState(null,'','#'+i);
+  if(i===2)morph.start();else morph.stop();
+  if(i===7){vid.currentTime=0;vid.play().catch(()=>{});}else vid.pause();
+  if(location.hash!=='#'+i)history.replaceState(null,'','#'+i);
 }
 const step=d=>{if(lock)return;lock=true;go(cur+d);setTimeout(()=>lock=false,750);};
-addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>12)step(e.deltaY>0?1:-1);},{passive:true});
+addEventListener('wheel',e=>{if(e.target.closest('input'))return;if(Math.abs(e.deltaY)>12)step(e.deltaY>0?1:-1);},{passive:true});
 addEventListener('keydown',e=>{if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();step(1);}if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();step(-1);}});
 let ty=null;addEventListener('touchstart',e=>{ty=[e.touches[0].clientX,e.touches[0].clientY];},{passive:true});
 addEventListener('touchend',e=>{if(!ty)return;const dx=e.changedTouches[0].clientX-ty[0],dy=e.changedTouches[0].clientY-ty[1];
@@ -415,7 +559,11 @@ addEventListener('touchend',e=>{if(!ty)return;const dx=e.changedTouches[0].clien
 lis.forEach(l=>l.addEventListener('click',()=>go(+l.dataset.i)));
 document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.goto)));
 document.getElementById('up').onclick=()=>step(-1);document.getElementById('dn').onclick=()=>step(1);
-go(+(location.hash.slice(1))||0);
+// deep links: on first load, on hash change in the same tab, and after a back/forward restore
+const fromHash=()=>{const n=parseInt(location.hash.slice(1),10);go(Number.isFinite(n)?n:0);};
+addEventListener('hashchange',fromHash);addEventListener('pageshow',fromHash);
+fromHash();
+addEventListener('resize',()=>{const c=cur;cur=-1;go(c);});
 </script>
 </body>
 </html>
